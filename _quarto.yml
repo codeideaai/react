@@ -4,6 +4,8 @@ project:
 
 website:
   title: "React 学习大纲"
+  site-url: "https://codeideaai.github.io/react/"
+  repo-url: "https://github.com/codeideaai/react"
   page-navigation: true
   back-to-top-navigation: true
   navbar:
@@ -30,4 +32,3 @@ format:
     code-copy: true
 
 lang: zh
-
