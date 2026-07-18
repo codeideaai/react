@@ -17,6 +17,10 @@ website:
     search: true
     contents:
       - index.qmd
+      - section: 基础回顾
+        contents:
+          - href: javascript-basics.qmd
+            text: JavaScript 必备知识
   page-footer:
     center: "使用 Quarto 构建"
 

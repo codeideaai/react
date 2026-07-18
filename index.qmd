@@ -32,7 +32,7 @@ React 本质上仍然是 JavaScript。需要熟悉以下内容。
 - Flexbox 和 Grid 基本布局
 - 响应式设计与媒体查询
 
-### JavaScript 必备知识
+### [JavaScript 必备知识](javascript-basics.qmd)
 
 - 变量：`const` 和 `let`
 - 基本类型、数组和对象
