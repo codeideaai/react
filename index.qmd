@@ -1,4 +1,8 @@
-# React 学习大纲（HTML + JavaScript 基础入门）
+---
+title: "React 学习大纲"
+subtitle: "从 HTML 与 JavaScript 基础开始"
+description: "一份面向 React 初学者的 8～10 周学习路线"
+---
 
 > 适合人群：掌握基础 HTML、CSS 和 JavaScript，希望系统学习 React 的初学者。
 >

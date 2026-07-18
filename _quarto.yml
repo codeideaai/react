@@ -1,0 +1,33 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "React 学习大纲"
+  page-navigation: true
+  back-to-top-navigation: true
+  navbar:
+    left:
+      - href: index.qmd
+        text: 学习大纲
+  sidebar:
+    style: docked
+    search: true
+    contents:
+      - index.qmd
+  page-footer:
+    center: "使用 Quarto 构建"
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    smooth-scroll: true
+    code-copy: true
+
+lang: zh
+
