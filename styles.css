@@ -1,0 +1,4 @@
+/* Use "2. 标题" for top-level numbered sections. */
+h2 .header-section-number::after {
+  content: ".";
+}
