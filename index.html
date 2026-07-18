@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="一份面向 React 初学者的 8～10 周学习路线">
+
+<title>React 学习大纲</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-adc7a9c360f44ac114666798144b1e6b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-d371fc2e5294c22d3b61877cf1c4d576.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-adc7a9c360f44ac114666798144b1e6b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">React 学习大纲</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="搜索"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">学习大纲</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="切换深色模式"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">React 学习大纲</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">React 学习大纲</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">该页面内容</h2>
+   
+  <ul>
+  <li><a href="#一学习目标" id="toc-一学习目标" class="nav-link active" data-scroll-target="#一学习目标"><span class="header-section-number">1</span> 一、学习目标</a></li>
+  <li><a href="#二基础回顾" id="toc-二基础回顾" class="nav-link" data-scroll-target="#二基础回顾"><span class="header-section-number">2</span> 二、基础回顾</a>
+  <ul class="collapse">
+  <li><a href="#html-与-css" id="toc-html-与-css" class="nav-link" data-scroll-target="#html-与-css"><span class="header-section-number">2.1</span> 1. HTML 与 CSS</a></li>
+  <li><a href="#javascript-必备知识" id="toc-javascript-必备知识" class="nav-link" data-scroll-target="#javascript-必备知识"><span class="header-section-number">2.2</span> 2. JavaScript 必备知识</a></li>
+  <li><a href="#基础练习" id="toc-基础练习" class="nav-link" data-scroll-target="#基础练习"><span class="header-section-number">2.3</span> 3. 基础练习</a></li>
+  </ul></li>
+  <li><a href="#三react-学习路线" id="toc-三react-学习路线" class="nav-link" data-scroll-target="#三react-学习路线"><span class="header-section-number">3</span> 三、React 学习路线</a></li>
+  <li><a href="#第一阶段认识-react-与开发环境第-1-周" id="toc-第一阶段认识-react-与开发环境第-1-周" class="nav-link" data-scroll-target="#第一阶段认识-react-与开发环境第-1-周"><span class="header-section-number">4</span> 第一阶段：认识 React 与开发环境（第 1 周）</a>
+  <ul class="collapse">
+  <li><a href="#学习内容" id="toc-学习内容" class="nav-link" data-scroll-target="#学习内容"><span class="header-section-number">4.1</span> 学习内容</a></li>
+  <li><a href="#阶段练习" id="toc-阶段练习" class="nav-link" data-scroll-target="#阶段练习"><span class="header-section-number">4.2</span> 阶段练习</a></li>
+  <li><a href="#阶段目标" id="toc-阶段目标" class="nav-link" data-scroll-target="#阶段目标"><span class="header-section-number">4.3</span> 阶段目标</a></li>
+  </ul></li>
+  <li><a href="#第二阶段jsx-与组件第-2-周" id="toc-第二阶段jsx-与组件第-2-周" class="nav-link" data-scroll-target="#第二阶段jsx-与组件第-2-周"><span class="header-section-number">5</span> 第二阶段：JSX 与组件（第 2 周）</a>
+  <ul class="collapse">
+  <li><a href="#学习内容-1" id="toc-学习内容-1" class="nav-link" data-scroll-target="#学习内容-1"><span class="header-section-number">5.1</span> 学习内容</a></li>
+  <li><a href="#阶段练习-1" id="toc-阶段练习-1" class="nav-link" data-scroll-target="#阶段练习-1"><span class="header-section-number">5.2</span> 阶段练习</a></li>
+  <li><a href="#阶段目标-1" id="toc-阶段目标-1" class="nav-link" data-scroll-target="#阶段目标-1"><span class="header-section-number">5.3</span> 阶段目标</a></li>
+  </ul></li>
+  <li><a href="#第三阶段事件state-与表单第-3-周" id="toc-第三阶段事件state-与表单第-3-周" class="nav-link" data-scroll-target="#第三阶段事件state-与表单第-3-周"><span class="header-section-number">6</span> 第三阶段：事件、State 与表单（第 3 周）</a>
+  <ul class="collapse">
+  <li><a href="#学习内容-2" id="toc-学习内容-2" class="nav-link" data-scroll-target="#学习内容-2"><span class="header-section-number">6.1</span> 学习内容</a></li>
+  <li><a href="#阶段练习-2" id="toc-阶段练习-2" class="nav-link" data-scroll-target="#阶段练习-2"><span class="header-section-number">6.2</span> 阶段练习</a></li>
+  <li><a href="#阶段目标-2" id="toc-阶段目标-2" class="nav-link" data-scroll-target="#阶段目标-2"><span class="header-section-number">6.3</span> 阶段目标</a></li>
+  </ul></li>
+  <li><a href="#第四阶段副作用与数据请求第-4-周" id="toc-第四阶段副作用与数据请求第-4-周" class="nav-link" data-scroll-target="#第四阶段副作用与数据请求第-4-周"><span class="header-section-number">7</span> 第四阶段：副作用与数据请求（第 4 周）</a>
+  <ul class="collapse">
+  <li><a href="#学习内容-3" id="toc-学习内容-3" class="nav-link" data-scroll-target="#学习内容-3"><span class="header-section-number">7.1</span> 学习内容</a></li>
+  <li><a href="#阶段练习-3" id="toc-阶段练习-3" class="nav-link" data-scroll-target="#阶段练习-3"><span class="header-section-number">7.2</span> 阶段练习</a></li>
+  <li><a href="#阶段目标-3" id="toc-阶段目标-3" class="nav-link" data-scroll-target="#阶段目标-3"><span class="header-section-number">7.3</span> 阶段目标</a></li>
+  </ul></li>
+  <li><a href="#第五阶段样式与组件设计第-5-周" id="toc-第五阶段样式与组件设计第-5-周" class="nav-link" data-scroll-target="#第五阶段样式与组件设计第-5-周"><span class="header-section-number">8</span> 第五阶段：样式与组件设计（第 5 周）</a>
+  <ul class="collapse">
+  <li><a href="#学习内容-4" id="toc-学习内容-4" class="nav-link" data-scroll-target="#学习内容-4"><span class="header-section-number">8.1</span> 学习内容</a></li>
+  <li><a href="#阶段练习-4" id="toc-阶段练习-4" class="nav-link" data-scroll-target="#阶段练习-4"><span class="header-section-number">8.2</span> 阶段练习</a></li>
+  <li><a href="#阶段目标-4" id="toc-阶段目标-4" class="nav-link" data-scroll-target="#阶段目标-4"><span class="header-section-number">8.3</span> 阶段目标</a></li>
+  </ul></li>
+  <li><a href="#第六阶段路由与完整应用结构第-6-周" id="toc-第六阶段路由与完整应用结构第-6-周" class="nav-link" data-scroll-target="#第六阶段路由与完整应用结构第-6-周"><span class="header-section-number">9</span> 第六阶段：路由与完整应用结构（第 6 周）</a>
+  <ul class="collapse">
+  <li><a href="#学习内容-5" id="toc-学习内容-5" class="nav-link" data-scroll-target="#学习内容-5"><span class="header-section-number">9.1</span> 学习内容</a></li>
+  <li><a href="#阶段练习-5" id="toc-阶段练习-5" class="nav-link" data-scroll-target="#阶段练习-5"><span class="header-section-number">9.2</span> 阶段练习</a></li>
+  <li><a href="#阶段目标-5" id="toc-阶段目标-5" class="nav-link" data-scroll-target="#阶段目标-5"><span class="header-section-number">9.3</span> 阶段目标</a></li>
+  </ul></li>
+  <li><a href="#第七阶段状态管理与性能基础第-7-周" id="toc-第七阶段状态管理与性能基础第-7-周" class="nav-link" data-scroll-target="#第七阶段状态管理与性能基础第-7-周"><span class="header-section-number">10</span> 第七阶段：状态管理与性能基础（第 7 周）</a>
+  <ul class="collapse">
+  <li><a href="#学习内容-6" id="toc-学习内容-6" class="nav-link" data-scroll-target="#学习内容-6"><span class="header-section-number">10.1</span> 学习内容</a></li>
+  <li><a href="#可选扩展" id="toc-可选扩展" class="nav-link" data-scroll-target="#可选扩展"><span class="header-section-number">10.2</span> 可选扩展</a></li>
+  <li><a href="#阶段练习-6" id="toc-阶段练习-6" class="nav-link" data-scroll-target="#阶段练习-6"><span class="header-section-number">10.3</span> 阶段练习</a></li>
+  <li><a href="#阶段目标-6" id="toc-阶段目标-6" class="nav-link" data-scroll-target="#阶段目标-6"><span class="header-section-number">10.4</span> 阶段目标</a></li>
+  </ul></li>
+  <li><a href="#第八阶段工程化测试与部署第-8-周" id="toc-第八阶段工程化测试与部署第-8-周" class="nav-link" data-scroll-target="#第八阶段工程化测试与部署第-8-周"><span class="header-section-number">11</span> 第八阶段：工程化、测试与部署（第 8 周）</a>
+  <ul class="collapse">
+  <li><a href="#学习内容-7" id="toc-学习内容-7" class="nav-link" data-scroll-target="#学习内容-7"><span class="header-section-number">11.1</span> 学习内容</a></li>
+  <li><a href="#阶段练习-7" id="toc-阶段练习-7" class="nav-link" data-scroll-target="#阶段练习-7"><span class="header-section-number">11.2</span> 阶段练习</a></li>
+  <li><a href="#阶段目标-7" id="toc-阶段目标-7" class="nav-link" data-scroll-target="#阶段目标-7"><span class="header-section-number">11.3</span> 阶段目标</a></li>
+  </ul></li>
+  <li><a href="#四推荐实战项目" id="toc-四推荐实战项目" class="nav-link" data-scroll-target="#四推荐实战项目"><span class="header-section-number">12</span> 四、推荐实战项目</a>
+  <ul class="collapse">
+  <li><a href="#项目-1待办事项应用" id="toc-项目-1待办事项应用" class="nav-link" data-scroll-target="#项目-1待办事项应用"><span class="header-section-number">12.1</span> 项目 1：待办事项应用</a></li>
+  <li><a href="#项目-2电影或图书搜索应用" id="toc-项目-2电影或图书搜索应用" class="nav-link" data-scroll-target="#项目-2电影或图书搜索应用"><span class="header-section-number">12.2</span> 项目 2：电影或图书搜索应用</a></li>
+  <li><a href="#项目-3个人记账应用" id="toc-项目-3个人记账应用" class="nav-link" data-scroll-target="#项目-3个人记账应用"><span class="header-section-number">12.3</span> 项目 3：个人记账应用</a></li>
+  </ul></li>
+  <li><a href="#五建议的学习方法" id="toc-五建议的学习方法" class="nav-link" data-scroll-target="#五建议的学习方法"><span class="header-section-number">13</span> 五、建议的学习方法</a></li>
+  <li><a href="#六每周学习节奏参考" id="toc-六每周学习节奏参考" class="nav-link" data-scroll-target="#六每周学习节奏参考"><span class="header-section-number">14</span> 六、每周学习节奏参考</a></li>
+  <li><a href="#七自测清单" id="toc-七自测清单" class="nav-link" data-scroll-target="#七自测清单"><span class="header-section-number">15</span> 七、自测清单</a></li>
+  <li><a href="#八暂时不用急着学习的内容" id="toc-八暂时不用急着学习的内容" class="nav-link" data-scroll-target="#八暂时不用急着学习的内容"><span class="header-section-number">16</span> 八、暂时不用急着学习的内容</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">React 学习大纲</h1>
+<p class="subtitle lead">从 HTML 与 JavaScript 基础开始</p>
+</div>
+
+<div>
+  <div class="description">
+    一份面向 React 初学者的 8～10 周学习路线
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<blockquote class="blockquote">
+<p>适合人群：掌握基础 HTML、CSS 和 JavaScript，希望系统学习 React 的初学者。</p>
+<p>建议周期：8～10 周，每周学习 5 天，每天 1～2 小时。进度可以按自己的时间调整。</p>
+</blockquote>
+<section id="一学习目标" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="一学习目标"><span class="header-section-number">1</span> 一、学习目标</h2>
+<p>完成本学习大纲后，你应该能够：</p>
+<ul>
+<li>理解 React 的组件化思想和基本工作方式</li>
+<li>使用 JSX、组件、Props、State 和常用 Hooks 开发页面</li>
+<li>正确处理表单、事件、列表渲染和组件通信</li>
+<li>使用 React Router 开发多页面体验的单页应用</li>
+<li>调用后端 API，并处理加载、成功和失败状态</li>
+<li>使用 Vite 创建、调试和构建 React 项目</li>
+<li>独立完成一个中小型 React 项目</li>
+</ul>
+</section>
+<section id="二基础回顾" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="二基础回顾"><span class="header-section-number">2</span> 二、基础回顾</h2>
+<p>React 本质上仍然是 JavaScript。需要熟悉以下内容。</p>
+<section id="html-与-css" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="html-与-css"><span class="header-section-number">2.1</span> 1. HTML 与 CSS</h3>
+<ul>
+<li>语义化标签：<code>header</code>、<code>main</code>、<code>section</code>、<code>form</code>、<code>button</code> 等</li>
+<li>常用表单元素：<code>input</code>、<code>select</code>、<code>textarea</code></li>
+<li>CSS 选择器、盒模型和定位</li>
+<li>Flexbox 和 Grid 基本布局</li>
+<li>响应式设计与媒体查询</li>
+</ul>
+</section>
+<section id="javascript-必备知识" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="javascript-必备知识"><span class="header-section-number">2.2</span> 2. JavaScript 必备知识</h3>
+<ul>
+<li>变量：<code>const</code> 和 <code>let</code></li>
+<li>基本类型、数组和对象</li>
+<li>函数、箭头函数和回调函数</li>
+<li>条件判断、三元运算符和逻辑运算符</li>
+<li>数组常用方法：<code>map</code>、<code>filter</code>、<code>find</code>、<code>some</code>、<code>reduce</code></li>
+<li>对象和数组的解构赋值</li>
+<li>展开运算符：<code>...</code></li>
+<li>模块化：<code>import</code> 和 <code>export</code></li>
+<li>Promise、<code>async/await</code> 和 <code>fetch</code></li>
+<li>DOM 与事件的基础概念</li>
+</ul>
+</section>
+<section id="基础练习" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="基础练习"><span class="header-section-number">2.3</span> 3. 基础练习</h3>
+<ul>
+<li>使用数组方法实现商品筛选和价格统计</li>
+<li>使用 <code>fetch</code> 获取公开 API 数据并显示到页面</li>
+<li>使用原生 JavaScript 制作一个待办事项列表</li>
+</ul>
+</section>
+</section>
+<section id="三react-学习路线" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="三react-学习路线"><span class="header-section-number">3</span> 三、React 学习路线</h2>
+</section>
+<section id="第一阶段认识-react-与开发环境第-1-周" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="第一阶段认识-react-与开发环境第-1-周"><span class="header-section-number">4</span> 第一阶段：认识 React 与开发环境（第 1 周）</h2>
+<section id="学习内容" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="学习内容"><span class="header-section-number">4.1</span> 学习内容</h3>
+<ul>
+<li>React 是什么，适合解决什么问题</li>
+<li>单页应用（SPA）的基本概念</li>
+<li>声明式编程与命令式 DOM 操作的区别</li>
+<li>安装 Node.js，认识 npm</li>
+<li>使用 Vite 创建 React 项目</li>
+<li>理解项目中的主要文件：
+<ul>
+<li><code>package.json</code></li>
+<li><code>index.html</code></li>
+<li><code>src/main.jsx</code></li>
+<li><code>src/App.jsx</code></li>
+</ul></li>
+<li>启动开发服务器和执行生产构建</li>
+<li>安装 React DevTools</li>
+</ul>
+</section>
+<section id="阶段练习" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="阶段练习"><span class="header-section-number">4.2</span> 阶段练习</h3>
+<ul>
+<li>创建第一个 React 项目</li>
+<li>修改页面标题、文本、图片和样式</li>
+<li>尝试把一个静态 HTML 页面迁移到 React 中</li>
+</ul>
+</section>
+<section id="阶段目标" class="level3" data-number="4.3">
+<h3 data-number="4.3" class="anchored" data-anchor-id="阶段目标"><span class="header-section-number">4.3</span> 阶段目标</h3>
+<p>能够独立创建并运行 React 项目，知道浏览器中显示的内容是从哪里渲染出来的。</p>
+</section>
+</section>
+<section id="第二阶段jsx-与组件第-2-周" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="第二阶段jsx-与组件第-2-周"><span class="header-section-number">5</span> 第二阶段：JSX 与组件（第 2 周）</h2>
+<section id="学习内容-1" class="level3" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="学习内容-1"><span class="header-section-number">5.1</span> 学习内容</h3>
+<ul>
+<li>JSX 的作用和基本语法</li>
+<li>JSX 与 HTML 的常见区别：
+<ul>
+<li><code>className</code></li>
+<li>标签必须闭合</li>
+<li>JavaScript 表达式使用 <code>{}</code></li>
+<li>样式对象的写法</li>
+</ul></li>
+<li>函数组件</li>
+<li>组件的拆分、导入和导出</li>
+<li>Props：父组件向子组件传递数据</li>
+<li><code>children</code> 的基本使用</li>
+<li>条件渲染</li>
+<li>列表渲染与 <code>key</code></li>
+</ul>
+</section>
+<section id="阶段练习-1" class="level3" data-number="5.2">
+<h3 data-number="5.2" class="anchored" data-anchor-id="阶段练习-1"><span class="header-section-number">5.2</span> 阶段练习</h3>
+<ul>
+<li>编写可复用的按钮组件</li>
+<li>编写用户卡片组件，通过 Props 显示不同用户</li>
+<li>使用数组渲染商品列表</li>
+<li>根据商品库存显示不同提示</li>
+</ul>
+</section>
+<section id="阶段目标-1" class="level3" data-number="5.3">
+<h3 data-number="5.3" class="anchored" data-anchor-id="阶段目标-1"><span class="header-section-number">5.3</span> 阶段目标</h3>
+<p>能够把一个页面拆分成多个组件，并通过 Props 复用组件。</p>
+</section>
+</section>
+<section id="第三阶段事件state-与表单第-3-周" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="第三阶段事件state-与表单第-3-周"><span class="header-section-number">6</span> 第三阶段：事件、State 与表单（第 3 周）</h2>
+<section id="学习内容-2" class="level3" data-number="6.1">
+<h3 data-number="6.1" class="anchored" data-anchor-id="学习内容-2"><span class="header-section-number">6.1</span> 学习内容</h3>
+<ul>
+<li>React 事件处理</li>
+<li><code>useState</code> 的基本使用</li>
+<li>State 更新与页面重新渲染</li>
+<li>State 不可直接修改的原则</li>
+<li>对象、数组类型 State 的更新方式</li>
+<li>受控表单：输入框的值由 State 管理</li>
+<li>表单提交和基础校验</li>
+<li>状态提升：让多个组件共享状态</li>
+<li>单向数据流</li>
+</ul>
+</section>
+<section id="阶段练习-2" class="level3" data-number="6.2">
+<h3 data-number="6.2" class="anchored" data-anchor-id="阶段练习-2"><span class="header-section-number">6.2</span> 阶段练习</h3>
+<ul>
+<li>计数器</li>
+<li>展开与收起面板</li>
+<li>登录表单与错误提示</li>
+<li>可新增、完成和删除任务的待办事项列表</li>
+</ul>
+</section>
+<section id="阶段目标-2" class="level3" data-number="6.3">
+<h3 data-number="6.3" class="anchored" data-anchor-id="阶段目标-2"><span class="header-section-number">6.3</span> 阶段目标</h3>
+<p>能够让页面响应用户操作，并理解“数据变化驱动页面更新”。</p>
+</section>
+</section>
+<section id="第四阶段副作用与数据请求第-4-周" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="第四阶段副作用与数据请求第-4-周"><span class="header-section-number">7</span> 第四阶段：副作用与数据请求（第 4 周）</h2>
+<section id="学习内容-3" class="level3" data-number="7.1">
+<h3 data-number="7.1" class="anchored" data-anchor-id="学习内容-3"><span class="header-section-number">7.1</span> 学习内容</h3>
+<ul>
+<li>什么是组件的副作用</li>
+<li><code>useEffect</code> 的基本使用</li>
+<li>依赖数组的含义</li>
+<li>Effect 清理函数</li>
+<li>使用 <code>fetch</code> 和 <code>async/await</code> 请求 API</li>
+<li>加载、成功、空数据和错误状态</li>
+<li>避免常见的重复请求和无限循环</li>
+<li>将重复逻辑提取为自定义 Hook</li>
+</ul>
+</section>
+<section id="阶段练习-3" class="level3" data-number="7.2">
+<h3 data-number="7.2" class="anchored" data-anchor-id="阶段练习-3"><span class="header-section-number">7.2</span> 阶段练习</h3>
+<ul>
+<li>获取并展示用户列表</li>
+<li>根据关键词搜索数据</li>
+<li>给请求添加加载提示和错误提示</li>
+<li>编写一个简单的 <code>useFetch</code> 自定义 Hook</li>
+</ul>
+</section>
+<section id="阶段目标-3" class="level3" data-number="7.3">
+<h3 data-number="7.3" class="anchored" data-anchor-id="阶段目标-3"><span class="header-section-number">7.3</span> 阶段目标</h3>
+<p>能够从后端获取数据，并完整处理请求过程中的各种页面状态。</p>
+</section>
+</section>
+<section id="第五阶段样式与组件设计第-5-周" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="第五阶段样式与组件设计第-5-周"><span class="header-section-number">8</span> 第五阶段：样式与组件设计（第 5 周）</h2>
+<section id="学习内容-4" class="level3" data-number="8.1">
+<h3 data-number="8.1" class="anchored" data-anchor-id="学习内容-4"><span class="header-section-number">8.1</span> 学习内容</h3>
+<ul>
+<li>普通 CSS 文件</li>
+<li>CSS Modules</li>
+<li>动态 <code>className</code> 和内联样式</li>
+<li>组件职责与合理拆分</li>
+<li>展示组件与业务组件的基本区别</li>
+<li>组合优于过度配置</li>
+<li>可复用组件的 API 设计</li>
+<li>基础可访问性：标签、键盘操作和语义化元素</li>
+</ul>
+</section>
+<section id="阶段练习-4" class="level3" data-number="8.2">
+<h3 data-number="8.2" class="anchored" data-anchor-id="阶段练习-4"><span class="header-section-number">8.2</span> 阶段练习</h3>
+<ul>
+<li>制作可复用的 Modal、Button 和 Input 组件</li>
+<li>给待办应用添加主题切换</li>
+<li>实现桌面端与移动端适配</li>
+</ul>
+</section>
+<section id="阶段目标-4" class="level3" data-number="8.3">
+<h3 data-number="8.3" class="anchored" data-anchor-id="阶段目标-4"><span class="header-section-number">8.3</span> 阶段目标</h3>
+<p>能够编写结构清晰、样式可维护、具有一定复用性的组件。</p>
+</section>
+</section>
+<section id="第六阶段路由与完整应用结构第-6-周" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="第六阶段路由与完整应用结构第-6-周"><span class="header-section-number">9</span> 第六阶段：路由与完整应用结构（第 6 周）</h2>
+<section id="学习内容-5" class="level3" data-number="9.1">
+<h3 data-number="9.1" class="anchored" data-anchor-id="学习内容-5"><span class="header-section-number">9.1</span> 学习内容</h3>
+<ul>
+<li>客户端路由的作用</li>
+<li>安装和使用 React Router</li>
+<li>路由配置与页面组件</li>
+<li><code>Link</code> 与编程式导航</li>
+<li>动态路由参数</li>
+<li>查询参数</li>
+<li>嵌套路由与公共布局</li>
+<li>404 页面</li>
+<li>项目目录组织方式</li>
+</ul>
+</section>
+<section id="阶段练习-5" class="level3" data-number="9.2">
+<h3 data-number="9.2" class="anchored" data-anchor-id="阶段练习-5"><span class="header-section-number">9.2</span> 阶段练习</h3>
+<ul>
+<li>创建首页、列表页和详情页</li>
+<li>点击列表项进入详情页</li>
+<li>添加导航栏和 404 页面</li>
+</ul>
+</section>
+<section id="阶段目标-5" class="level3" data-number="9.3">
+<h3 data-number="9.3" class="anchored" data-anchor-id="阶段目标-5"><span class="header-section-number">9.3</span> 阶段目标</h3>
+<p>能够开发具有多个页面、公共布局和详情路由的 React 单页应用。</p>
+</section>
+</section>
+<section id="第七阶段状态管理与性能基础第-7-周" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="第七阶段状态管理与性能基础第-7-周"><span class="header-section-number">10</span> 第七阶段：状态管理与性能基础（第 7 周）</h2>
+<section id="学习内容-6" class="level3" data-number="10.1">
+<h3 data-number="10.1" class="anchored" data-anchor-id="学习内容-6"><span class="header-section-number">10.1</span> 学习内容</h3>
+<ul>
+<li>局部状态与全局状态的区别</li>
+<li><code>useContext</code> 的使用场景</li>
+<li><code>useReducer</code> 的基本使用</li>
+<li>Context 与 Reducer 的组合</li>
+<li>状态应该放在哪里</li>
+<li>React 组件重新渲染的基本规律</li>
+<li><code>useMemo</code>、<code>useCallback</code> 和 <code>memo</code> 的作用</li>
+<li>先测量再优化，避免过早优化</li>
+</ul>
+</section>
+<section id="可选扩展" class="level3" data-number="10.2">
+<h3 data-number="10.2" class="anchored" data-anchor-id="可选扩展"><span class="header-section-number">10.2</span> 可选扩展</h3>
+<ul>
+<li>了解 Zustand 或 Redux Toolkit</li>
+<li>了解 TanStack Query 解决的数据请求与缓存问题</li>
+</ul>
+</section>
+<section id="阶段练习-6" class="level3" data-number="10.3">
+<h3 data-number="10.3" class="anchored" data-anchor-id="阶段练习-6"><span class="header-section-number">10.3</span> 阶段练习</h3>
+<ul>
+<li>使用 Context 实现主题或用户信息共享</li>
+<li>使用 <code>useReducer</code> 重构复杂待办事项状态</li>
+<li>使用 React DevTools 观察组件渲染</li>
+</ul>
+</section>
+<section id="阶段目标-6" class="level3" data-number="10.4">
+<h3 data-number="10.4" class="anchored" data-anchor-id="阶段目标-6"><span class="header-section-number">10.4</span> 阶段目标</h3>
+<p>能够根据状态的使用范围选择合适的位置，并理解基础性能问题。</p>
+</section>
+</section>
+<section id="第八阶段工程化测试与部署第-8-周" class="level2" data-number="11">
+<h2 data-number="11" class="anchored" data-anchor-id="第八阶段工程化测试与部署第-8-周"><span class="header-section-number">11</span> 第八阶段：工程化、测试与部署（第 8 周）</h2>
+<section id="学习内容-7" class="level3" data-number="11.1">
+<h3 data-number="11.1" class="anchored" data-anchor-id="学习内容-7"><span class="header-section-number">11.1</span> 学习内容</h3>
+<ul>
+<li>npm 包和 <code>package.json</code> 脚本</li>
+<li>ESLint 和代码格式化</li>
+<li>环境变量</li>
+<li>开发环境与生产环境</li>
+<li>错误边界的概念</li>
+<li>React 组件测试的基本思路</li>
+<li>使用 Vitest 与 React Testing Library</li>
+<li>构建项目并部署到静态托管平台</li>
+<li>浏览器控制台和 Network 面板调试</li>
+</ul>
+</section>
+<section id="阶段练习-7" class="level3" data-number="11.2">
+<h3 data-number="11.2" class="anchored" data-anchor-id="阶段练习-7"><span class="header-section-number">11.2</span> 阶段练习</h3>
+<ul>
+<li>为表单或待办组件编写基础测试</li>
+<li>修复 ESLint 报告的问题</li>
+<li>构建并部署一个 React 项目</li>
+</ul>
+</section>
+<section id="阶段目标-7" class="level3" data-number="11.3">
+<h3 data-number="11.3" class="anchored" data-anchor-id="阶段目标-7"><span class="header-section-number">11.3</span> 阶段目标</h3>
+<p>能够使用基本工程工具保证代码质量，并把项目发布给别人访问。</p>
+</section>
+</section>
+<section id="四推荐实战项目" class="level2" data-number="12">
+<h2 data-number="12" class="anchored" data-anchor-id="四推荐实战项目"><span class="header-section-number">12</span> 四、推荐实战项目</h2>
+<p>建议按照难度逐步完成，不要只看教程而不动手。</p>
+<section id="项目-1待办事项应用" class="level3" data-number="12.1">
+<h3 data-number="12.1" class="anchored" data-anchor-id="项目-1待办事项应用"><span class="header-section-number">12.1</span> 项目 1：待办事项应用</h3>
+<p>核心功能：</p>
+<ul>
+<li>新增、编辑、删除任务</li>
+<li>标记完成状态</li>
+<li>按全部、未完成、已完成筛选</li>
+<li>使用 <code>localStorage</code> 保存数据</li>
+</ul>
+<p>重点知识：组件、Props、State、表单、列表渲染、Effect。</p>
+</section>
+<section id="项目-2电影或图书搜索应用" class="level3" data-number="12.2">
+<h3 data-number="12.2" class="anchored" data-anchor-id="项目-2电影或图书搜索应用"><span class="header-section-number">12.2</span> 项目 2：电影或图书搜索应用</h3>
+<p>核心功能：</p>
+<ul>
+<li>输入关键词搜索</li>
+<li>展示加载、错误和空结果状态</li>
+<li>列表页与详情页</li>
+<li>收藏功能</li>
+<li>分页或加载更多</li>
+</ul>
+<p>重点知识：API 请求、路由、自定义 Hook、状态共享。</p>
+</section>
+<section id="项目-3个人记账应用" class="level3" data-number="12.3">
+<h3 data-number="12.3" class="anchored" data-anchor-id="项目-3个人记账应用"><span class="header-section-number">12.3</span> 项目 3：个人记账应用</h3>
+<p>核心功能：</p>
+<ul>
+<li>添加收入和支出</li>
+<li>按日期、类型筛选</li>
+<li>计算余额和分类合计</li>
+<li>图表展示</li>
+<li>本地存储或连接后端 API</li>
+</ul>
+<p>重点知识：复杂状态、表单校验、数据计算、组件设计。</p>
+</section>
+</section>
+<section id="五建议的学习方法" class="level2" data-number="13">
+<h2 data-number="13" class="anchored" data-anchor-id="五建议的学习方法"><span class="header-section-number">13</span> 五、建议的学习方法</h2>
+<ol type="1">
+<li>每学完一个概念，立即写一个最小示例。</li>
+<li>不直接复制教程代码，先自己写，再对照修改。</li>
+<li>遇到报错时，先阅读控制台中的第一条错误信息。</li>
+<li>尝试用自己的话解释 Props、State 和 Effect。</li>
+<li>每周至少完成一个可以运行的小项目。</li>
+<li>定期重构旧代码，检查组件是否过大、状态是否放错位置。</li>
+<li>优先学习 React 官方文档中的核心概念，第三方库按项目需要再学。</li>
+</ol>
+</section>
+<section id="六每周学习节奏参考" class="level2" data-number="14">
+<h2 data-number="14" class="anchored" data-anchor-id="六每周学习节奏参考"><span class="header-section-number">14</span> 六、每周学习节奏参考</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>时间</th>
+<th>安排</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>第 1 天</td>
+<td>学习概念，运行官方示例</td>
+</tr>
+<tr class="even">
+<td>第 2 天</td>
+<td>跟着示例编码，理解每一行作用</td>
+</tr>
+<tr class="odd">
+<td>第 3 天</td>
+<td>不看示例独立重写</td>
+</tr>
+<tr class="even">
+<td>第 4 天</td>
+<td>完成一个相关小练习</td>
+</tr>
+<tr class="odd">
+<td>第 5 天</td>
+<td>整理笔记、修复问题、重构代码</td>
+</tr>
+<tr class="even">
+<td>周末</td>
+<td>完成阶段项目或复习薄弱知识</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="七自测清单" class="level2" data-number="15">
+<h2 data-number="15" class="anchored" data-anchor-id="七自测清单"><span class="header-section-number">15</span> 七、自测清单</h2>
+<p>学习完成后，检查自己能否回答或完成以下问题：</p>
+<ul class="task-list">
+<li><label><input type="checkbox">JSX 和 HTML 有哪些区别？</label></li>
+<li><label><input type="checkbox">为什么 React 组件名称必须以大写字母开头？</label></li>
+<li><label><input type="checkbox">Props 和 State 有什么区别？</label></li>
+<li><label><input type="checkbox">为什么不能直接修改 State？</label></li>
+<li><label><input type="checkbox">列表渲染为什么需要稳定的 <code>key</code>？</label></li>
+<li><label><input type="checkbox">如何让子组件把用户操作通知父组件？</label></li>
+<li><label><input type="checkbox"><code>useEffect</code> 什么时候执行，依赖数组有什么作用？</label></li>
+<li><label><input type="checkbox">如何处理接口的加载、错误和空数据状态？</label></li>
+<li><label><input type="checkbox">什么状态应该提升，什么状态应该保留在组件内部？</label></li>
+<li><label><input type="checkbox">如何配置列表页和详情页路由？</label></li>
+<li><label><input type="checkbox">如何定位一次不必要的组件重新渲染？</label></li>
+<li><label><input type="checkbox">如何构建并部署 React 项目？</label></li>
+</ul>
+</section>
+<section id="八暂时不用急着学习的内容" class="level2" data-number="16">
+<h2 data-number="16" class="anchored" data-anchor-id="八暂时不用急着学习的内容"><span class="header-section-number">16</span> 八、暂时不用急着学习的内容</h2>
+<p>初学阶段不必一次掌握所有生态工具。完成前面的核心路线后，再根据实际需要学习：</p>
+<ul>
+<li>TypeScript</li>
+<li>Next.js 等 React 框架</li>
+<li>Redux Toolkit、Zustand 等状态库</li>
+<li>TanStack Query 等服务端状态工具</li>
+<li>动画库和大型组件库</li>
+<li>服务端渲染、并发特性和复杂性能优化</li>
+</ul>
+<p>学习 React 最重要的是理解组件、Props、State、事件和数据流。先用这些核心能力完成项目，再逐步扩展技术栈。</p>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> 回到顶部</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/codeideaai\.github\.io\/react\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>使用 Quarto 构建</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

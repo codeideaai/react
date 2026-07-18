@@ -1,0 +1,203 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "React 学习大纲",
+    "section": "",
+    "text": "适合人群：掌握基础 HTML、CSS 和 JavaScript，希望系统学习 React 的初学者。\n建议周期：8～10 周，每周学习 5 天，每天 1～2 小时。进度可以按自己的时间调整。",
+    "crumbs": [
+      "学习大纲",
+      "React 学习大纲"
+    ]
+  },
+  {
+    "objectID": "index.html#一学习目标",
+    "href": "index.html#一学习目标",
+    "title": "React 学习大纲",
+    "section": "1 一、学习目标",
+    "text": "1 一、学习目标\n完成本学习大纲后，你应该能够：\n\n理解 React 的组件化思想和基本工作方式\n使用 JSX、组件、Props、State 和常用 Hooks 开发页面\n正确处理表单、事件、列表渲染和组件通信\n使用 React Router 开发多页面体验的单页应用\n调用后端 API，并处理加载、成功和失败状态\n使用 Vite 创建、调试和构建 React 项目\n独立完成一个中小型 React 项目",
+    "crumbs": [
+      "学习大纲",
+      "React 学习大纲"
+    ]
+  },
+  {
+    "objectID": "index.html#二基础回顾",
+    "href": "index.html#二基础回顾",
+    "title": "React 学习大纲",
+    "section": "2 二、基础回顾",
+    "text": "2 二、基础回顾\nReact 本质上仍然是 JavaScript。需要熟悉以下内容。\n\n2.1 1. HTML 与 CSS\n\n语义化标签：header、main、section、form、button 等\n常用表单元素：input、select、textarea\nCSS 选择器、盒模型和定位\nFlexbox 和 Grid 基本布局\n响应式设计与媒体查询\n\n\n\n2.2 2. JavaScript 必备知识\n\n变量：const 和 let\n基本类型、数组和对象\n函数、箭头函数和回调函数\n条件判断、三元运算符和逻辑运算符\n数组常用方法：map、filter、find、some、reduce\n对象和数组的解构赋值\n展开运算符：...\n模块化：import 和 export\nPromise、async/await 和 fetch\nDOM 与事件的基础概念\n\n\n\n2.3 3. 基础练习\n\n使用数组方法实现商品筛选和价格统计\n使用 fetch 获取公开 API 数据并显示到页面\n使用原生 JavaScript 制作一个待办事项列表",
+    "crumbs": [
+      "学习大纲",
+      "React 学习大纲"
+    ]
+  },
+  {
+    "objectID": "index.html#三react-学习路线",
+    "href": "index.html#三react-学习路线",
+    "title": "React 学习大纲",
+    "section": "3 三、React 学习路线",
+    "text": "3 三、React 学习路线",
+    "crumbs": [
+      "学习大纲",
+      "React 学习大纲"
+    ]
+  },
+  {
+    "objectID": "index.html#第一阶段认识-react-与开发环境第-1-周",
+    "href": "index.html#第一阶段认识-react-与开发环境第-1-周",
+    "title": "React 学习大纲",
+    "section": "4 第一阶段：认识 React 与开发环境（第 1 周）",
+    "text": "4 第一阶段：认识 React 与开发环境（第 1 周）\n\n4.1 学习内容\n\nReact 是什么，适合解决什么问题\n单页应用（SPA）的基本概念\n声明式编程与命令式 DOM 操作的区别\n安装 Node.js，认识 npm\n使用 Vite 创建 React 项目\n理解项目中的主要文件：\n\npackage.json\nindex.html\nsrc/main.jsx\nsrc/App.jsx\n\n启动开发服务器和执行生产构建\n安装 React DevTools\n\n\n\n4.2 阶段练习\n\n创建第一个 React 项目\n修改页面标题、文本、图片和样式\n尝试把一个静态 HTML 页面迁移到 React 中\n\n\n\n4.3 阶段目标\n能够独立创建并运行 React 项目，知道浏览器中显示的内容是从哪里渲染出来的。",
+    "crumbs": [
+      "学习大纲",
+      "React 学习大纲"
+    ]
+  },
+  {
+    "objectID": "index.html#第二阶段jsx-与组件第-2-周",
+    "href": "index.html#第二阶段jsx-与组件第-2-周",
+    "title": "React 学习大纲",
+    "section": "5 第二阶段：JSX 与组件（第 2 周）",
+    "text": "5 第二阶段：JSX 与组件（第 2 周）\n\n5.1 学习内容\n\nJSX 的作用和基本语法\nJSX 与 HTML 的常见区别：\n\nclassName\n标签必须闭合\nJavaScript 表达式使用 {}\n样式对象的写法\n\n函数组件\n组件的拆分、导入和导出\nProps：父组件向子组件传递数据\nchildren 的基本使用\n条件渲染\n列表渲染与 key\n\n\n\n5.2 阶段练习\n\n编写可复用的按钮组件\n编写用户卡片组件，通过 Props 显示不同用户\n使用数组渲染商品列表\n根据商品库存显示不同提示\n\n\n\n5.3 阶段目标\n能够把一个页面拆分成多个组件，并通过 Props 复用组件。",
+    "crumbs": [
+      "学习大纲",
+      "React 学习大纲"
+    ]
+  },
+  {
+    "objectID": "index.html#第三阶段事件state-与表单第-3-周",
+    "href": "index.html#第三阶段事件state-与表单第-3-周",
+    "title": "React 学习大纲",
+    "section": "6 第三阶段：事件、State 与表单（第 3 周）",
+    "text": "6 第三阶段：事件、State 与表单（第 3 周）\n\n6.1 学习内容\n\nReact 事件处理\nuseState 的基本使用\nState 更新与页面重新渲染\nState 不可直接修改的原则\n对象、数组类型 State 的更新方式\n受控表单：输入框的值由 State 管理\n表单提交和基础校验\n状态提升：让多个组件共享状态\n单向数据流\n\n\n\n6.2 阶段练习\n\n计数器\n展开与收起面板\n登录表单与错误提示\n可新增、完成和删除任务的待办事项列表\n\n\n\n6.3 阶段目标\n能够让页面响应用户操作，并理解“数据变化驱动页面更新”。",
+    "crumbs": [
+      "学习大纲",
+      "React 学习大纲"
+    ]
+  },
+  {
+    "objectID": "index.html#第四阶段副作用与数据请求第-4-周",
+    "href": "index.html#第四阶段副作用与数据请求第-4-周",
+    "title": "React 学习大纲",
+    "section": "7 第四阶段：副作用与数据请求（第 4 周）",
+    "text": "7 第四阶段：副作用与数据请求（第 4 周）\n\n7.1 学习内容\n\n什么是组件的副作用\nuseEffect 的基本使用\n依赖数组的含义\nEffect 清理函数\n使用 fetch 和 async/await 请求 API\n加载、成功、空数据和错误状态\n避免常见的重复请求和无限循环\n将重复逻辑提取为自定义 Hook\n\n\n\n7.2 阶段练习\n\n获取并展示用户列表\n根据关键词搜索数据\n给请求添加加载提示和错误提示\n编写一个简单的 useFetch 自定义 Hook\n\n\n\n7.3 阶段目标\n能够从后端获取数据，并完整处理请求过程中的各种页面状态。",
+    "crumbs": [
+      "学习大纲",
+      "React 学习大纲"
+    ]
+  },
+  {
+    "objectID": "index.html#第五阶段样式与组件设计第-5-周",
+    "href": "index.html#第五阶段样式与组件设计第-5-周",
+    "title": "React 学习大纲",
+    "section": "8 第五阶段：样式与组件设计（第 5 周）",
+    "text": "8 第五阶段：样式与组件设计（第 5 周）\n\n8.1 学习内容\n\n普通 CSS 文件\nCSS Modules\n动态 className 和内联样式\n组件职责与合理拆分\n展示组件与业务组件的基本区别\n组合优于过度配置\n可复用组件的 API 设计\n基础可访问性：标签、键盘操作和语义化元素\n\n\n\n8.2 阶段练习\n\n制作可复用的 Modal、Button 和 Input 组件\n给待办应用添加主题切换\n实现桌面端与移动端适配\n\n\n\n8.3 阶段目标\n能够编写结构清晰、样式可维护、具有一定复用性的组件。",
+    "crumbs": [
+      "学习大纲",
+      "React 学习大纲"
+    ]
+  },
+  {
+    "objectID": "index.html#第六阶段路由与完整应用结构第-6-周",
+    "href": "index.html#第六阶段路由与完整应用结构第-6-周",
+    "title": "React 学习大纲",
+    "section": "9 第六阶段：路由与完整应用结构（第 6 周）",
+    "text": "9 第六阶段：路由与完整应用结构（第 6 周）\n\n9.1 学习内容\n\n客户端路由的作用\n安装和使用 React Router\n路由配置与页面组件\nLink 与编程式导航\n动态路由参数\n查询参数\n嵌套路由与公共布局\n404 页面\n项目目录组织方式\n\n\n\n9.2 阶段练习\n\n创建首页、列表页和详情页\n点击列表项进入详情页\n添加导航栏和 404 页面\n\n\n\n9.3 阶段目标\n能够开发具有多个页面、公共布局和详情路由的 React 单页应用。",
+    "crumbs": [
+      "学习大纲",
+      "React 学习大纲"
+    ]
+  },
+  {
+    "objectID": "index.html#第七阶段状态管理与性能基础第-7-周",
+    "href": "index.html#第七阶段状态管理与性能基础第-7-周",
+    "title": "React 学习大纲",
+    "section": "10 第七阶段：状态管理与性能基础（第 7 周）",
+    "text": "10 第七阶段：状态管理与性能基础（第 7 周）\n\n10.1 学习内容\n\n局部状态与全局状态的区别\nuseContext 的使用场景\nuseReducer 的基本使用\nContext 与 Reducer 的组合\n状态应该放在哪里\nReact 组件重新渲染的基本规律\nuseMemo、useCallback 和 memo 的作用\n先测量再优化，避免过早优化\n\n\n\n10.2 可选扩展\n\n了解 Zustand 或 Redux Toolkit\n了解 TanStack Query 解决的数据请求与缓存问题\n\n\n\n10.3 阶段练习\n\n使用 Context 实现主题或用户信息共享\n使用 useReducer 重构复杂待办事项状态\n使用 React DevTools 观察组件渲染\n\n\n\n10.4 阶段目标\n能够根据状态的使用范围选择合适的位置，并理解基础性能问题。",
+    "crumbs": [
+      "学习大纲",
+      "React 学习大纲"
+    ]
+  },
+  {
+    "objectID": "index.html#第八阶段工程化测试与部署第-8-周",
+    "href": "index.html#第八阶段工程化测试与部署第-8-周",
+    "title": "React 学习大纲",
+    "section": "11 第八阶段：工程化、测试与部署（第 8 周）",
+    "text": "11 第八阶段：工程化、测试与部署（第 8 周）\n\n11.1 学习内容\n\nnpm 包和 package.json 脚本\nESLint 和代码格式化\n环境变量\n开发环境与生产环境\n错误边界的概念\nReact 组件测试的基本思路\n使用 Vitest 与 React Testing Library\n构建项目并部署到静态托管平台\n浏览器控制台和 Network 面板调试\n\n\n\n11.2 阶段练习\n\n为表单或待办组件编写基础测试\n修复 ESLint 报告的问题\n构建并部署一个 React 项目\n\n\n\n11.3 阶段目标\n能够使用基本工程工具保证代码质量，并把项目发布给别人访问。",
+    "crumbs": [
+      "学习大纲",
+      "React 学习大纲"
+    ]
+  },
+  {
+    "objectID": "index.html#四推荐实战项目",
+    "href": "index.html#四推荐实战项目",
+    "title": "React 学习大纲",
+    "section": "12 四、推荐实战项目",
+    "text": "12 四、推荐实战项目\n建议按照难度逐步完成，不要只看教程而不动手。\n\n12.1 项目 1：待办事项应用\n核心功能：\n\n新增、编辑、删除任务\n标记完成状态\n按全部、未完成、已完成筛选\n使用 localStorage 保存数据\n\n重点知识：组件、Props、State、表单、列表渲染、Effect。\n\n\n12.2 项目 2：电影或图书搜索应用\n核心功能：\n\n输入关键词搜索\n展示加载、错误和空结果状态\n列表页与详情页\n收藏功能\n分页或加载更多\n\n重点知识：API 请求、路由、自定义 Hook、状态共享。\n\n\n12.3 项目 3：个人记账应用\n核心功能：\n\n添加收入和支出\n按日期、类型筛选\n计算余额和分类合计\n图表展示\n本地存储或连接后端 API\n\n重点知识：复杂状态、表单校验、数据计算、组件设计。",
+    "crumbs": [
+      "学习大纲",
+      "React 学习大纲"
+    ]
+  },
+  {
+    "objectID": "index.html#五建议的学习方法",
+    "href": "index.html#五建议的学习方法",
+    "title": "React 学习大纲",
+    "section": "13 五、建议的学习方法",
+    "text": "13 五、建议的学习方法\n\n每学完一个概念，立即写一个最小示例。\n不直接复制教程代码，先自己写，再对照修改。\n遇到报错时，先阅读控制台中的第一条错误信息。\n尝试用自己的话解释 Props、State 和 Effect。\n每周至少完成一个可以运行的小项目。\n定期重构旧代码，检查组件是否过大、状态是否放错位置。\n优先学习 React 官方文档中的核心概念，第三方库按项目需要再学。",
+    "crumbs": [
+      "学习大纲",
+      "React 学习大纲"
+    ]
+  },
+  {
+    "objectID": "index.html#六每周学习节奏参考",
+    "href": "index.html#六每周学习节奏参考",
+    "title": "React 学习大纲",
+    "section": "14 六、每周学习节奏参考",
+    "text": "14 六、每周学习节奏参考\n\n\n\n时间\n安排\n\n\n\n\n第 1 天\n学习概念，运行官方示例\n\n\n第 2 天\n跟着示例编码，理解每一行作用\n\n\n第 3 天\n不看示例独立重写\n\n\n第 4 天\n完成一个相关小练习\n\n\n第 5 天\n整理笔记、修复问题、重构代码\n\n\n周末\n完成阶段项目或复习薄弱知识",
+    "crumbs": [
+      "学习大纲",
+      "React 学习大纲"
+    ]
+  },
+  {
+    "objectID": "index.html#七自测清单",
+    "href": "index.html#七自测清单",
+    "title": "React 学习大纲",
+    "section": "15 七、自测清单",
+    "text": "15 七、自测清单\n学习完成后，检查自己能否回答或完成以下问题：\n\nJSX 和 HTML 有哪些区别？\n为什么 React 组件名称必须以大写字母开头？\nProps 和 State 有什么区别？\n为什么不能直接修改 State？\n列表渲染为什么需要稳定的 key？\n如何让子组件把用户操作通知父组件？\nuseEffect 什么时候执行，依赖数组有什么作用？\n如何处理接口的加载、错误和空数据状态？\n什么状态应该提升，什么状态应该保留在组件内部？\n如何配置列表页和详情页路由？\n如何定位一次不必要的组件重新渲染？\n如何构建并部署 React 项目？",
+    "crumbs": [
+      "学习大纲",
+      "React 学习大纲"
+    ]
+  },
+  {
+    "objectID": "index.html#八暂时不用急着学习的内容",
+    "href": "index.html#八暂时不用急着学习的内容",
+    "title": "React 学习大纲",
+    "section": "16 八、暂时不用急着学习的内容",
+    "text": "16 八、暂时不用急着学习的内容\n初学阶段不必一次掌握所有生态工具。完成前面的核心路线后，再根据实际需要学习：\n\nTypeScript\nNext.js 等 React 框架\nRedux Toolkit、Zustand 等状态库\nTanStack Query 等服务端状态工具\n动画库和大型组件库\n服务端渲染、并发特性和复杂性能优化\n\n学习 React 最重要的是理解组件、Props、State、事件和数据流。先用这些核心能力完成项目，再逐步扩展技术栈。",
+    "crumbs": [
+      "学习大纲",
+      "React 学习大纲"
+    ]
+  },
+  {
+    "objectID": "agent.html",
+    "href": "agent.html",
+    "title": "1 Agent 工作规则",
+    "section": "",
+    "text": "推送代码前，必须检查本次提交和待推送的 Git 历史中是否包含敏感数据；确认不存在敏感数据后才能推送。\n敏感数据包括但不限于：密码、API Key、访问令牌、私钥、证书、Cookie、数据库连接字符串、个人身份信息以及包含真实凭据的 .env 文件。\n如果发现敏感数据，应立即停止推送，先删除或替换相关内容，并确认敏感信息已从待推送的 Git 历史中移除。\n不得在日志、提交信息或检查结果中完整输出敏感数据；需要说明问题时只显示脱敏后的内容。"
+  },
+  {
+    "objectID": "agent.html#git-推送安全",
+    "href": "agent.html#git-推送安全",
+    "title": "1 Agent 工作规则",
+    "section": "",
+    "text": "推送代码前，必须检查本次提交和待推送的 Git 历史中是否包含敏感数据；确认不存在敏感数据后才能推送。\n敏感数据包括但不限于：密码、API Key、访问令牌、私钥、证书、Cookie、数据库连接字符串、个人身份信息以及包含真实凭据的 .env 文件。\n如果发现敏感数据，应立即停止推送，先删除或替换相关内容，并确认敏感信息已从待推送的 Git 历史中移除。\n不得在日志、提交信息或检查结果中完整输出敏感数据；需要说明问题时只显示脱敏后的内容。"
+  }
+]
