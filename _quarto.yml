@@ -8,11 +8,12 @@ website:
   repo-url: "https://github.com/codeideaai/react"
   page-navigation: true
   back-to-top-navigation: true
-  navbar:
-    left:
-      - href: index.qmd
-        text: 学习大纲
+  # navbar:
+  #   left:
+  #     - href: index.qmd
+  #       text: 学习大纲
   sidebar:
+    title: "目录"
     style: docked
     search: true
     contents:
@@ -20,7 +21,7 @@ website:
       - section: "2. 基础回顾"
         contents:
           - href: javascript-basics.qmd
-            text: JavaScript 必备知识
+            text: 2.2 JavaScript 必备知识
   page-footer:
     center: "使用 Quarto 构建"
 
