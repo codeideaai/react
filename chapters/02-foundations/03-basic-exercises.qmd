@@ -213,15 +213,82 @@ console.log(calculateTotalPrice(products));
 - 统计每个分类的商品数量
 - 创建一个函数，同时接收关键词、最高价格和库存条件
 
-排序时可以先复制数组：
+排序时可以先使用展开运算符创建副本，再对副本调用 `sort`。`sort` 会修改调用它的数组，所以不要直接写 `products.sort(...)`。
 
+先自己完成其他任务，再展开下面的参考代码。
+
+::: {.callout-tip collapse="true" title="查看扩展任务参考实现"}
 ```js
+// 1. 按价格从低到高排序，不修改 products
 const sortedProducts = [...products].sort(
   (a, b) => a.price - b.price
 );
+
+// 2. 按 category 对商品分组
+const productsByCategory = products.reduce(
+  (groups, product) => {
+    const category = product.category;
+
+    return {
+      ...groups,
+      [category]: [
+        ...(groups[category] ?? []),
+        product,
+      ],
+    };
+  },
+  {}
+);
+
+// 3. 统计每个分类的商品数量
+const productCountByCategory = products.reduce(
+  (counts, product) => ({
+    ...counts,
+    [product.category]: (counts[product.category] ?? 0) + 1,
+  }),
+  {}
+);
+
+// 4. 同时根据关键词、最高价格和库存条件筛选
+const filterProducts = (
+  products,
+  { keyword = "", maxPrice = Infinity, inStock = null } = {}
+) => {
+  const normalizedKeyword = keyword.trim().toLowerCase();
+
+  return products.filter((product) => {
+    const matchesKeyword = product.name
+      .toLowerCase()
+      .includes(normalizedKeyword);
+    const matchesPrice = product.price <= maxPrice;
+    const matchesStock = inStock === null
+      || product.inStock === inStock;
+
+    return matchesKeyword && matchesPrice && matchesStock;
+  });
+};
+
+console.log(sortedProducts);
+console.log(productsByCategory);
+console.log(productCountByCategory);
+
+console.log(
+  filterProducts(products, {
+    keyword: "键盘",
+    maxPrice: 400,
+    inStock: true,
+  })
+);
 ```
 
-`sort` 会修改调用它的数组，因此先使用展开运算符创建副本。
+`inStock` 使用三个值表达不同条件：
+
+- `true`：只查有库存商品
+- `false`：只查无库存商品
+- `null`：不限制库存状态
+
+`?? []` 和 `?? 0` 分别为第一次出现的分类提供空数组和初始数量。所有操作都会返回新数组或新对象，不会修改原来的 `products`。
+:::
 
 ## 练习：加载并显示商品数据
 
