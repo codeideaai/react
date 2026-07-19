@@ -1,0 +1,992 @@
+---
+title: "基础练习"
+subtitle: "用三个小项目巩固 HTML、CSS 与 JavaScript"
+description: "通过商品统计、异步数据列表和待办事项应用，为学习 React 做好准备"
+---
+
+前两节分别回顾了 [HTML 与 CSS](html-css-basics.qmd) 和 [JavaScript 必备知识](javascript-basics.qmd)。这一节不再增加太多新语法，而是通过三个练习把已有知识连接起来。
+
+三个练习会逐步增加难度：
+
+1. 使用数组方法处理商品数据
+2. 使用 `fetch` 加载数据并更新页面
+3. 使用原生 JavaScript 完成待办事项应用
+
+这些练习所涉及的问题，在 React 中仍然会遇到。区别在于 React 会帮助我们更清晰地组织组件、状态和页面更新。
+
+## 学习目标
+
+完成本章后，你应该能够：
+
+- 把一个需求拆分为数据、计算和页面显示
+- 使用 `map`、`filter`、`find`、`some` 和 `reduce`
+- 使用函数减少重复代码
+- 使用 `fetch`、`async/await` 和 `try/catch`
+- 处理加载、成功、空数据和错误状态
+- 使用 DOM API 创建和更新页面元素
+- 监听表单、点击和输入事件
+- 使用数组表示应用状态
+- 在不直接修改原数组的情况下更新数据
+- 说明原生 JavaScript 应用迁移到 React 时哪些部分会发生变化
+
+## 开发环境
+
+每个练习都可以放在一个独立目录中：
+
+```text
+exercise-1/
+├── index.html
+├── styles.css
+└── app.js
+```
+
+在 HTML 中引入样式和脚本：
+
+```html
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>基础练习</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main id="app"></main>
+    <script src="app.js"></script>
+  </body>
+</html>
+```
+
+::: {.callout-note title="使用本地开发服务器"}
+第一个练习可以直接打开 HTML 文件。第二个练习使用 `fetch` 读取本地 JSON，必须通过本地开发服务器访问，不能直接使用 `file://` 打开。
+
+可以使用编辑器提供的本地服务器扩展，或者之后学习 Vite 时使用 Vite 开发服务器。
+:::
+
+## 练习：商品筛选与统计
+
+这个练习只处理 JavaScript 数据，不操作页面。重点是熟悉数组方法以及如何把需求拆成小步骤。
+
+### 示例数据
+
+将下面的数据保存到 `app.js`：
+
+```js
+const products = [
+  {
+    id: 1,
+    name: "机械键盘",
+    category: "keyboard",
+    price: 299,
+    inStock: true,
+  },
+  {
+    id: 2,
+    name: "无线鼠标",
+    category: "mouse",
+    price: 129,
+    inStock: false,
+  },
+  {
+    id: 3,
+    name: "4K 显示器",
+    category: "monitor",
+    price: 1599,
+    inStock: true,
+  },
+  {
+    id: 4,
+    name: "人体工学键盘",
+    category: "keyboard",
+    price: 499,
+    inStock: true,
+  },
+  {
+    id: 5,
+    name: "桌面音箱",
+    category: "speaker",
+    price: 399,
+    inStock: false,
+  },
+];
+```
+
+### 任务要求
+
+依次完成以下任务，并使用 `console.log` 查看结果：
+
+1. 得到所有商品名称。
+2. 找出所有有库存的商品。
+3. 找出价格低于 `500` 元的商品。
+4. 找到 `id` 为 `3` 的商品。
+5. 判断是否存在价格超过 `1000` 元的商品。
+6. 计算所有商品的总价。
+7. 计算有库存商品的平均价格。
+8. 把 `id` 为 `2` 的商品改为有库存，生成新数组，不能修改原数组。
+
+先自己尝试完成，再打开参考实现。
+
+::: {.callout-tip collapse="true" title="查看参考实现"}
+```js
+const productNames = products.map((product) => product.name);
+
+const availableProducts = products.filter(
+  (product) => product.inStock
+);
+
+const affordableProducts = products.filter(
+  (product) => product.price < 500
+);
+
+const selectedProduct = products.find(
+  (product) => product.id === 3
+);
+
+const hasExpensiveProduct = products.some(
+  (product) => product.price > 1000
+);
+
+const totalPrice = products.reduce(
+  (total, product) => total + product.price,
+  0
+);
+
+const availableTotal = availableProducts.reduce(
+  (total, product) => total + product.price,
+  0
+);
+
+const averageAvailablePrice = availableProducts.length === 0
+  ? 0
+  : availableTotal / availableProducts.length;
+
+const nextProducts = products.map((product) =>
+  product.id === 2
+    ? { ...product, inStock: true }
+    : product
+);
+
+console.log(productNames);
+console.log(availableProducts);
+console.log(affordableProducts);
+console.log(selectedProduct);
+console.log(hasExpensiveProduct);
+console.log(totalPrice);
+console.log(averageAvailablePrice);
+console.log(nextProducts);
+```
+:::
+
+### 提取可复用函数
+
+接下来把固定条件改成函数参数：
+
+```js
+const filterByMaxPrice = (products, maxPrice) =>
+  products.filter((product) => product.price <= maxPrice);
+
+const findProductById = (products, productId) =>
+  products.find((product) => product.id === productId);
+
+const calculateTotalPrice = (products) =>
+  products.reduce(
+    (total, product) => total + product.price,
+    0
+  );
+```
+
+调用函数：
+
+```js
+console.log(filterByMaxPrice(products, 300));
+console.log(findProductById(products, 4));
+console.log(calculateTotalPrice(products));
+```
+
+函数的输入和输出越明确，后续越容易测试和复用。React 组件中的很多计算逻辑也可以提取成普通 JavaScript 函数。
+
+### 扩展任务
+
+- 按价格从低到高排序，但不能改变原数组
+- 按 `category` 对商品进行分组
+- 统计每个分类的商品数量
+- 创建一个函数，同时接收关键词、最高价格和库存条件
+
+排序时可以先复制数组：
+
+```js
+const sortedProducts = [...products].sort(
+  (a, b) => a.price - b.price
+);
+```
+
+`sort` 会修改调用它的数组，因此先使用展开运算符创建副本。
+
+## 练习：加载并显示商品数据
+
+这个练习会使用 `fetch` 读取 JSON，然后把商品渲染到页面中。
+
+我们会处理四种页面状态：
+
+- 加载中
+- 加载成功
+- 没有数据
+- 加载失败
+
+### 项目结构
+
+```text
+exercise-2/
+├── data/
+│   └── products.json
+├── index.html
+├── styles.css
+└── app.js
+```
+
+### 准备 JSON 数据
+
+创建 `data/products.json`：
+
+```json
+[
+  {
+    "id": 1,
+    "name": "机械键盘",
+    "description": "支持有线和蓝牙连接",
+    "price": 299,
+    "inStock": true
+  },
+  {
+    "id": 2,
+    "name": "无线鼠标",
+    "description": "轻量化设计，支持多设备切换",
+    "price": 129,
+    "inStock": false
+  },
+  {
+    "id": 3,
+    "name": "4K 显示器",
+    "description": "27 英寸高分辨率显示器",
+    "price": 1599,
+    "inStock": true
+  }
+]
+```
+
+### 编写页面结构
+
+创建 `index.html`：
+
+```html
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>商品列表</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page-container">
+      <header class="page-header">
+        <h1>商品列表</h1>
+        <button id="reload-button" type="button">重新加载</button>
+      </header>
+
+      <p id="status" role="status">准备加载商品</p>
+      <section
+        id="product-list"
+        class="product-grid"
+        aria-label="商品列表"
+      ></section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+```
+
+`role="status"` 可以让辅助技术在状态文字变化时得到通知。
+
+### 添加基础样式
+
+创建 `styles.css`：
+
+```css
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: #1f2937;
+  background: #f8fafc;
+  font-family: system-ui, sans-serif;
+}
+
+.page-container {
+  width: min(100% - 32px, 1000px);
+  margin-inline: auto;
+  padding-block: 32px;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  padding: 20px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.product-card h2 {
+  margin-top: 0;
+}
+
+.product-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.stock-available {
+  color: #15803d;
+}
+
+.stock-unavailable {
+  color: #b91c1c;
+}
+```
+
+### 拆分 JavaScript 任务
+
+在写代码之前，先把需求拆成几个函数：
+
+```text
+loadProducts       请求并返回商品数据
+createProductCard  根据一个商品创建 DOM 元素
+renderProducts     把商品数组显示到页面
+setStatus          更新状态提示
+```
+
+这种拆分方式比把所有代码写在一个函数里更容易理解。
+
+### 请求数据
+
+```js
+const loadProducts = async () => {
+  const response = await fetch("./data/products.json");
+
+  if (!response.ok) {
+    throw new Error(`请求失败：${response.status}`);
+  }
+
+  return response.json();
+};
+```
+
+即使 `fetch` 得到了 HTTP 响应，状态码也可能是 `404` 或 `500`，因此要检查 `response.ok`。
+
+### 安全地创建商品卡片
+
+```js
+const createProductCard = (product) => {
+  const article = document.createElement("article");
+  article.className = "product-card";
+
+  const title = document.createElement("h2");
+  title.textContent = product.name;
+
+  const description = document.createElement("p");
+  description.textContent = product.description;
+
+  const price = document.createElement("p");
+  price.className = "product-price";
+  price.textContent = `¥${product.price}`;
+
+  const stock = document.createElement("p");
+  stock.className = product.inStock
+    ? "stock-available"
+    : "stock-unavailable";
+  stock.textContent = product.inStock ? "有货" : "缺货";
+
+  article.append(title, description, price, stock);
+  return article;
+};
+```
+
+使用 `textContent` 显示外部数据，可以避免把数据当作 HTML 解析。不要在不可信数据上直接使用 `innerHTML`。
+
+### 渲染列表
+
+```js
+const productList = document.querySelector("#product-list");
+const status = document.querySelector("#status");
+
+const setStatus = (message) => {
+  status.textContent = message;
+};
+
+const renderProducts = (products) => {
+  productList.replaceChildren();
+
+  if (products.length === 0) {
+    setStatus("暂时没有商品");
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+
+  products.forEach((product) => {
+    fragment.append(createProductCard(product));
+  });
+
+  productList.append(fragment);
+  setStatus(`共加载 ${products.length} 件商品`);
+};
+```
+
+`DocumentFragment` 可以先在内存中组织元素，再一次加入页面。
+
+### 组合加载流程
+
+```js
+const reloadButton = document.querySelector("#reload-button");
+
+const showProducts = async () => {
+  setStatus("正在加载商品……");
+  productList.replaceChildren();
+  reloadButton.disabled = true;
+
+  try {
+    const products = await loadProducts();
+    renderProducts(products);
+  } catch (error) {
+    console.error(error);
+    setStatus("商品加载失败，请稍后重试");
+  } finally {
+    reloadButton.disabled = false;
+  }
+};
+
+reloadButton.addEventListener("click", showProducts);
+showProducts();
+```
+
+`finally` 中的代码无论成功还是失败都会执行，适合恢复按钮状态。
+
+### 测试各种状态
+
+- 正常打开页面，检查成功状态
+- 把 JSON 内容改成 `[]`，检查空数据状态
+- 暂时把请求地址改错，检查错误状态
+- 快速多次点击重新加载，检查按钮是否正确禁用
+
+只测试成功情况是不够的。React 项目中的接口页面同样需要处理这些状态。
+
+### 扩展任务
+
+- 添加“只显示有库存商品”复选框
+- 添加关键词搜索框
+- 添加价格排序
+- 为加载过程添加骨架屏
+- 使用 `AbortController` 取消不再需要的请求
+
+## 练习：待办事项应用
+
+这个练习会组合表单、事件、数组状态和页面渲染。完成后，你会更容易理解 React 为什么需要 State。
+
+### 功能要求
+
+- 添加任务
+- 显示任务列表
+- 标记完成或未完成
+- 删除任务
+- 按全部、未完成、已完成筛选
+- 显示剩余任务数量
+- 刷新页面后保留数据
+
+### 设计数据结构
+
+每个任务使用一个对象表示：
+
+```js
+const todo = {
+  id: "todo-1",
+  title: "复习数组方法",
+  completed: false,
+};
+```
+
+所有任务保存在数组中：
+
+```js
+let todos = [
+  {
+    id: "todo-1",
+    title: "复习数组方法",
+    completed: false,
+  },
+];
+```
+
+当前筛选条件单独保存：
+
+```js
+let currentFilter = "all";
+```
+
+这些变量就是应用的状态。状态改变后，我们需要重新调用渲染函数，让页面与数据保持一致。
+
+### 页面结构
+
+```html
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>待办事项</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="todo-app">
+      <h1>待办事项</h1>
+
+      <form id="todo-form" class="todo-form">
+        <label for="todo-input">新任务</label>
+        <div class="todo-form-row">
+          <input
+            id="todo-input"
+            name="title"
+            type="text"
+            maxlength="100"
+            autocomplete="off"
+            required
+          />
+          <button type="submit">添加</button>
+        </div>
+      </form>
+
+      <div class="todo-toolbar">
+        <div class="todo-filters" aria-label="任务筛选">
+          <button type="button" data-filter="all">全部</button>
+          <button type="button" data-filter="active">未完成</button>
+          <button type="button" data-filter="completed">已完成</button>
+        </div>
+        <p id="todo-count" aria-live="polite"></p>
+      </div>
+
+      <ul id="todo-list" class="todo-list"></ul>
+      <p id="empty-message" hidden>当前没有任务</p>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+```
+
+### 基础样式
+
+```css
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: #1f2937;
+  background: #f1f5f9;
+  font-family: system-ui, sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  min-height: 42px;
+  padding-inline: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 2px;
+}
+
+.todo-app {
+  width: min(100% - 32px, 680px);
+  margin: 48px auto;
+  padding: 24px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgb(15 23 42 / 10%);
+}
+
+.todo-form-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.todo-form-row input {
+  flex: 1;
+  min-width: 0;
+  min-height: 42px;
+  padding-inline: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+}
+
+.todo-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-block: 24px 16px;
+}
+
+.todo-filters {
+  display: flex;
+  gap: 8px;
+}
+
+.todo-filters button[aria-pressed="true"] {
+  color: white;
+  background: #2563eb;
+}
+
+.todo-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+.todo-title {
+  flex: 1;
+}
+
+.todo-item.completed .todo-title {
+  color: #64748b;
+  text-decoration: line-through;
+}
+```
+
+### 获取页面元素
+
+```js
+const todoForm = document.querySelector("#todo-form");
+const todoInput = document.querySelector("#todo-input");
+const todoList = document.querySelector("#todo-list");
+const todoCount = document.querySelector("#todo-count");
+const emptyMessage = document.querySelector("#empty-message");
+const filterButtons = document.querySelectorAll("[data-filter]");
+```
+
+### 从本地存储读取数据
+
+```js
+const loadTodos = () => {
+  try {
+    const savedTodos = localStorage.getItem("todos");
+    return savedTodos ? JSON.parse(savedTodos) : [];
+  } catch (error) {
+    console.error("读取任务失败", error);
+    return [];
+  }
+};
+
+let todos = loadTodos();
+let currentFilter = "all";
+```
+
+`localStorage` 只能保存字符串，因此保存时使用 `JSON.stringify`，读取时使用 `JSON.parse`。
+
+### 保存数据
+
+```js
+const saveTodos = () => {
+  localStorage.setItem("todos", JSON.stringify(todos));
+};
+```
+
+### 根据条件筛选任务
+
+```js
+const getVisibleTodos = () => {
+  if (currentFilter === "active") {
+    return todos.filter((todo) => !todo.completed);
+  }
+
+  if (currentFilter === "completed") {
+    return todos.filter((todo) => todo.completed);
+  }
+
+  return todos;
+};
+```
+
+### 创建任务元素
+
+```js
+const createTodoElement = (todo) => {
+  const item = document.createElement("li");
+  item.className = todo.completed
+    ? "todo-item completed"
+    : "todo-item";
+  item.dataset.todoId = todo.id;
+
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.checked = todo.completed;
+  checkbox.setAttribute("aria-label", `完成任务：${todo.title}`);
+
+  const title = document.createElement("span");
+  title.className = "todo-title";
+  title.textContent = todo.title;
+
+  const deleteButton = document.createElement("button");
+  deleteButton.type = "button";
+  deleteButton.dataset.action = "delete";
+  deleteButton.textContent = "删除";
+  deleteButton.setAttribute("aria-label", `删除任务：${todo.title}`);
+
+  item.append(checkbox, title, deleteButton);
+  return item;
+};
+```
+
+### 渲染页面
+
+```js
+const render = () => {
+  const visibleTodos = getVisibleTodos();
+  const activeCount = todos.filter((todo) => !todo.completed).length;
+
+  todoList.replaceChildren(
+    ...visibleTodos.map(createTodoElement)
+  );
+
+  todoCount.textContent = `剩余 ${activeCount} 项`;
+  emptyMessage.hidden = visibleTodos.length !== 0;
+
+  filterButtons.forEach((button) => {
+    const isActive = button.dataset.filter === currentFilter;
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+};
+```
+
+`render` 不负责修改数据，只负责根据当前状态更新页面。保持这个边界可以让代码更容易维护。
+
+### 添加任务
+
+```js
+todoForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const title = todoInput.value.trim();
+
+  if (!title) {
+    return;
+  }
+
+  const newTodo = {
+    id: crypto.randomUUID(),
+    title,
+    completed: false,
+  };
+
+  todos = [...todos, newTodo];
+  saveTodos();
+  render();
+
+  todoForm.reset();
+  todoInput.focus();
+});
+```
+
+`event.preventDefault()` 阻止表单提交后刷新页面。任务标题使用 `trim` 去掉首尾空格。
+
+### 完成和删除任务
+
+可以在列表上统一监听事件，这种方式叫事件委托：
+
+```js
+todoList.addEventListener("change", (event) => {
+  if (event.target.type !== "checkbox") {
+    return;
+  }
+
+  const item = event.target.closest("[data-todo-id]");
+  const todoId = item.dataset.todoId;
+
+  todos = todos.map((todo) =>
+    todo.id === todoId
+      ? { ...todo, completed: event.target.checked }
+      : todo
+  );
+
+  saveTodos();
+  render();
+});
+
+todoList.addEventListener("click", (event) => {
+  const deleteButton = event.target.closest("[data-action='delete']");
+
+  if (!deleteButton) {
+    return;
+  }
+
+  const item = deleteButton.closest("[data-todo-id]");
+  const todoId = item.dataset.todoId;
+
+  todos = todos.filter((todo) => todo.id !== todoId);
+  saveTodos();
+  render();
+});
+```
+
+### 切换筛选条件
+
+```js
+filterButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    currentFilter = button.dataset.filter;
+    render();
+  });
+});
+
+render();
+```
+
+应用启动时必须调用一次 `render`，把已有数据显示出来。
+
+### 观察状态更新流程
+
+每次用户操作都遵循相同流程：
+
+```text
+用户操作 → 更新 todos/currentFilter → 保存数据 → render → 页面更新
+```
+
+React 中的核心流程也非常相似：
+
+```text
+用户操作 → 更新 State → React 根据 State 重新渲染组件
+```
+
+React 会帮助我们管理重新渲染，因此不需要手动调用 `replaceChildren` 或创建 DOM 元素。
+
+### 扩展任务
+
+- 支持编辑任务标题
+- 添加“清除已完成”按钮
+- 阻止添加重复任务
+- 给任务添加创建时间和优先级
+- 支持按关键词搜索
+- 支持拖动排序
+- 将数据保存逻辑提取到独立模块
+
+## 调试方法
+
+完成练习时，不要只依赖肉眼观察页面。
+
+### 检查控制台
+
+打开浏览器开发者工具的 Console 面板：
+
+```js
+console.log("当前任务", todos);
+console.table(products);
+console.error("加载失败", error);
+```
+
+如果出现多条错误，优先处理第一条。后面的错误可能只是第一条错误引起的连锁反应。
+
+### 检查网络请求
+
+在 Network 面板中确认：
+
+- 请求地址是否正确
+- HTTP 状态码是否成功
+- 返回内容是否是预期 JSON
+- 请求是否发出了多次
+- 加载时间是否异常
+
+### 设置断点
+
+在 Sources 面板中给事件函数或数据处理代码添加断点，逐行观察变量变化。也可以临时在代码中写：
+
+```js
+debugger;
+```
+
+开发者工具打开时，代码会在这里暂停。
+
+## 从这些练习过渡到 React
+
+完成原生 JavaScript 练习后，可以把已有概念与 React 对应起来：
+
+| 原生 JavaScript | React |
+| --- | --- |
+| 数据变量 | State 或 Props |
+| `document.createElement` | JSX |
+| `addEventListener` | `onClick`、`onChange` 等 Props |
+| 手动调用 `render()` | State 更新后自动重新渲染 |
+| 更新 `textContent` | 在 JSX 中读取变量 |
+| `localStorage` | 仍然可以使用，通常配合 Effect |
+| `fetch` | 仍然使用，通常配合 Effect 或请求库 |
+| 拆分普通函数 | 拆分组件和自定义 Hook |
+
+学习 React 之后，JavaScript 数据处理能力仍然重要。React 主要改变的是页面如何根据数据更新，而不是替代 JavaScript。
+
+## 完成标准
+
+继续学习 React 前，检查自己能否做到：
+
+- [ ] 不看答案完成商品筛选和总价计算
+- [ ] 解释 `map`、`filter` 和 `reduce` 的返回值
+- [ ] 使用 `fetch` 加载 JSON 并检查 `response.ok`
+- [ ] 在页面中分别展示加载、空数据和错误状态
+- [ ] 使用表单事件添加一条待办事项
+- [ ] 使用 `map` 更新任务完成状态
+- [ ] 使用 `filter` 删除任务
+- [ ] 使用 `localStorage` 保存和恢复数组
+- [ ] 使用浏览器开发者工具定位常见错误
+- [ ] 解释“状态变化驱动页面更新”的基本流程
+
+完成这些练习后，可以回到[学习大纲](index.qmd)，开始学习 React 与开发环境。

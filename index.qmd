@@ -24,7 +24,7 @@ description: "一份面向 React 初学者的 8～10 周学习路线"
 
 React 本质上仍然是 JavaScript。需要熟悉以下内容。
 
-### HTML 与 CSS
+### [HTML 与 CSS](html-css-basics.qmd)
 
 - 语义化标签：`header`、`main`、`section`、`form`、`button` 等
 - 常用表单元素：`input`、`select`、`textarea`
@@ -45,10 +45,10 @@ React 本质上仍然是 JavaScript。需要熟悉以下内容。
 - Promise、`async/await` 和 `fetch`
 - DOM 与事件的基础概念
 
-### 基础练习
+### [基础练习](basic-exercises.qmd)
 
 - 使用数组方法实现商品筛选和价格统计
-- 使用 `fetch` 获取公开 API 数据并显示到页面
+- 使用 `fetch` 获取 JSON 数据并显示到页面
 - 使用原生 JavaScript 制作一个待办事项列表
 
 ## React 学习路线

@@ -20,8 +20,12 @@ website:
       - index.qmd
       - section: "2. 基础回顾"
         contents:
+          - href: html-css-basics.qmd
+            text: 2.1 HTML 与 CSS
           - href: javascript-basics.qmd
             text: 2.2 JavaScript 必备知识
+          - href: basic-exercises.qmd
+            text: 2.3 基础练习
   page-footer:
     center: "使用 Quarto 构建"
 
