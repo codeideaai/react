@@ -2,22 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://codeideaai.github.io/react/index.html</loc>
-    <lastmod>2026-07-19T11:22:42.104Z</lastmod>
+    <lastmod>2026-07-19T11:36:55.013Z</lastmod>
   </url>
   <url>
-    <loc>https://codeideaai.github.io/react/javascript-basics.html</loc>
-    <lastmod>2026-07-19T11:22:42.104Z</lastmod>
+    <loc>https://codeideaai.github.io/react/chapters/03-react-basics/01-introduction/06-create-vite-project.html</loc>
+    <lastmod>2026-07-19T11:36:55.013Z</lastmod>
   </url>
   <url>
-    <loc>https://codeideaai.github.io/react/html-css-basics.html</loc>
-    <lastmod>2026-07-19T11:22:42.104Z</lastmod>
+    <loc>https://codeideaai.github.io/react/chapters/03-react-basics/01-introduction/08-development-debugging.html</loc>
+    <lastmod>2026-07-19T11:36:55.013Z</lastmod>
+  </url>
+  <url>
+    <loc>https://codeideaai.github.io/react/chapters/03-react-basics/01-introduction/05-development-tools.html</loc>
+    <lastmod>2026-07-19T11:36:55.013Z</lastmod>
+  </url>
+  <url>
+    <loc>https://codeideaai.github.io/react/chapters/03-react-basics/01-introduction/07-project-structure.html</loc>
+    <lastmod>2026-07-19T11:36:55.013Z</lastmod>
+  </url>
+  <url>
+    <loc>https://codeideaai.github.io/react/chapters/02-foundations/03-basic-exercises.html</loc>
+    <lastmod>2026-07-19T11:36:55.013Z</lastmod>
+  </url>
+  <url>
+    <loc>https://codeideaai.github.io/react/chapters/02-foundations/02-javascript-basics.html</loc>
+    <lastmod>2026-07-19T11:36:55.013Z</lastmod>
   </url>
   <url>
     <loc>https://codeideaai.github.io/react/agent.html</loc>
-    <lastmod>2026-07-19T11:22:42.104Z</lastmod>
+    <lastmod>2026-07-19T11:36:55.012Z</lastmod>
   </url>
   <url>
-    <loc>https://codeideaai.github.io/react/basic-exercises.html</loc>
-    <lastmod>2026-07-19T11:22:42.104Z</lastmod>
+    <loc>https://codeideaai.github.io/react/chapters/02-foundations/01-html-css.html</loc>
+    <lastmod>2026-07-19T11:36:55.013Z</lastmod>
+  </url>
+  <url>
+    <loc>https://codeideaai.github.io/react/chapters/03-react-basics/01-introduction/03-component-thinking.html</loc>
+    <lastmod>2026-07-19T11:36:55.013Z</lastmod>
+  </url>
+  <url>
+    <loc>https://codeideaai.github.io/react/chapters/03-react-basics/01-introduction/02-declarative-ui.html</loc>
+    <lastmod>2026-07-19T11:36:55.013Z</lastmod>
+  </url>
+  <url>
+    <loc>https://codeideaai.github.io/react/chapters/03-react-basics/01-introduction/04-spa-basics.html</loc>
+    <lastmod>2026-07-19T11:36:55.013Z</lastmod>
+  </url>
+  <url>
+    <loc>https://codeideaai.github.io/react/chapters/03-react-basics/01-introduction/index.html</loc>
+    <lastmod>2026-07-19T11:36:55.013Z</lastmod>
+  </url>
+  <url>
+    <loc>https://codeideaai.github.io/react/chapters/03-react-basics/01-introduction/01-what-is-react.html</loc>
+    <lastmod>2026-07-19T11:36:55.013Z</lastmod>
   </url>
 </urlset>

@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="一份面向 React 初学者的 8～10 周学习路线">
+<meta name="description" content="认识 React、组件化和声明式 UI，并使用 Node.js、npm 与 Vite 搭建开发环境">
 
-<title>React 学习大纲</title>
+<title>认识 React 与开发环境 – React 学习大纲</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -27,28 +27,29 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./chapters/02-foundations/01-html-css.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-8669a12e31676afb62465428d2923f05.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-20e69a86aa58aee37f7f14e3985c5f2a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-8669a12e31676afb62465428d2923f05.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../chapters/03-react-basics/01-introduction/01-what-is-react.html" rel="next">
+<link href="../../../chapters/02-foundations/03-basic-exercises.html" rel="prev">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-8669a12e31676afb62465428d2923f05.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-20e69a86aa58aee37f7f14e3985c5f2a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-8669a12e31676afb62465428d2923f05.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -79,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
 <style>html{ scroll-behavior: smooth; }</style>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../../styles.css">
 </head>
 
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -253,7 +254,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">React 学习大纲</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">3. React 学习路线</li><li class="breadcrumb-item"><a href="../../../chapters/03-react-basics/01-introduction/index.html">3.1 认识 React 与开发环境</a></li><li class="breadcrumb-item"><a href="../../../chapters/03-react-basics/01-introduction/index.html">3.1 概览</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
@@ -268,7 +269,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">目录</a> 
+      <a href="../../../">目录</a> 
         <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="切换深色模式"><i class="bi"></i></a>
 </div>
@@ -283,7 +284,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">React 学习大纲</span></a>
   </div>
 </li>
@@ -298,19 +299,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/02-foundations/01-html-css.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../chapters/02-foundations/01-html-css.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.1 HTML 与 CSS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/02-foundations/02-javascript-basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../chapters/02-foundations/02-javascript-basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.2 JavaScript 必备知识</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/02-foundations/03-basic-exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../chapters/02-foundations/03-basic-exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2.3 基础练习</span></a>
   </div>
 </li>
@@ -336,55 +337,55 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/03-react-basics/01-introduction/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../chapters/03-react-basics/01-introduction/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">3.1 概览</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/03-react-basics/01-introduction/01-what-is-react.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../chapters/03-react-basics/01-introduction/01-what-is-react.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.1.1 React 是什么</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/03-react-basics/01-introduction/02-declarative-ui.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../chapters/03-react-basics/01-introduction/02-declarative-ui.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.1.2 声明式 UI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/03-react-basics/01-introduction/03-component-thinking.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../chapters/03-react-basics/01-introduction/03-component-thinking.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.1.3 组件化思想</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/03-react-basics/01-introduction/04-spa-basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../chapters/03-react-basics/01-introduction/04-spa-basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.1.4 单页应用基础</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/03-react-basics/01-introduction/05-development-tools.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../chapters/03-react-basics/01-introduction/05-development-tools.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.1.5 开发工具</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/03-react-basics/01-introduction/06-create-vite-project.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../chapters/03-react-basics/01-introduction/06-create-vite-project.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.1.6 创建 Vite 项目</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/03-react-basics/01-introduction/07-project-structure.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../chapters/03-react-basics/01-introduction/07-project-structure.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.1.7 项目结构</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/03-react-basics/01-introduction/08-development-debugging.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../chapters/03-react-basics/01-introduction/08-development-debugging.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.1.8 开发、构建与调试</span></a>
   </div>
 </li>
@@ -402,34 +403,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">该页面内容</h2>
    
   <ul>
-  <li><a href="#学习目标" id="toc-学习目标" class="nav-link active" data-scroll-target="#学习目标"><span class="header-section-number">1</span> 学习目标</a></li>
-  <li><a href="#基础回顾" id="toc-基础回顾" class="nav-link" data-scroll-target="#基础回顾"><span class="header-section-number">2</span> 基础回顾</a>
-  <ul class="collapse">
-  <li><a href="#html-与-css" id="toc-html-与-css" class="nav-link" data-scroll-target="#html-与-css"><span class="header-section-number">2.1</span> HTML 与 CSS</a></li>
-  <li><a href="#javascript-必备知识" id="toc-javascript-必备知识" class="nav-link" data-scroll-target="#javascript-必备知识"><span class="header-section-number">2.2</span> JavaScript 必备知识</a></li>
-  <li><a href="#基础练习" id="toc-基础练习" class="nav-link" data-scroll-target="#基础练习"><span class="header-section-number">2.3</span> 基础练习</a></li>
-  </ul></li>
-  <li><a href="#react-学习路线" id="toc-react-学习路线" class="nav-link" data-scroll-target="#react-学习路线"><span class="header-section-number">3</span> React 学习路线</a>
-  <ul class="collapse">
-  <li><a href="#认识-react-与开发环境第-1-周" id="toc-认识-react-与开发环境第-1-周" class="nav-link" data-scroll-target="#认识-react-与开发环境第-1-周"><span class="header-section-number">3.1</span> 认识 React 与开发环境（第 1 周）</a></li>
-  <li><a href="#jsx-与组件第-2-周" id="toc-jsx-与组件第-2-周" class="nav-link" data-scroll-target="#jsx-与组件第-2-周"><span class="header-section-number">3.2</span> JSX 与组件（第 2 周）</a></li>
-  <li><a href="#事件state-与表单第-3-周" id="toc-事件state-与表单第-3-周" class="nav-link" data-scroll-target="#事件state-与表单第-3-周"><span class="header-section-number">3.3</span> 事件、State 与表单（第 3 周）</a></li>
-  <li><a href="#副作用与数据请求第-4-周" id="toc-副作用与数据请求第-4-周" class="nav-link" data-scroll-target="#副作用与数据请求第-4-周"><span class="header-section-number">3.4</span> 副作用与数据请求（第 4 周）</a></li>
-  <li><a href="#样式与组件设计第-5-周" id="toc-样式与组件设计第-5-周" class="nav-link" data-scroll-target="#样式与组件设计第-5-周"><span class="header-section-number">3.5</span> 样式与组件设计（第 5 周）</a></li>
-  <li><a href="#路由与完整应用结构第-6-周" id="toc-路由与完整应用结构第-6-周" class="nav-link" data-scroll-target="#路由与完整应用结构第-6-周"><span class="header-section-number">3.6</span> 路由与完整应用结构（第 6 周）</a></li>
-  <li><a href="#状态管理与性能基础第-7-周" id="toc-状态管理与性能基础第-7-周" class="nav-link" data-scroll-target="#状态管理与性能基础第-7-周"><span class="header-section-number">3.7</span> 状态管理与性能基础（第 7 周）</a></li>
-  <li><a href="#工程化测试与部署第-8-周" id="toc-工程化测试与部署第-8-周" class="nav-link" data-scroll-target="#工程化测试与部署第-8-周"><span class="header-section-number">3.8</span> 工程化、测试与部署（第 8 周）</a></li>
-  </ul></li>
-  <li><a href="#推荐实战项目" id="toc-推荐实战项目" class="nav-link" data-scroll-target="#推荐实战项目"><span class="header-section-number">4</span> 推荐实战项目</a>
-  <ul class="collapse">
-  <li><a href="#待办事项应用" id="toc-待办事项应用" class="nav-link" data-scroll-target="#待办事项应用"><span class="header-section-number">4.1</span> 待办事项应用</a></li>
-  <li><a href="#电影或图书搜索应用" id="toc-电影或图书搜索应用" class="nav-link" data-scroll-target="#电影或图书搜索应用"><span class="header-section-number">4.2</span> 电影或图书搜索应用</a></li>
-  <li><a href="#个人记账应用" id="toc-个人记账应用" class="nav-link" data-scroll-target="#个人记账应用"><span class="header-section-number">4.3</span> 个人记账应用</a></li>
-  </ul></li>
-  <li><a href="#建议的学习方法" id="toc-建议的学习方法" class="nav-link" data-scroll-target="#建议的学习方法"><span class="header-section-number">5</span> 建议的学习方法</a></li>
-  <li><a href="#每周学习节奏参考" id="toc-每周学习节奏参考" class="nav-link" data-scroll-target="#每周学习节奏参考"><span class="header-section-number">6</span> 每周学习节奏参考</a></li>
-  <li><a href="#自测清单" id="toc-自测清单" class="nav-link" data-scroll-target="#自测清单"><span class="header-section-number">7</span> 自测清单</a></li>
-  <li><a href="#暂时不用急着学习的内容" id="toc-暂时不用急着学习的内容" class="nav-link" data-scroll-target="#暂时不用急着学习的内容"><span class="header-section-number">8</span> 暂时不用急着学习的内容</a></li>
+  <li><a href="#学习目标" id="toc-学习目标" class="nav-link active" data-scroll-target="#学习目标">学习目标</a></li>
+  <li><a href="#本节内容" id="toc-本节内容" class="nav-link" data-scroll-target="#本节内容">本节内容</a></li>
+  <li><a href="#建议学习顺序" id="toc-建议学习顺序" class="nav-link" data-scroll-target="#建议学习顺序">建议学习顺序</a></li>
+  <li><a href="#最终成果" id="toc-最终成果" class="nav-link" data-scroll-target="#最终成果">最终成果</a></li>
+  <li><a href="#参考资料" id="toc-参考资料" class="nav-link" data-scroll-target="#参考资料">参考资料</a></li>
   </ul>
 </nav>
     </div>
@@ -437,15 +415,15 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">3. React 学习路线</li><li class="breadcrumb-item"><a href="../../../chapters/03-react-basics/01-introduction/index.html">3.1 认识 React 与开发环境</a></li><li class="breadcrumb-item"><a href="../../../chapters/03-react-basics/01-introduction/index.html">3.1 概览</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">React 学习大纲</h1>
-<p class="subtitle lead">从 HTML 与 JavaScript 基础开始</p>
+<h1 class="title">认识 React 与开发环境</h1>
+<p class="subtitle lead">第 1 周学习概览</p>
 </div>
 
 <div>
   <div class="description">
-    一份面向 React 初学者的 8～10 周学习路线
+    认识 React、组件化和声明式 UI，并使用 Node.js、npm 与 Vite 搭建开发环境
   </div>
 </div>
 
@@ -462,430 +440,107 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<blockquote class="blockquote">
-<p>适合人群：掌握基础 HTML、CSS 和 JavaScript，希望系统学习 React 的初学者。</p>
-<p>建议周期：8～10 周，每周学习 5 天，每天 1～2 小时。进度可以按自己的时间调整。</p>
-</blockquote>
-<section id="学习目标" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="学习目标"><span class="header-section-number">1</span> 学习目标</h2>
-<p>完成本学习大纲后，你应该能够：</p>
+<p>这一节是正式学习 React 的起点。我们会先理解 React 解决什么问题，再使用 Vite 创建项目，并沿着浏览器中的页面反向找到 <code>App.jsx</code>、<code>main.jsx</code> 和 <code>index.html</code>。</p>
+<p>完成环境搭建后，不要急着安装路由、状态管理或组件库。第一周最重要的目标，是理解一个最小 React 应用如何运行。</p>
+<section id="学习目标" class="level2">
+<h2 class="anchored" data-anchor-id="学习目标">学习目标</h2>
+<p>完成本节后，你应该能够：</p>
 <ul>
-<li>理解 React 的组件化思想和基本工作方式</li>
-<li>使用 JSX、组件、Props、State 和常用 Hooks 开发页面</li>
-<li>正确处理表单、事件、列表渲染和组件通信</li>
-<li>使用 React Router 开发多页面体验的单页应用</li>
-<li>调用后端 API，并处理加载、成功和失败状态</li>
-<li>使用 Vite 创建、调试和构建 React 项目</li>
-<li>独立完成一个中小型 React 项目</li>
+<li>说明 React 是什么以及适合解决什么问题</li>
+<li>解释声明式 UI 和组件化的基本思想</li>
+<li>理解单页应用的基本工作方式</li>
+<li>区分 Node.js、npm、React 和 Vite 的职责</li>
+<li>使用 Vite 创建 JavaScript 版 React 项目</li>
+<li>说明项目中主要文件和目录的作用</li>
+<li>理解 React 如何挂载到 HTML 根节点</li>
+<li>启动开发服务器、构建项目和预览构建结果</li>
+<li>使用浏览器开发者工具和 React DevTools 检查页面</li>
 </ul>
 </section>
-<section id="基础回顾" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="基础回顾"><span class="header-section-number">2</span> 基础回顾</h2>
-<p>React 本质上仍然是 JavaScript。需要熟悉以下内容。</p>
-<section id="html-与-css" class="level3" data-number="2.1">
-<h3 data-number="2.1" class="anchored" data-anchor-id="html-与-css"><span class="header-section-number">2.1</span> <a href="./chapters/02-foundations/01-html-css.html">HTML 与 CSS</a></h3>
-<ul>
-<li>语义化标签：<code>header</code>、<code>main</code>、<code>section</code>、<code>form</code>、<code>button</code> 等</li>
-<li>常用表单元素：<code>input</code>、<code>select</code>、<code>textarea</code></li>
-<li>CSS 选择器、盒模型和定位</li>
-<li>Flexbox 和 Grid 基本布局</li>
-<li>响应式设计与媒体查询</li>
-</ul>
-</section>
-<section id="javascript-必备知识" class="level3" data-number="2.2">
-<h3 data-number="2.2" class="anchored" data-anchor-id="javascript-必备知识"><span class="header-section-number">2.2</span> <a href="./chapters/02-foundations/02-javascript-basics.html">JavaScript 必备知识</a></h3>
-<ul>
-<li>变量：<code>const</code> 和 <code>let</code></li>
-<li>基本类型、数组和对象</li>
-<li>函数、箭头函数和回调函数</li>
-<li>条件判断、三元运算符和逻辑运算符</li>
-<li>数组常用方法：<code>map</code>、<code>filter</code>、<code>find</code>、<code>some</code>、<code>reduce</code></li>
-<li>对象和数组的解构赋值</li>
-<li>展开运算符：<code>...</code></li>
-<li>模块化：<code>import</code> 和 <code>export</code></li>
-<li>Promise、<code>async/await</code> 和 <code>fetch</code></li>
-<li>DOM 与事件的基础概念</li>
-</ul>
-</section>
-<section id="基础练习" class="level3" data-number="2.3">
-<h3 data-number="2.3" class="anchored" data-anchor-id="基础练习"><span class="header-section-number">2.3</span> <a href="./chapters/02-foundations/03-basic-exercises.html">基础练习</a></h3>
-<ul>
-<li>使用数组方法实现商品筛选和价格统计</li>
-<li>使用 <code>fetch</code> 获取 JSON 数据并显示到页面</li>
-<li>使用原生 JavaScript 制作一个待办事项列表</li>
-</ul>
-</section>
-</section>
-<section id="react-学习路线" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="react-学习路线"><span class="header-section-number">3</span> React 学习路线</h2>
-<section id="认识-react-与开发环境第-1-周" class="level3" data-number="3.1">
-<h3 data-number="3.1" class="anchored" data-anchor-id="认识-react-与开发环境第-1-周"><span class="header-section-number">3.1</span> <a href="./chapters/03-react-basics/01-introduction/index.html">认识 React 与开发环境（第 1 周）</a></h3>
-<section id="学习内容" class="level4" data-number="3.1.1">
-<h4 data-number="3.1.1" class="anchored" data-anchor-id="学习内容"><span class="header-section-number">3.1.1</span> 学习内容</h4>
-<ul>
-<li>React 是什么，适合解决什么问题</li>
-<li>单页应用（SPA）的基本概念</li>
-<li>声明式编程与命令式 DOM 操作的区别</li>
-<li>安装 Node.js，认识 npm</li>
-<li>使用 Vite 创建 React 项目</li>
-<li>理解项目中的主要文件：
-<ul>
-<li><code>package.json</code></li>
-<li><code>index.html</code></li>
-<li><code>src/main.jsx</code></li>
-<li><code>src/App.jsx</code></li>
-</ul></li>
-<li>启动开发服务器和执行生产构建</li>
-<li>安装 React DevTools</li>
-</ul>
-</section>
-<section id="阶段练习" class="level4" data-number="3.1.2">
-<h4 data-number="3.1.2" class="anchored" data-anchor-id="阶段练习"><span class="header-section-number">3.1.2</span> 阶段练习</h4>
-<ul>
-<li>创建第一个 React 项目</li>
-<li>修改页面标题、文本、图片和样式</li>
-<li>尝试把一个静态 HTML 页面迁移到 React 中</li>
-</ul>
-</section>
-<section id="阶段目标" class="level4" data-number="3.1.3">
-<h4 data-number="3.1.3" class="anchored" data-anchor-id="阶段目标"><span class="header-section-number">3.1.3</span> 阶段目标</h4>
-<p>能够独立创建并运行 React 项目，知道浏览器中显示的内容是从哪里渲染出来的。</p>
-</section>
-</section>
-<section id="jsx-与组件第-2-周" class="level3" data-number="3.2">
-<h3 data-number="3.2" class="anchored" data-anchor-id="jsx-与组件第-2-周"><span class="header-section-number">3.2</span> JSX 与组件（第 2 周）</h3>
-<section id="学习内容-1" class="level4" data-number="3.2.1">
-<h4 data-number="3.2.1" class="anchored" data-anchor-id="学习内容-1"><span class="header-section-number">3.2.1</span> 学习内容</h4>
-<ul>
-<li>JSX 的作用和基本语法</li>
-<li>JSX 与 HTML 的常见区别：
-<ul>
-<li><code>className</code></li>
-<li>标签必须闭合</li>
-<li>JavaScript 表达式使用 <code>{}</code></li>
-<li>样式对象的写法</li>
-</ul></li>
-<li>函数组件</li>
-<li>组件的拆分、导入和导出</li>
-<li>Props：父组件向子组件传递数据</li>
-<li><code>children</code> 的基本使用</li>
-<li>条件渲染</li>
-<li>列表渲染与 <code>key</code></li>
-</ul>
-</section>
-<section id="阶段练习-1" class="level4" data-number="3.2.2">
-<h4 data-number="3.2.2" class="anchored" data-anchor-id="阶段练习-1"><span class="header-section-number">3.2.2</span> 阶段练习</h4>
-<ul>
-<li>编写可复用的按钮组件</li>
-<li>编写用户卡片组件，通过 Props 显示不同用户</li>
-<li>使用数组渲染商品列表</li>
-<li>根据商品库存显示不同提示</li>
-</ul>
-</section>
-<section id="阶段目标-1" class="level4" data-number="3.2.3">
-<h4 data-number="3.2.3" class="anchored" data-anchor-id="阶段目标-1"><span class="header-section-number">3.2.3</span> 阶段目标</h4>
-<p>能够把一个页面拆分成多个组件，并通过 Props 复用组件。</p>
-</section>
-</section>
-<section id="事件state-与表单第-3-周" class="level3" data-number="3.3">
-<h3 data-number="3.3" class="anchored" data-anchor-id="事件state-与表单第-3-周"><span class="header-section-number">3.3</span> 事件、State 与表单（第 3 周）</h3>
-<section id="学习内容-2" class="level4" data-number="3.3.1">
-<h4 data-number="3.3.1" class="anchored" data-anchor-id="学习内容-2"><span class="header-section-number">3.3.1</span> 学习内容</h4>
-<ul>
-<li>React 事件处理</li>
-<li><code>useState</code> 的基本使用</li>
-<li>State 更新与页面重新渲染</li>
-<li>State 不可直接修改的原则</li>
-<li>对象、数组类型 State 的更新方式</li>
-<li>受控表单：输入框的值由 State 管理</li>
-<li>表单提交和基础校验</li>
-<li>状态提升：让多个组件共享状态</li>
-<li>单向数据流</li>
-</ul>
-</section>
-<section id="阶段练习-2" class="level4" data-number="3.3.2">
-<h4 data-number="3.3.2" class="anchored" data-anchor-id="阶段练习-2"><span class="header-section-number">3.3.2</span> 阶段练习</h4>
-<ul>
-<li>计数器</li>
-<li>展开与收起面板</li>
-<li>登录表单与错误提示</li>
-<li>可新增、完成和删除任务的待办事项列表</li>
-</ul>
-</section>
-<section id="阶段目标-2" class="level4" data-number="3.3.3">
-<h4 data-number="3.3.3" class="anchored" data-anchor-id="阶段目标-2"><span class="header-section-number">3.3.3</span> 阶段目标</h4>
-<p>能够让页面响应用户操作，并理解“数据变化驱动页面更新”。</p>
-</section>
-</section>
-<section id="副作用与数据请求第-4-周" class="level3" data-number="3.4">
-<h3 data-number="3.4" class="anchored" data-anchor-id="副作用与数据请求第-4-周"><span class="header-section-number">3.4</span> 副作用与数据请求（第 4 周）</h3>
-<section id="学习内容-3" class="level4" data-number="3.4.1">
-<h4 data-number="3.4.1" class="anchored" data-anchor-id="学习内容-3"><span class="header-section-number">3.4.1</span> 学习内容</h4>
-<ul>
-<li>什么是组件的副作用</li>
-<li><code>useEffect</code> 的基本使用</li>
-<li>依赖数组的含义</li>
-<li>Effect 清理函数</li>
-<li>使用 <code>fetch</code> 和 <code>async/await</code> 请求 API</li>
-<li>加载、成功、空数据和错误状态</li>
-<li>避免常见的重复请求和无限循环</li>
-<li>将重复逻辑提取为自定义 Hook</li>
-</ul>
-</section>
-<section id="阶段练习-3" class="level4" data-number="3.4.2">
-<h4 data-number="3.4.2" class="anchored" data-anchor-id="阶段练习-3"><span class="header-section-number">3.4.2</span> 阶段练习</h4>
-<ul>
-<li>获取并展示用户列表</li>
-<li>根据关键词搜索数据</li>
-<li>给请求添加加载提示和错误提示</li>
-<li>编写一个简单的 <code>useFetch</code> 自定义 Hook</li>
-</ul>
-</section>
-<section id="阶段目标-3" class="level4" data-number="3.4.3">
-<h4 data-number="3.4.3" class="anchored" data-anchor-id="阶段目标-3"><span class="header-section-number">3.4.3</span> 阶段目标</h4>
-<p>能够从后端获取数据，并完整处理请求过程中的各种页面状态。</p>
-</section>
-</section>
-<section id="样式与组件设计第-5-周" class="level3" data-number="3.5">
-<h3 data-number="3.5" class="anchored" data-anchor-id="样式与组件设计第-5-周"><span class="header-section-number">3.5</span> 样式与组件设计（第 5 周）</h3>
-<section id="学习内容-4" class="level4" data-number="3.5.1">
-<h4 data-number="3.5.1" class="anchored" data-anchor-id="学习内容-4"><span class="header-section-number">3.5.1</span> 学习内容</h4>
-<ul>
-<li>普通 CSS 文件</li>
-<li>CSS Modules</li>
-<li>动态 <code>className</code> 和内联样式</li>
-<li>组件职责与合理拆分</li>
-<li>展示组件与业务组件的基本区别</li>
-<li>组合优于过度配置</li>
-<li>可复用组件的 API 设计</li>
-<li>基础可访问性：标签、键盘操作和语义化元素</li>
-</ul>
-</section>
-<section id="阶段练习-4" class="level4" data-number="3.5.2">
-<h4 data-number="3.5.2" class="anchored" data-anchor-id="阶段练习-4"><span class="header-section-number">3.5.2</span> 阶段练习</h4>
-<ul>
-<li>制作可复用的 Modal、Button 和 Input 组件</li>
-<li>给待办应用添加主题切换</li>
-<li>实现桌面端与移动端适配</li>
-</ul>
-</section>
-<section id="阶段目标-4" class="level4" data-number="3.5.3">
-<h4 data-number="3.5.3" class="anchored" data-anchor-id="阶段目标-4"><span class="header-section-number">3.5.3</span> 阶段目标</h4>
-<p>能够编写结构清晰、样式可维护、具有一定复用性的组件。</p>
-</section>
-</section>
-<section id="路由与完整应用结构第-6-周" class="level3" data-number="3.6">
-<h3 data-number="3.6" class="anchored" data-anchor-id="路由与完整应用结构第-6-周"><span class="header-section-number">3.6</span> 路由与完整应用结构（第 6 周）</h3>
-<section id="学习内容-5" class="level4" data-number="3.6.1">
-<h4 data-number="3.6.1" class="anchored" data-anchor-id="学习内容-5"><span class="header-section-number">3.6.1</span> 学习内容</h4>
-<ul>
-<li>客户端路由的作用</li>
-<li>安装和使用 React Router</li>
-<li>路由配置与页面组件</li>
-<li><code>Link</code> 与编程式导航</li>
-<li>动态路由参数</li>
-<li>查询参数</li>
-<li>嵌套路由与公共布局</li>
-<li>404 页面</li>
-<li>项目目录组织方式</li>
-</ul>
-</section>
-<section id="阶段练习-5" class="level4" data-number="3.6.2">
-<h4 data-number="3.6.2" class="anchored" data-anchor-id="阶段练习-5"><span class="header-section-number">3.6.2</span> 阶段练习</h4>
-<ul>
-<li>创建首页、列表页和详情页</li>
-<li>点击列表项进入详情页</li>
-<li>添加导航栏和 404 页面</li>
-</ul>
-</section>
-<section id="阶段目标-5" class="level4" data-number="3.6.3">
-<h4 data-number="3.6.3" class="anchored" data-anchor-id="阶段目标-5"><span class="header-section-number">3.6.3</span> 阶段目标</h4>
-<p>能够开发具有多个页面、公共布局和详情路由的 React 单页应用。</p>
-</section>
-</section>
-<section id="状态管理与性能基础第-7-周" class="level3" data-number="3.7">
-<h3 data-number="3.7" class="anchored" data-anchor-id="状态管理与性能基础第-7-周"><span class="header-section-number">3.7</span> 状态管理与性能基础（第 7 周）</h3>
-<section id="学习内容-6" class="level4" data-number="3.7.1">
-<h4 data-number="3.7.1" class="anchored" data-anchor-id="学习内容-6"><span class="header-section-number">3.7.1</span> 学习内容</h4>
-<ul>
-<li>局部状态与全局状态的区别</li>
-<li><code>useContext</code> 的使用场景</li>
-<li><code>useReducer</code> 的基本使用</li>
-<li>Context 与 Reducer 的组合</li>
-<li>状态应该放在哪里</li>
-<li>React 组件重新渲染的基本规律</li>
-<li><code>useMemo</code>、<code>useCallback</code> 和 <code>memo</code> 的作用</li>
-<li>先测量再优化，避免过早优化</li>
-</ul>
-</section>
-<section id="可选扩展" class="level4" data-number="3.7.2">
-<h4 data-number="3.7.2" class="anchored" data-anchor-id="可选扩展"><span class="header-section-number">3.7.2</span> 可选扩展</h4>
-<ul>
-<li>了解 Zustand 或 Redux Toolkit</li>
-<li>了解 TanStack Query 解决的数据请求与缓存问题</li>
-</ul>
-</section>
-<section id="阶段练习-6" class="level4" data-number="3.7.3">
-<h4 data-number="3.7.3" class="anchored" data-anchor-id="阶段练习-6"><span class="header-section-number">3.7.3</span> 阶段练习</h4>
-<ul>
-<li>使用 Context 实现主题或用户信息共享</li>
-<li>使用 <code>useReducer</code> 重构复杂待办事项状态</li>
-<li>使用 React DevTools 观察组件渲染</li>
-</ul>
-</section>
-<section id="阶段目标-6" class="level4" data-number="3.7.4">
-<h4 data-number="3.7.4" class="anchored" data-anchor-id="阶段目标-6"><span class="header-section-number">3.7.4</span> 阶段目标</h4>
-<p>能够根据状态的使用范围选择合适的位置，并理解基础性能问题。</p>
-</section>
-</section>
-<section id="工程化测试与部署第-8-周" class="level3" data-number="3.8">
-<h3 data-number="3.8" class="anchored" data-anchor-id="工程化测试与部署第-8-周"><span class="header-section-number">3.8</span> 工程化、测试与部署（第 8 周）</h3>
-<section id="学习内容-7" class="level4" data-number="3.8.1">
-<h4 data-number="3.8.1" class="anchored" data-anchor-id="学习内容-7"><span class="header-section-number">3.8.1</span> 学习内容</h4>
-<ul>
-<li>npm 包和 <code>package.json</code> 脚本</li>
-<li>ESLint 和代码格式化</li>
-<li>环境变量</li>
-<li>开发环境与生产环境</li>
-<li>错误边界的概念</li>
-<li>React 组件测试的基本思路</li>
-<li>使用 Vitest 与 React Testing Library</li>
-<li>构建项目并部署到静态托管平台</li>
-<li>浏览器控制台和 Network 面板调试</li>
-</ul>
-</section>
-<section id="阶段练习-7" class="level4" data-number="3.8.2">
-<h4 data-number="3.8.2" class="anchored" data-anchor-id="阶段练习-7"><span class="header-section-number">3.8.2</span> 阶段练习</h4>
-<ul>
-<li>为表单或待办组件编写基础测试</li>
-<li>修复 ESLint 报告的问题</li>
-<li>构建并部署一个 React 项目</li>
-</ul>
-</section>
-<section id="阶段目标-7" class="level4" data-number="3.8.3">
-<h4 data-number="3.8.3" class="anchored" data-anchor-id="阶段目标-7"><span class="header-section-number">3.8.3</span> 阶段目标</h4>
-<p>能够使用基本工程工具保证代码质量，并把项目发布给别人访问。</p>
-</section>
-</section>
-</section>
-<section id="推荐实战项目" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="推荐实战项目"><span class="header-section-number">4</span> 推荐实战项目</h2>
-<p>建议按照难度逐步完成，不要只看教程而不动手。</p>
-<section id="待办事项应用" class="level3" data-number="4.1">
-<h3 data-number="4.1" class="anchored" data-anchor-id="待办事项应用"><span class="header-section-number">4.1</span> 待办事项应用</h3>
-<p>核心功能：</p>
-<ul>
-<li>新增、编辑、删除任务</li>
-<li>标记完成状态</li>
-<li>按全部、未完成、已完成筛选</li>
-<li>使用 <code>localStorage</code> 保存数据</li>
-</ul>
-<p>重点知识：组件、Props、State、表单、列表渲染、Effect。</p>
-</section>
-<section id="电影或图书搜索应用" class="level3" data-number="4.2">
-<h3 data-number="4.2" class="anchored" data-anchor-id="电影或图书搜索应用"><span class="header-section-number">4.2</span> 电影或图书搜索应用</h3>
-<p>核心功能：</p>
-<ul>
-<li>输入关键词搜索</li>
-<li>展示加载、错误和空结果状态</li>
-<li>列表页与详情页</li>
-<li>收藏功能</li>
-<li>分页或加载更多</li>
-</ul>
-<p>重点知识：API 请求、路由、自定义 Hook、状态共享。</p>
-</section>
-<section id="个人记账应用" class="level3" data-number="4.3">
-<h3 data-number="4.3" class="anchored" data-anchor-id="个人记账应用"><span class="header-section-number">4.3</span> 个人记账应用</h3>
-<p>核心功能：</p>
-<ul>
-<li>添加收入和支出</li>
-<li>按日期、类型筛选</li>
-<li>计算余额和分类合计</li>
-<li>图表展示</li>
-<li>本地存储或连接后端 API</li>
-</ul>
-<p>重点知识：复杂状态、表单校验、数据计算、组件设计。</p>
-</section>
-</section>
-<section id="建议的学习方法" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="建议的学习方法"><span class="header-section-number">5</span> 建议的学习方法</h2>
-<ol type="1">
-<li>每学完一个概念，立即写一个最小示例。</li>
-<li>不直接复制教程代码，先自己写，再对照修改。</li>
-<li>遇到报错时，先阅读控制台中的第一条错误信息。</li>
-<li>尝试用自己的话解释 Props、State 和 Effect。</li>
-<li>每周至少完成一个可以运行的小项目。</li>
-<li>定期重构旧代码，检查组件是否过大、状态是否放错位置。</li>
-<li>优先学习 React 官方文档中的核心概念，第三方库按项目需要再学。</li>
-</ol>
-</section>
-<section id="每周学习节奏参考" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="每周学习节奏参考"><span class="header-section-number">6</span> 每周学习节奏参考</h2>
+<section id="本节内容" class="level2">
+<h2 class="anchored" data-anchor-id="本节内容">本节内容</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>时间</th>
-<th>安排</th>
+<th>编号</th>
+<th>文章</th>
+<th>重点</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>第 1 天</td>
-<td>学习概念，运行官方示例</td>
+<td>3.1.1</td>
+<td><a href="../../../chapters/03-react-basics/01-introduction/01-what-is-react.html">React 是什么</a></td>
+<td>React 的职责、适用场景和渐进式采用</td>
 </tr>
 <tr class="even">
-<td>第 2 天</td>
-<td>跟着示例编码，理解每一行作用</td>
+<td>3.1.2</td>
+<td><a href="../../../chapters/03-react-basics/01-introduction/02-declarative-ui.html">声明式 UI</a></td>
+<td>数据与界面的关系、声明式和命令式的区别</td>
 </tr>
 <tr class="odd">
-<td>第 3 天</td>
-<td>不看示例独立重写</td>
+<td>3.1.3</td>
+<td><a href="../../../chapters/03-react-basics/01-introduction/03-component-thinking.html">组件化思想</a></td>
+<td>组件树、职责、组合和拆分原则</td>
 </tr>
 <tr class="even">
-<td>第 4 天</td>
-<td>完成一个相关小练习</td>
+<td>3.1.4</td>
+<td><a href="../../../chapters/03-react-basics/01-introduction/04-spa-basics.html">单页应用基础</a></td>
+<td>SPA 的加载过程、优点与额外问题</td>
 </tr>
 <tr class="odd">
-<td>第 5 天</td>
-<td>整理笔记、修复问题、重构代码</td>
+<td>3.1.5</td>
+<td><a href="../../../chapters/03-react-basics/01-introduction/05-development-tools.html">开发工具</a></td>
+<td>浏览器、Node.js、npm、Vite 和 React DOM</td>
 </tr>
 <tr class="even">
-<td>周末</td>
-<td>完成阶段项目或复习薄弱知识</td>
+<td>3.1.6</td>
+<td><a href="../../../chapters/03-react-basics/01-introduction/06-create-vite-project.html">创建 Vite 项目</a></td>
+<td>环境检查、创建、安装和启动项目</td>
+</tr>
+<tr class="odd">
+<td>3.1.7</td>
+<td><a href="../../../chapters/03-react-basics/01-introduction/07-project-structure.html">项目结构</a></td>
+<td>入口文件、组件、样式、静态资源和配置</td>
+</tr>
+<tr class="even">
+<td>3.1.8</td>
+<td><a href="../../../chapters/03-react-basics/01-introduction/08-development-debugging.html">开发、构建与调试</a></td>
+<td>开发脚本、构建、DevTools 和问题排查</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="自测清单" class="level2" data-number="7">
-<h2 data-number="7" class="anchored" data-anchor-id="自测清单"><span class="header-section-number">7</span> 自测清单</h2>
-<p>学习完成后，检查自己能否回答或完成以下问题：</p>
-<ul class="task-list">
-<li><label><input type="checkbox">JSX 和 HTML 有哪些区别？</label></li>
-<li><label><input type="checkbox">为什么 React 组件名称必须以大写字母开头？</label></li>
-<li><label><input type="checkbox">Props 和 State 有什么区别？</label></li>
-<li><label><input type="checkbox">为什么不能直接修改 State？</label></li>
-<li><label><input type="checkbox">列表渲染为什么需要稳定的 <code>key</code>？</label></li>
-<li><label><input type="checkbox">如何让子组件把用户操作通知父组件？</label></li>
-<li><label><input type="checkbox"><code>useEffect</code> 什么时候执行，依赖数组有什么作用？</label></li>
-<li><label><input type="checkbox">如何处理接口的加载、错误和空数据状态？</label></li>
-<li><label><input type="checkbox">什么状态应该提升，什么状态应该保留在组件内部？</label></li>
-<li><label><input type="checkbox">如何配置列表页和详情页路由？</label></li>
-<li><label><input type="checkbox">如何定位一次不必要的组件重新渲染？</label></li>
-<li><label><input type="checkbox">如何构建并部署 React 项目？</label></li>
-</ul>
+<section id="建议学习顺序" class="level2">
+<h2 class="anchored" data-anchor-id="建议学习顺序">建议学习顺序</h2>
+<ol type="1">
+<li>按侧边栏顺序阅读八篇文章。</li>
+<li>在阅读 3.1.6 时亲自创建项目，不要只看命令。</li>
+<li>在阅读 3.1.7 时打开真实项目逐个寻找对应文件。</li>
+<li>完成 3.1.8 的练习和检查清单。</li>
+<li>清理 Vite 示例页面，留下自己的学习首页。</li>
+</ol>
 </section>
-<section id="暂时不用急着学习的内容" class="level2" data-number="8">
-<h2 data-number="8" class="anchored" data-anchor-id="暂时不用急着学习的内容"><span class="header-section-number">8</span> 暂时不用急着学习的内容</h2>
-<p>初学阶段不必一次掌握所有生态工具。完成前面的核心路线后，再根据实际需要学习：</p>
+<section id="最终成果" class="level2">
+<h2 class="anchored" data-anchor-id="最终成果">最终成果</h2>
+<p>本节结束时，你应该拥有一个可以运行的 Vite React 项目，其中包含：</p>
 <ul>
-<li>TypeScript</li>
-<li>Next.js 等 React 框架</li>
-<li>Redux Toolkit、Zustand 等状态库</li>
-<li>TanStack Query 等服务端状态工具</li>
-<li>动画库和大型组件库</li>
-<li>服务端渲染、并发特性和复杂性能优化</li>
+<li>自己编写的页面标题和课程介绍</li>
+<li>本周学习目标列表</li>
+<li>简单但清晰的响应式样式</li>
+<li>没有未使用导入和 Console 错误</li>
+<li>可以成功执行的开发、检查和生产构建命令</li>
 </ul>
-<p>学习 React 最重要的是理解组件、Props、State、事件和数据流。先用这些核心能力完成项目，再逐步扩展技术栈。</p>
+<p>完成后返回<a href="../../../index.html">学习大纲</a>，继续学习 JSX、组件与 Props。</p>
+</section>
+<section id="参考资料" class="level2">
+<h2 class="anchored" data-anchor-id="参考资料">参考资料</h2>
+<ul>
+<li><a href="https://react.dev/learn/installation">React 官方安装指南</a></li>
+<li><a href="https://react.dev/learn/build-a-react-app-from-scratch">React：从零构建应用</a></li>
+<li><a href="https://react.dev/learn/react-developer-tools">React Developer Tools</a></li>
+<li><a href="https://vite.dev/guide/">Vite 官方入门指南</a></li>
+</ul>
 
 
 </section>
@@ -1306,10 +961,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../../../chapters/02-foundations/03-basic-exercises.html" class="pagination-link" aria-label="2.3 基础练习">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">2.3 基础练习</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./chapters/02-foundations/01-html-css.html" class="pagination-link" aria-label="2.1 HTML 与 CSS">
-        <span class="nav-page-text">2.1 HTML 与 CSS</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../../chapters/03-react-basics/01-introduction/01-what-is-react.html" class="pagination-link" aria-label="3.1.1 React 是什么">
+        <span class="nav-page-text">3.1.1 React 是什么</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1331,5 +989,5 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
