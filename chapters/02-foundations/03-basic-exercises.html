@@ -798,11 +798,90 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>统计每个分类的商品数量</li>
 <li>创建一个函数，同时接收关键词、最高价格和库存条件</li>
 </ul>
-<p>排序时可以先复制数组：</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> sortedProducts <span class="op">=</span> [<span class="op">...</span>products]<span class="op">.</span><span class="fu">sort</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  (a<span class="op">,</span> b) <span class="kw">=&gt;</span> a<span class="op">.</span><span class="at">price</span> <span class="op">-</span> b<span class="op">.</span><span class="at">price</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>sort</code> 会修改调用它的数组，因此先使用展开运算符创建副本。</p>
+<p>排序时可以先使用展开运算符创建副本，再对副本调用 <code>sort</code>。<code>sort</code> 会修改调用它的数组，所以不要直接写 <code>products.sort(...)</code>。</p>
+<p>先自己完成其他任务，再展开下面的参考代码。</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="查看扩展任务参考实现">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">提示</span>查看扩展任务参考实现
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 1. 按价格从低到高排序，不修改 products</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> sortedProducts <span class="op">=</span> [<span class="op">...</span>products]<span class="op">.</span><span class="fu">sort</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  (a<span class="op">,</span> b) <span class="kw">=&gt;</span> a<span class="op">.</span><span class="at">price</span> <span class="op">-</span> b<span class="op">.</span><span class="at">price</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">// 2. 按 category 对商品分组</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> productsByCategory <span class="op">=</span> products<span class="op">.</span><span class="fu">reduce</span>(</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  (groups<span class="op">,</span> product) <span class="kw">=&gt;</span> {</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> category <span class="op">=</span> product<span class="op">.</span><span class="at">category</span><span class="op">;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span>groups<span class="op">,</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>      [category]<span class="op">:</span> [</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span>(groups[category] <span class="op">??</span> [])<span class="op">,</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        product<span class="op">,</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  {}</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">// 3. 统计每个分类的商品数量</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> productCountByCategory <span class="op">=</span> products<span class="op">.</span><span class="fu">reduce</span>(</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  (counts<span class="op">,</span> product) <span class="kw">=&gt;</span> ({</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>counts<span class="op">,</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    [product<span class="op">.</span><span class="at">category</span>]<span class="op">:</span> (counts[product<span class="op">.</span><span class="at">category</span>] <span class="op">??</span> <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  })<span class="op">,</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  {}</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">// 4. 同时根据关键词、最高价格和库存条件筛选</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> filterProducts <span class="op">=</span> (</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  products<span class="op">,</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>  { keyword <span class="op">=</span> <span class="st">""</span><span class="op">,</span> maxPrice <span class="op">=</span> <span class="kw">Infinity</span><span class="op">,</span> inStock <span class="op">=</span> <span class="kw">null</span> } <span class="op">=</span> {}</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>) <span class="kw">=&gt;</span> {</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> normalizedKeyword <span class="op">=</span> keyword<span class="op">.</span><span class="fu">trim</span>()<span class="op">.</span><span class="fu">toLowerCase</span>()<span class="op">;</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> products<span class="op">.</span><span class="fu">filter</span>((product) <span class="kw">=&gt;</span> {</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> matchesKeyword <span class="op">=</span> product<span class="op">.</span><span class="at">name</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">toLowerCase</span>()</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">includes</span>(normalizedKeyword)<span class="op">;</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> matchesPrice <span class="op">=</span> product<span class="op">.</span><span class="at">price</span> <span class="op">&lt;=</span> maxPrice<span class="op">;</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> matchesStock <span class="op">=</span> inStock <span class="op">===</span> <span class="kw">null</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>      <span class="op">||</span> product<span class="op">.</span><span class="at">inStock</span> <span class="op">===</span> inStock<span class="op">;</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> matchesKeyword <span class="op">&amp;&amp;</span> matchesPrice <span class="op">&amp;&amp;</span> matchesStock<span class="op">;</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(sortedProducts)<span class="op">;</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(productsByCategory)<span class="op">;</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(productCountByCategory)<span class="op">;</span></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(</span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filterProducts</span>(products<span class="op">,</span> {</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>    <span class="dt">keyword</span><span class="op">:</span> <span class="st">"键盘"</span><span class="op">,</span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maxPrice</span><span class="op">:</span> <span class="dv">400</span><span class="op">,</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>    <span class="dt">inStock</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>inStock</code> 使用三个值表达不同条件：</p>
+<ul>
+<li><code>true</code>：只查有库存商品</li>
+<li><code>false</code>：只查无库存商品</li>
+<li><code>null</code>：不限制库存状态</li>
+</ul>
+<p><code>?? []</code> 和 <code>?? 0</code> 分别为第一次出现的分类提供空数组和初始数量。所有操作都会返回新数组或新对象，不会修改原来的 <code>products</code>。</p>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="练习加载并显示商品数据" class="level2" data-number="4">
