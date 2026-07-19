@@ -426,6 +426,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../chapters/03-react-basics/02-jsx-components/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.2 JSX 与组件</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../chapters/03-react-basics/03-state-forms/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.3 事件、State 与表单</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../chapters/03-react-basics/04-effects-data/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.4 副作用与数据请求</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../chapters/03-react-basics/05-styling-design/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.5 样式与组件设计</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../chapters/03-react-basics/06-routing/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.6 路由与完整应用结构</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../chapters/03-react-basics/07-state-performance/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.7 状态管理与性能基础</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../chapters/03-react-basics/08-engineering-testing/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.8 工程化、测试与部署</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -440,7 +482,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#典型目录" id="toc-典型目录" class="nav-link active" data-scroll-target="#典型目录">典型目录</a></li>
   <li><a href="#package.json" id="toc-package.json" class="nav-link" data-scroll-target="#package.json"><code>package.json</code></a></li>
-  <li><a href="#package-lock.json" id="toc-package-lock.json" class="nav-link" data-scroll-target="#package-lock.json"><code>package-lock.json</code></a></li>
+  <li><a href="#pnpm-lock.yaml" id="toc-pnpm-lock.yaml" class="nav-link" data-scroll-target="#pnpm-lock.yaml"><code>pnpm-lock.yaml</code></a></li>
   <li><a href="#node_modules" id="toc-node_modules" class="nav-link" data-scroll-target="#node_modules"><code>node_modules</code></a></li>
   <li><a href="#index.html" id="toc-index.html" class="nav-link" data-scroll-target="#index.html"><code>index.html</code></a></li>
   <li><a href="#srcmain.jsx" id="toc-srcmain.jsx" class="nav-link" data-scroll-target="#srcmain.jsx"><code>src/main.jsx</code></a></li>
@@ -508,7 +550,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ├── eslint.config.js
 ├── index.html
 ├── package.json
-├── package-lock.json
+├── pnpm-lock.yaml
 └── vite.config.js</code></pre>
 </section>
 <section id="package.json" class="level2">
@@ -535,16 +577,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><code>dependencies</code>：应用运行所需的包</li>
 <li><code>devDependencies</code>：开发、检查和构建工具</li>
-<li><code>scripts</code>：通过 <code>npm run 名称</code> 执行的命令</li>
+<li><code>scripts</code>：通过 <code>pnpm &lt;名称&gt;</code> 执行的命令</li>
 </ul>
 </section>
-<section id="package-lock.json" class="level2">
-<h2 class="anchored" data-anchor-id="package-lock.json"><code>package-lock.json</code></h2>
+<section id="pnpm-lock.yaml" class="level2">
+<h2 class="anchored" data-anchor-id="pnpm-lock.yaml"><code>pnpm-lock.yaml</code></h2>
 <p>锁文件记录依赖树的具体版本，帮助不同环境得到一致安装结果。它通常应该提交到 Git，不要手动编辑或随意删除。</p>
 </section>
 <section id="node_modules" class="level2">
 <h2 class="anchored" data-anchor-id="node_modules"><code>node_modules</code></h2>
-<p><code>npm install</code> 会生成 <code>node_modules</code>：</p>
+<p><code>pnpm install</code> 会生成 <code>node_modules</code>：</p>
 <ul>
 <li>保存已安装依赖</li>
 <li>文件数量很多</li>

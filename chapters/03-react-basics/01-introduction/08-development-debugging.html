@@ -69,6 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
+<link href="../../../chapters/03-react-basics/02-jsx-components/index.html" rel="next">
 <link href="../../../chapters/03-react-basics/01-introduction/07-project-structure.html" rel="prev">
 <script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -425,6 +426,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../chapters/03-react-basics/02-jsx-components/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.2 JSX 与组件</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../chapters/03-react-basics/03-state-forms/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.3 事件、State 与表单</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../chapters/03-react-basics/04-effects-data/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.4 副作用与数据请求</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../chapters/03-react-basics/05-styling-design/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.5 样式与组件设计</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../chapters/03-react-basics/06-routing/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.6 路由与完整应用结构</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../chapters/03-react-basics/07-state-performance/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.7 状态管理与性能基础</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../chapters/03-react-basics/08-engineering-testing/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3.8 工程化、测试与部署</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -451,7 +494,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#react-developer-tools" id="toc-react-developer-tools" class="nav-link" data-scroll-target="#react-developer-tools">React Developer Tools</a></li>
   <li><a href="#常见问题排查" id="toc-常见问题排查" class="nav-link" data-scroll-target="#常见问题排查">常见问题排查</a>
   <ul class="collapse">
-  <li><a href="#找不到-npm-脚本" id="toc-找不到-npm-脚本" class="nav-link" data-scroll-target="#找不到-npm-脚本">找不到 npm 脚本</a></li>
+  <li><a href="#找不到-pnpm-脚本" id="toc-找不到-pnpm-脚本" class="nav-link" data-scroll-target="#找不到-pnpm-脚本">找不到 pnpm 脚本</a></li>
   <li><a href="#缺少依赖" id="toc-缺少依赖" class="nav-link" data-scroll-target="#缺少依赖">缺少依赖</a></li>
   <li><a href="#端口被占用" id="toc-端口被占用" class="nav-link" data-scroll-target="#端口被占用">端口被占用</a></li>
   <li><a href="#页面空白" id="toc-页面空白" class="nav-link" data-scroll-target="#页面空白">页面空白</a></li>
@@ -499,14 +542,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>开发环境搭建完成后，要学会运行不同脚本、观察错误并验证生产构建。</p>
 <section id="启动开发服务器" class="level2">
 <h2 class="anchored" data-anchor-id="启动开发服务器">启动开发服务器</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run dev</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> dev</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 <p>开发服务器提供快速更新和错误提示，适合日常编码。</p>
 <p>修改 <code>App.jsx</code> 并保存时，React Fast Refresh 通常会更新页面而不完整刷新浏览器。</p>
 </section>
 <section id="运行代码检查" class="level2">
 <h2 class="anchored" data-anchor-id="运行代码检查">运行代码检查</h2>
 <p>如果模板提供 <code>lint</code> 脚本：</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run lint</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> lint</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 <p>ESLint 会检查常见代码问题，例如：</p>
 <ul>
 <li>未使用的变量和导入</li>
@@ -517,17 +560,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="构建生产文件" class="level2">
 <h2 class="anchored" data-anchor-id="构建生产文件">构建生产文件</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run build</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> build</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 <p>构建结果默认位于 <code>dist</code>。生产构建会处理模块、JSX 和静态资源，生成适合部署的文件。</p>
 <p>构建成功不能证明业务功能全部正确，但可以发现部分导入、语法和构建配置问题。</p>
 </section>
 <section id="预览生产构建" class="level2">
 <h2 class="anchored" data-anchor-id="预览生产构建">预览生产构建</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run preview</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> preview</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 <p>它会启动本地服务器预览 <code>dist</code>。<code>preview</code> 用于检查构建产物，不是日常开发服务器，也不是正式生产服务器。</p>
 <p>推荐的提交前顺序：</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run lint</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run build</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> lint</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> build</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 <p>项目有测试后，再加入测试命令。</p>
 </section>
 <section id="浏览器开发者工具" class="level2">
@@ -580,8 +623,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="常见问题排查" class="level2">
 <h2 class="anchored" data-anchor-id="常见问题排查">常见问题排查</h2>
-<section id="找不到-npm-脚本" class="level3">
-<h3 class="anchored" data-anchor-id="找不到-npm-脚本">找不到 npm 脚本</h3>
+<section id="找不到-pnpm-脚本" class="level3">
+<h3 class="anchored" data-anchor-id="找不到-pnpm-脚本">找不到 pnpm 脚本</h3>
 <pre class="text"><code>Missing script: "dev"</code></pre>
 <p>确认当前目录包含正确的 <code>package.json</code>：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
@@ -590,14 +633,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="缺少依赖" class="level3">
 <h3 class="anchored" data-anchor-id="缺少依赖">缺少依赖</h3>
 <p>刚克隆项目或没有 <code>node_modules</code> 时：</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> install</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 <p>不要复制别人的 <code>node_modules</code>。</p>
 </section>
 <section id="端口被占用" class="level3">
 <h3 class="anchored" data-anchor-id="端口被占用">端口被占用</h3>
 <p>Vite 通常会自动尝试其他端口。使用终端显示的实际地址。</p>
 <p>也可以指定端口：</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run dev <span class="at">--</span> <span class="at">--port</span> 3000</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> dev <span class="at">--</span> <span class="at">--port</span> 3000</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="页面空白" class="level3">
 <h3 class="anchored" data-anchor-id="页面空白">页面空白</h3>
@@ -676,9 +719,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="验证项目" class="level3">
 <h3 class="anchored" data-anchor-id="验证项目">验证项目</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run lint</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run build</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run preview</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> lint</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> build</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> preview</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="学习检查" class="level2">
@@ -1119,6 +1162,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../../chapters/03-react-basics/02-jsx-components/index.html" class="pagination-link" aria-label="3.2 JSX 与组件">
+        <span class="nav-page-text">3.2 JSX 与组件</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

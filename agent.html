@@ -257,6 +257,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#agent-工作规则" id="toc-agent-工作规则" class="nav-link active" data-scroll-target="#agent-工作规则"><span class="header-section-number">1</span> Agent 工作规则</a>
   <ul class="collapse">
   <li><a href="#git-推送安全" id="toc-git-推送安全" class="nav-link" data-scroll-target="#git-推送安全"><span class="header-section-number">1.1</span> Git 推送安全</a></li>
+  <li><a href="#包管理器" id="toc-包管理器" class="nav-link" data-scroll-target="#包管理器"><span class="header-section-number">1.2</span> 包管理器</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -277,6 +278,14 @@ ul.task-list li input[type="checkbox"] {
 <li>敏感数据包括但不限于：密码、API Key、访问令牌、私钥、证书、Cookie、数据库连接字符串、个人身份信息以及包含真实凭据的 <code>.env</code> 文件。</li>
 <li>如果发现敏感数据，应立即停止推送，先删除或替换相关内容，并确认敏感信息已从待推送的 Git 历史中移除。</li>
 <li>不得在日志、提交信息或检查结果中完整输出敏感数据；需要说明问题时只显示脱敏后的内容。</li>
+</ul>
+</section>
+<section id="包管理器" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="包管理器"><span class="header-section-number">1.2</span> 包管理器</h2>
+<ul>
+<li>不要直接使用 <code>npm</code>，统一使用 <code>pnpm</code> 安装依赖、创建项目和执行脚本。</li>
+<li>遇到只提供 <code>npm</code> 示例的文档时，应转换为对应的 <code>pnpm</code> 命令，例如使用 <code>pnpm install</code>、<code>pnpm add</code>、<code>pnpm create</code> 和 <code>pnpm &lt;script&gt;</code>。</li>
+<li>不要生成或提交 <code>package-lock.json</code>；应保留并提交 <code>pnpm-lock.yaml</code>。</li>
 </ul>
 
 

@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="认识 React、组件化和声明式 UI，并使用 Node.js、pnpm 与 Vite 搭建开发环境">
+<meta name="description" content="学习状态放置、Context、Reducer，以及 React 中基础而实用的性能优化方法">
 
-<title>认识 React 与开发环境 – React 学习大纲</title>
+<title>状态管理与性能基础 – React 学习大纲</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -24,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -34,8 +69,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
-<link href="../../../chapters/03-react-basics/01-introduction/01-what-is-react.html" rel="next">
-<link href="../../../chapters/02-foundations/03-basic-exercises.html" rel="prev">
+<link href="../../../chapters/03-react-basics/08-engineering-testing/index.html" rel="next">
+<link href="../../../chapters/03-react-basics/06-routing/index.html" rel="prev">
 <script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
@@ -254,7 +289,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">3. React 学习路线</li><li class="breadcrumb-item"><a href="../../../chapters/03-react-basics/01-introduction/index.html">3.1 认识 React 与开发环境</a></li><li class="breadcrumb-item"><a href="../../../chapters/03-react-basics/01-introduction/index.html">3.1 概览</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">3. React 学习路线</li><li class="breadcrumb-item"><a href="../../../chapters/03-react-basics/07-state-performance/index.html">3.7 状态管理与性能基础</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
@@ -337,7 +372,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../chapters/03-react-basics/01-introduction/index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../../chapters/03-react-basics/01-introduction/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.1 概览</span></a>
   </div>
 </li>
@@ -423,7 +458,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../chapters/03-react-basics/07-state-performance/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../chapters/03-react-basics/07-state-performance/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">3.7 状态管理与性能基础</span></a>
   </div>
 </li>
@@ -445,10 +480,27 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">该页面内容</h2>
    
   <ul>
-  <li><a href="#学习目标" id="toc-学习目标" class="nav-link active" data-scroll-target="#学习目标">学习目标</a></li>
-  <li><a href="#本节内容" id="toc-本节内容" class="nav-link" data-scroll-target="#本节内容">本节内容</a></li>
-  <li><a href="#建议学习顺序" id="toc-建议学习顺序" class="nav-link" data-scroll-target="#建议学习顺序">建议学习顺序</a></li>
-  <li><a href="#最终成果" id="toc-最终成果" class="nav-link" data-scroll-target="#最终成果">最终成果</a></li>
+  <li><a href="#局部状态与共享状态" id="toc-局部状态与共享状态" class="nav-link active" data-scroll-target="#局部状态与共享状态">1. 局部状态与共享状态</a></li>
+  <li><a href="#状态应该放在哪里" id="toc-状态应该放在哪里" class="nav-link" data-scroll-target="#状态应该放在哪里">2. 状态应该放在哪里</a></li>
+  <li><a href="#使用-context-跨层共享数据" id="toc-使用-context-跨层共享数据" class="nav-link" data-scroll-target="#使用-context-跨层共享数据">3. 使用 Context 跨层共享数据</a></li>
+  <li><a href="#使用-usereducer-管理复杂更新" id="toc-使用-usereducer-管理复杂更新" class="nav-link" data-scroll-target="#使用-usereducer-管理复杂更新">4. 使用 useReducer 管理复杂更新</a></li>
+  <li><a href="#context-与-reducer-组合" id="toc-context-与-reducer-组合" class="nav-link" data-scroll-target="#context-与-reducer-组合">5. Context 与 Reducer 组合</a></li>
+  <li><a href="#理解重新渲染" id="toc-理解重新渲染" class="nav-link" data-scroll-target="#理解重新渲染">6. 理解重新渲染</a></li>
+  <li><a href="#memousememo-与-usecallback" id="toc-memousememo-与-usecallback" class="nav-link" data-scroll-target="#memousememo-与-usecallback">7. memo、useMemo 与 useCallback</a>
+  <ul class="collapse">
+  <li><a href="#memo" id="toc-memo" class="nav-link" data-scroll-target="#memo">memo</a></li>
+  <li><a href="#usememo" id="toc-usememo" class="nav-link" data-scroll-target="#usememo">useMemo</a></li>
+  <li><a href="#usecallback" id="toc-usecallback" class="nav-link" data-scroll-target="#usecallback">useCallback</a></li>
+  </ul></li>
+  <li><a href="#先测量再优化" id="toc-先测量再优化" class="nav-link" data-scroll-target="#先测量再优化">8. 先测量，再优化</a></li>
+  <li><a href="#什么时候考虑状态库" id="toc-什么时候考虑状态库" class="nav-link" data-scroll-target="#什么时候考虑状态库">9. 什么时候考虑状态库</a></li>
+  <li><a href="#阶段练习" id="toc-阶段练习" class="nav-link" data-scroll-target="#阶段练习">10. 阶段练习</a>
+  <ul class="collapse">
+  <li><a href="#练习一主题-context" id="toc-练习一主题-context" class="nav-link" data-scroll-target="#练习一主题-context">练习一：主题 Context</a></li>
+  <li><a href="#练习二todo-reducer" id="toc-练习二todo-reducer" class="nav-link" data-scroll-target="#练习二todo-reducer">练习二：Todo Reducer</a></li>
+  <li><a href="#练习三观察渲染" id="toc-练习三观察渲染" class="nav-link" data-scroll-target="#练习三观察渲染">练习三：观察渲染</a></li>
+  </ul></li>
+  <li><a href="#完成检查" id="toc-完成检查" class="nav-link" data-scroll-target="#完成检查">11. 完成检查</a></li>
   <li><a href="#参考资料" id="toc-参考资料" class="nav-link" data-scroll-target="#参考资料">参考资料</a></li>
   </ul>
 </nav>
@@ -457,15 +509,14 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">3. React 学习路线</li><li class="breadcrumb-item"><a href="../../../chapters/03-react-basics/01-introduction/index.html">3.1 认识 React 与开发环境</a></li><li class="breadcrumb-item"><a href="../../../chapters/03-react-basics/01-introduction/index.html">3.1 概览</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">3. React 学习路线</li><li class="breadcrumb-item"><a href="../../../chapters/03-react-basics/07-state-performance/index.html">3.7 状态管理与性能基础</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">认识 React 与开发环境</h1>
-<p class="subtitle lead">第 1 周学习概览</p>
+<h1 class="title">状态管理与性能基础</h1>
 </div>
 
 <div>
   <div class="description">
-    认识 React、组件化和声明式 UI，并使用 Node.js、pnpm 与 Vite 搭建开发环境
+    学习状态放置、Context、Reducer，以及 React 中基础而实用的性能优化方法
   </div>
 </div>
 
@@ -482,106 +533,262 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>这一节是正式学习 React 的起点。我们会先理解 React 解决什么问题，再使用 Vite 创建项目，并沿着浏览器中的页面反向找到 <code>App.jsx</code>、<code>main.jsx</code> 和 <code>index.html</code>。</p>
-<p>完成环境搭建后，不要急着安装路由、状态管理或组件库。第一周最重要的目标，是理解一个最小 React 应用如何运行。</p>
-<section id="学习目标" class="level2">
-<h2 class="anchored" data-anchor-id="学习目标">学习目标</h2>
-<p>完成本节后，你应该能够：</p>
+<p><a href="../../../index.html">返回学习大纲</a></p>
+<p>这一节解决两个常见问题：<strong>状态应该放在哪里</strong>，以及<strong>什么时候才需要性能优化</strong>。先让数据流保持简单，再在有证据时优化，通常比一开始引入复杂工具更可靠。</p>
+<section id="局部状态与共享状态" class="level2">
+<h2 class="anchored" data-anchor-id="局部状态与共享状态">1. 局部状态与共享状态</h2>
+<p>只被一个组件使用的数据，优先放在该组件中：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode jsx code-with-copy"><code class="sourceCode javascriptreact"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { useState } <span class="im">from</span> <span class="st">"react"</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">SearchBox</span>() {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [keyword<span class="op">,</span> setKeyword] <span class="op">=</span> <span class="fu">useState</span>(<span class="st">""</span>)<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;input</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>      <span class="ot">value</span><span class="op">=</span><span class="va">{</span>keyword<span class="va">}</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>      <span class="ot">onChange</span><span class="op">=</span><span class="va">{</span>(<span class="bu">event</span>) <span class="kw">=&gt;</span> <span class="fu">setKeyword</span>(<span class="bu">event</span><span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">value</span>)<span class="va">}</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      <span class="ot">placeholder</span><span class="op">=</span><span class="st">"搜索商品"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">/&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>如果两个兄弟组件需要同一份状态，把状态提升到它们最近的共同父组件，再通过 Props 向下传递：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode jsx code-with-copy"><code class="sourceCode javascriptreact"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">ProductPage</span>() {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [keyword<span class="op">,</span> setKeyword] <span class="op">=</span> <span class="fu">useState</span>(<span class="st">""</span>)<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">&lt;SearchInput</span> <span class="ot">value</span><span class="op">=</span><span class="va">{</span>keyword<span class="va">}</span> <span class="ot">onChange</span><span class="op">=</span><span class="va">{</span>setKeyword<span class="va">}</span> <span class="fu">/&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">&lt;ProductList</span> <span class="ot">keyword</span><span class="op">=</span><span class="va">{</span>keyword<span class="va">}</span> <span class="fu">/&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>“全局状态”不是指必须使用某个状态库，而是指多个相距较远的组件都需要访问的数据，例如当前用户、主题和语言。</p>
+</section>
+<section id="状态应该放在哪里" class="level2">
+<h2 class="anchored" data-anchor-id="状态应该放在哪里">2. 状态应该放在哪里</h2>
+<p>可以按照下面的顺序判断：</p>
+<ol type="1">
+<li>找出哪些组件需要读取或修改这份状态。</li>
+<li>找到它们最近的共同父组件。</li>
+<li>先把状态放到这个父组件中。</li>
+<li>如果 Props 需要跨越很多层，而且中间组件并不使用它，再考虑 Context。</li>
+<li>如果状态更新规则复杂，再考虑 <code>useReducer</code>。</li>
+</ol>
+<p>不要把所有数据都放进全局状态。表单输入、弹窗开关、列表当前页等局部数据，留在离使用位置最近的组件中更容易理解和维护。</p>
+<p>以下数据通常也不需要存入 State：</p>
 <ul>
-<li>说明 React 是什么以及适合解决什么问题</li>
-<li>解释声明式 UI 和组件化的基本思想</li>
-<li>理解单页应用的基本工作方式</li>
-<li>区分 Node.js、pnpm、React 和 Vite 的职责</li>
-<li>使用 Vite 创建 JavaScript 版 React 项目</li>
-<li>说明项目中主要文件和目录的作用</li>
-<li>理解 React 如何挂载到 HTML 根节点</li>
-<li>启动开发服务器、构建项目和预览构建结果</li>
-<li>使用浏览器开发者工具和 React DevTools 检查页面</li>
+<li>能由现有 Props 或 State 计算得到的值</li>
+<li>固定不变的配置</li>
+<li>只用于保存 DOM 节点或计时器编号的值，这类值更适合 <code>useRef</code></li>
 </ul>
 </section>
-<section id="本节内容" class="level2">
-<h2 class="anchored" data-anchor-id="本节内容">本节内容</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>编号</th>
-<th>文章</th>
-<th>重点</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>3.1.1</td>
-<td><a href="../../../chapters/03-react-basics/01-introduction/01-what-is-react.html">React 是什么</a></td>
-<td>React 的职责、适用场景和渐进式采用</td>
-</tr>
-<tr class="even">
-<td>3.1.2</td>
-<td><a href="../../../chapters/03-react-basics/01-introduction/02-declarative-ui.html">声明式 UI</a></td>
-<td>数据与界面的关系、声明式和命令式的区别</td>
-</tr>
-<tr class="odd">
-<td>3.1.3</td>
-<td><a href="../../../chapters/03-react-basics/01-introduction/03-component-thinking.html">组件化思想</a></td>
-<td>组件树、职责、组合和拆分原则</td>
-</tr>
-<tr class="even">
-<td>3.1.4</td>
-<td><a href="../../../chapters/03-react-basics/01-introduction/04-spa-basics.html">单页应用基础</a></td>
-<td>SPA 的加载过程、优点与额外问题</td>
-</tr>
-<tr class="odd">
-<td>3.1.5</td>
-<td><a href="../../../chapters/03-react-basics/01-introduction/05-development-tools.html">开发工具</a></td>
-<td>浏览器、Node.js、pnpm、Vite 和 React DOM</td>
-</tr>
-<tr class="even">
-<td>3.1.6</td>
-<td><a href="../../../chapters/03-react-basics/01-introduction/06-create-vite-project.html">创建 Vite 项目</a></td>
-<td>环境检查、创建、安装和启动项目</td>
-</tr>
-<tr class="odd">
-<td>3.1.7</td>
-<td><a href="../../../chapters/03-react-basics/01-introduction/07-project-structure.html">项目结构</a></td>
-<td>入口文件、组件、样式、静态资源和配置</td>
-</tr>
-<tr class="even">
-<td>3.1.8</td>
-<td><a href="../../../chapters/03-react-basics/01-introduction/08-development-debugging.html">开发、构建与调试</a></td>
-<td>开发脚本、构建、DevTools 和问题排查</td>
-</tr>
-</tbody>
-</table>
+<section id="使用-context-跨层共享数据" class="level2">
+<h2 class="anchored" data-anchor-id="使用-context-跨层共享数据">3. 使用 Context 跨层共享数据</h2>
+<p>Context 可以让后代组件读取共同数据，避免逐层转发 Props。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode jsx code-with-copy"><code class="sourceCode javascriptreact"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { createContext<span class="op">,</span> useContext<span class="op">,</span> useState } <span class="im">from</span> <span class="st">"react"</span><span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> ThemeContext <span class="op">=</span> <span class="fu">createContext</span>(<span class="kw">null</span>)<span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">ThemeProvider</span>({ children }) {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [theme<span class="op">,</span> setTheme] <span class="op">=</span> <span class="fu">useState</span>(<span class="st">"light"</span>)<span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">toggleTheme</span>() {</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setTheme</span>((current) <span class="kw">=&gt;</span> (current <span class="op">===</span> <span class="st">"light"</span> <span class="op">?</span> <span class="st">"dark"</span> <span class="op">:</span> <span class="st">"light"</span>))<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">&lt;ThemeContext.Provider</span> <span class="ot">value</span><span class="op">=</span><span class="va">{</span>{ theme<span class="op">,</span> toggleTheme }<span class="va">}</span><span class="fu">&gt;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>      <span class="va">{</span>children<span class="va">}</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">&lt;/ThemeContext.Provider&gt;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">useTheme</span>() {</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> context <span class="op">=</span> <span class="fu">useContext</span>(ThemeContext)<span class="op">;</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (context <span class="op">===</span> <span class="kw">null</span>) {</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">Error</span>(<span class="st">"useTheme 必须在 ThemeProvider 内使用"</span>)<span class="op">;</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> context<span class="op">;</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>在应用入口包裹 Provider：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode jsx code-with-copy"><code class="sourceCode javascriptreact"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;ThemeProvider&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">&lt;App</span> <span class="fu">/&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;/ThemeProvider&gt;</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>后代组件可以直接读取：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode jsx code-with-copy"><code class="sourceCode javascriptreact"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">ThemeButton</span>() {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> { theme<span class="op">,</span> toggleTheme } <span class="op">=</span> <span class="fu">useTheme</span>()<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return </span><span class="kw">&lt;button</span> <span class="ot">onClick</span><span class="op">=</span><span class="va">{</span>toggleTheme<span class="va">}</span><span class="kw">&gt;</span>当前主题：<span class="va">{</span>theme<span class="va">}</span><span class="kw">&lt;/button&gt;</span><span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Context 适合低频变化、使用范围广的数据。不要仅仅为了少传一层 Props 就使用它。</p>
 </section>
-<section id="建议学习顺序" class="level2">
-<h2 class="anchored" data-anchor-id="建议学习顺序">建议学习顺序</h2>
+<section id="使用-usereducer-管理复杂更新" class="level2">
+<h2 class="anchored" data-anchor-id="使用-usereducer-管理复杂更新">4. 使用 useReducer 管理复杂更新</h2>
+<p>当同一份状态有多种更新动作，或者新状态依赖旧状态时，可以把更新规则集中到 Reducer 中。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode jsx code-with-copy"><code class="sourceCode javascriptreact"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { useReducer } <span class="im">from</span> <span class="st">"react"</span><span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">tasksReducer</span>(tasks<span class="op">,</span> action) {</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">switch</span> (action<span class="op">.</span><span class="at">type</span>) {</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">"added"</span><span class="op">:</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> [</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span>tasks<span class="op">,</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        { <span class="dt">id</span><span class="op">:</span> action<span class="op">.</span><span class="at">id</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> action<span class="op">.</span><span class="at">text</span><span class="op">,</span> <span class="dt">done</span><span class="op">:</span> <span class="kw">false</span> }<span class="op">,</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">"toggled"</span><span class="op">:</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> tasks<span class="op">.</span><span class="fu">map</span>((task) <span class="kw">=&gt;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        task<span class="op">.</span><span class="at">id</span> <span class="op">===</span> action<span class="op">.</span><span class="at">id</span> <span class="op">?</span> { <span class="op">...</span>task<span class="op">,</span> <span class="dt">done</span><span class="op">:</span> <span class="op">!</span>task<span class="op">.</span><span class="at">done</span> } <span class="op">:</span> task<span class="op">,</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>      )<span class="op">;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="st">"deleted"</span><span class="op">:</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> tasks<span class="op">.</span><span class="fu">filter</span>((task) <span class="kw">=&gt;</span> task<span class="op">.</span><span class="at">id</span> <span class="op">!==</span> action<span class="op">.</span><span class="at">id</span>)<span class="op">;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">default</span><span class="op">:</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>      <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">Error</span>(<span class="vs">`未知操作：</span><span class="sc">${</span>action<span class="op">.</span><span class="at">type</span><span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">TodoApp</span>() {</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [tasks<span class="op">,</span> dispatch] <span class="op">=</span> <span class="fu">useReducer</span>(tasksReducer<span class="op">,</span> [])<span class="op">;</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">addTask</span>(text) {</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dispatch</span>({ <span class="dt">type</span><span class="op">:</span> <span class="st">"added"</span><span class="op">,</span> <span class="dt">id</span><span class="op">:</span> crypto<span class="op">.</span><span class="fu">randomUUID</span>()<span class="op">,</span> text })<span class="op">;</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return </span><span class="fu">&lt;TodoList</span> <span class="ot">tasks</span><span class="op">=</span><span class="va">{</span>tasks<span class="va">}</span> <span class="ot">onAdd</span><span class="op">=</span><span class="va">{</span>addTask<span class="va">}</span> <span class="ot">dispatch</span><span class="op">=</span><span class="va">{</span>dispatch<span class="va">}</span> <span class="fu">/&gt;</span><span class="op">;</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Reducer 必须保持纯粹：相同输入应得到相同输出，不应直接修改原数组，也不应在 Reducer 内发送请求。</p>
+</section>
+<section id="context-与-reducer-组合" class="level2">
+<h2 class="anchored" data-anchor-id="context-与-reducer-组合">5. Context 与 Reducer 组合</h2>
+<p>大型组件树可以通过两个 Context 分别共享状态和操作函数：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode jsx code-with-copy"><code class="sourceCode javascriptreact"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> TasksContext <span class="op">=</span> <span class="fu">createContext</span>(<span class="kw">null</span>)<span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> TasksDispatchContext <span class="op">=</span> <span class="fu">createContext</span>(<span class="kw">null</span>)<span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">TasksProvider</span>({ children }) {</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [tasks<span class="op">,</span> dispatch] <span class="op">=</span> <span class="fu">useReducer</span>(tasksReducer<span class="op">,</span> [])<span class="op">;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">&lt;TasksContext.Provider</span> <span class="ot">value</span><span class="op">=</span><span class="va">{</span>tasks<span class="va">}</span><span class="fu">&gt;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">&lt;TasksDispatchContext.Provider</span> <span class="ot">value</span><span class="op">=</span><span class="va">{</span>dispatch<span class="va">}</span><span class="fu">&gt;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">{</span>children<span class="va">}</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">&lt;/TasksDispatchContext.Provider&gt;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">&lt;/TasksContext.Provider&gt;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>这样，展示列表的组件只读取 <code>TasksContext</code>，按钮组件只读取 <code>TasksDispatchContext</code>。更新规则仍集中在 Reducer 中。</p>
+</section>
+<section id="理解重新渲染" class="level2">
+<h2 class="anchored" data-anchor-id="理解重新渲染">6. 理解重新渲染</h2>
+<p>组件通常会在以下情况重新执行：</p>
+<ul>
+<li>自身 State 更新</li>
+<li>父组件重新渲染</li>
+<li>读取的 Context 值变化</li>
+</ul>
+<p>“组件函数重新执行”不等于浏览器中的整个页面都被重建。React 会比较前后结果，只把必要变化提交给 DOM。</p>
+<p>重新渲染本身通常不是问题。先关注代码是否正确、数据流是否清晰。只有当页面确实出现卡顿时，再定位耗时部分。</p>
+</section>
+<section id="memousememo-与-usecallback" class="level2">
+<h2 class="anchored" data-anchor-id="memousememo-与-usecallback">7. memo、useMemo 与 useCallback</h2>
+<section id="memo" class="level3">
+<h3 class="anchored" data-anchor-id="memo">memo</h3>
+<p><code>memo</code> 可以在 Props 没有变化时跳过子组件重新渲染：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode jsx code-with-copy"><code class="sourceCode javascriptreact"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { memo } <span class="im">from</span> <span class="st">"react"</span><span class="op">;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> ProductRow <span class="op">=</span> <span class="fu">memo</span>(<span class="kw">function</span> <span class="fu">ProductRow</span>({ product }) {</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return </span><span class="kw">&lt;li&gt;</span><span class="va">{</span>product<span class="op">.</span><span class="at">name</span><span class="va">}</span><span class="kw">&lt;/li&gt;</span><span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>它更适合渲染成本明显、Props 又经常保持不变的组件。</p>
+</section>
+<section id="usememo" class="level3">
+<h3 class="anchored" data-anchor-id="usememo">useMemo</h3>
+<p><code>useMemo</code> 缓存一次计算结果：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode jsx code-with-copy"><code class="sourceCode javascriptreact"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> visibleProducts <span class="op">=</span> <span class="fu">useMemo</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  () <span class="kw">=&gt;</span> <span class="fu">filterProducts</span>(products<span class="op">,</span> keyword)<span class="op">,</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  [products<span class="op">,</span> keyword]<span class="op">,</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>普通的筛选和计算通常很快。只有计算确实昂贵，或稳定引用对其他优化有帮助时，才需要它。</p>
+</section>
+<section id="usecallback" class="level3">
+<h3 class="anchored" data-anchor-id="usecallback">useCallback</h3>
+<p><code>useCallback</code> 缓存函数引用：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode jsx code-with-copy"><code class="sourceCode javascriptreact"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> handleSelect <span class="op">=</span> <span class="fu">useCallback</span>((id) <span class="kw">=&gt;</span> {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setSelectedId</span>(id)<span class="op">;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>}<span class="op">,</span> [])<span class="op">;</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>它常与 <code>memo</code> 组件配合。单独给所有函数套上 <code>useCallback</code>，可能增加复杂度却没有实际收益。</p>
+</section>
+</section>
+<section id="先测量再优化" class="level2">
+<h2 class="anchored" data-anchor-id="先测量再优化">8. 先测量，再优化</h2>
+<p>推荐的优化顺序：</p>
 <ol type="1">
-<li>按侧边栏顺序阅读八篇文章。</li>
-<li>在阅读 3.1.6 时亲自创建项目，不要只看命令。</li>
-<li>在阅读 3.1.7 时打开真实项目逐个寻找对应文件。</li>
-<li>完成 3.1.8 的练习和检查清单。</li>
-<li>清理 Vite 示例页面，留下自己的学习首页。</li>
+<li>在浏览器中复现卡顿。</li>
+<li>使用 React DevTools Profiler 录制交互。</li>
+<li>找出耗时长或重复渲染多的组件。</li>
+<li>检查是否有不必要的 Effect、过大的组件或昂贵计算。</li>
+<li>只对确认的热点使用缓存或调整状态结构。</li>
+<li>再次测量，确认优化有效。</li>
 </ol>
 </section>
-<section id="最终成果" class="level2">
-<h2 class="anchored" data-anchor-id="最终成果">最终成果</h2>
-<p>本节结束时，你应该拥有一个可以运行的 Vite React 项目，其中包含：</p>
+<section id="什么时候考虑状态库" class="level2">
+<h2 class="anchored" data-anchor-id="什么时候考虑状态库">9. 什么时候考虑状态库</h2>
+<p>掌握 React 自带工具后，可以按问题类型了解这些方案：</p>
 <ul>
-<li>自己编写的页面标题和课程介绍</li>
-<li>本周学习目标列表</li>
-<li>简单但清晰的响应式样式</li>
-<li>没有未使用导入和 Console 错误</li>
-<li>可以成功执行的开发、检查和生产构建命令</li>
+<li><strong>Zustand</strong>：API 简洁，适合共享客户端状态。</li>
+<li><strong>Redux Toolkit</strong>：规则明确、工具完整，适合状态复杂且需要可预测更新的大型应用。</li>
+<li><strong>TanStack Query</strong>：重点解决服务端数据请求、缓存、失效和同步，它并不是普通客户端状态的替代品。</li>
 </ul>
-<p>完成后返回<a href="../../../index.html">学习大纲</a>，继续学习 JSX、组件与 Props。</p>
+<p>不要因为项目开始变大就立即引入状态库。先明确问题是跨组件共享、复杂更新，还是服务端数据缓存，再选择工具。</p>
+</section>
+<section id="阶段练习" class="level2">
+<h2 class="anchored" data-anchor-id="阶段练习">10. 阶段练习</h2>
+<section id="练习一主题-context" class="level3">
+<h3 class="anchored" data-anchor-id="练习一主题-context">练习一：主题 Context</h3>
+<ul>
+<li>创建 <code>ThemeProvider</code></li>
+<li>提供浅色和深色主题切换</li>
+<li>在导航栏和内容区域读取主题</li>
+<li>刷新页面后可以选做本地持久化</li>
+</ul>
+</section>
+<section id="练习二todo-reducer" class="level3">
+<h3 class="anchored" data-anchor-id="练习二todo-reducer">练习二：Todo Reducer</h3>
+<ul>
+<li>用 <code>useReducer</code> 实现新增、完成、编辑和删除</li>
+<li>每一种动作使用清晰的 <code>type</code></li>
+<li>保持 Reducer 纯粹且不直接修改 State</li>
+<li>再尝试用 Context 让多个组件访问任务数据</li>
+</ul>
+</section>
+<section id="练习三观察渲染" class="level3">
+<h3 class="anchored" data-anchor-id="练习三观察渲染">练习三：观察渲染</h3>
+<ul>
+<li>打开 React DevTools Profiler</li>
+<li>录制一次新增和切换任务的操作</li>
+<li>找出哪些组件重新渲染</li>
+<li>只在有明显问题时尝试 <code>memo</code></li>
+</ul>
+</section>
+</section>
+<section id="完成检查" class="level2">
+<h2 class="anchored" data-anchor-id="完成检查">11. 完成检查</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">能判断状态应留在局部、提升到父组件还是放入 Context</label></li>
+<li><label><input type="checkbox">能使用 <code>useContext</code> 读取共享数据</label></li>
+<li><label><input type="checkbox">能使用 <code>useReducer</code> 管理多种状态更新</label></li>
+<li><label><input type="checkbox">理解 State 和 Context 变化为什么会触发重新渲染</label></li>
+<li><label><input type="checkbox">知道 <code>memo</code>、<code>useMemo</code> 和 <code>useCallback</code> 的用途与限制</label></li>
+<li><label><input type="checkbox">会使用 Profiler 先定位问题再优化</label></li>
+</ul>
 </section>
 <section id="参考资料" class="level2">
 <h2 class="anchored" data-anchor-id="参考资料">参考资料</h2>
 <ul>
-<li><a href="https://react.dev/learn/installation">React 官方安装指南</a></li>
-<li><a href="https://react.dev/learn/build-a-react-app-from-scratch">React：从零构建应用</a></li>
-<li><a href="https://react.dev/learn/react-developer-tools">React Developer Tools</a></li>
-<li><a href="https://vite.dev/guide/">Vite 官方入门指南</a></li>
+<li><a href="https://react.dev/learn/managing-state">React：状态管理</a></li>
+<li><a href="https://react.dev/learn/passing-data-deeply-with-context">React：使用 Context 深层传递数据</a></li>
+<li><a href="https://react.dev/learn/scaling-up-with-reducer-and-context">React：使用 Reducer 和 Context 扩展应用</a></li>
+<li><a href="https://react.dev/reference/react/memo">React：memo</a></li>
+<li><a href="https://react.dev/reference/react/useMemo">React：useMemo</a></li>
 </ul>
 
 
@@ -1003,13 +1210,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../../chapters/02-foundations/03-basic-exercises.html" class="pagination-link" aria-label="2.3 基础练习">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">2.3 基础练习</span>
+      <a href="../../../chapters/03-react-basics/06-routing/index.html" class="pagination-link" aria-label="3.6 路由与完整应用结构">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">3.6 路由与完整应用结构</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../chapters/03-react-basics/01-introduction/01-what-is-react.html" class="pagination-link" aria-label="3.1.1 React 是什么">
-        <span class="nav-page-text">3.1.1 React 是什么</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../../chapters/03-react-basics/08-engineering-testing/index.html" class="pagination-link" aria-label="3.8 工程化、测试与部署">
+        <span class="nav-page-text">3.8 工程化、测试与部署</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

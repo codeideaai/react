@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="认识 React、组件化和声明式 UI，并使用 Node.js、pnpm 与 Vite 搭建开发环境">
+<meta name="description" content="学习 pnpm、代码质量、环境变量、组件测试、构建部署和浏览器调试">
 
-<title>认识 React 与开发环境 – React 学习大纲</title>
+<title>工程化、测试与部署 – React 学习大纲</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -24,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -34,8 +69,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
-<link href="../../../chapters/03-react-basics/01-introduction/01-what-is-react.html" rel="next">
-<link href="../../../chapters/02-foundations/03-basic-exercises.html" rel="prev">
+<link href="../../../chapters/03-react-basics/07-state-performance/index.html" rel="prev">
 <script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
@@ -254,7 +288,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">3. React 学习路线</li><li class="breadcrumb-item"><a href="../../../chapters/03-react-basics/01-introduction/index.html">3.1 认识 React 与开发环境</a></li><li class="breadcrumb-item"><a href="../../../chapters/03-react-basics/01-introduction/index.html">3.1 概览</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">3. React 学习路线</li><li class="breadcrumb-item"><a href="../../../chapters/03-react-basics/08-engineering-testing/index.html">3.8 工程化、测试与部署</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
@@ -337,7 +371,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../chapters/03-react-basics/01-introduction/index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../../chapters/03-react-basics/01-introduction/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3.1 概览</span></a>
   </div>
 </li>
@@ -429,7 +463,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../chapters/03-react-basics/08-engineering-testing/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../chapters/03-react-basics/08-engineering-testing/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">3.8 工程化、测试与部署</span></a>
   </div>
 </li>
@@ -445,10 +479,27 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">该页面内容</h2>
    
   <ul>
-  <li><a href="#学习目标" id="toc-学习目标" class="nav-link active" data-scroll-target="#学习目标">学习目标</a></li>
-  <li><a href="#本节内容" id="toc-本节内容" class="nav-link" data-scroll-target="#本节内容">本节内容</a></li>
-  <li><a href="#建议学习顺序" id="toc-建议学习顺序" class="nav-link" data-scroll-target="#建议学习顺序">建议学习顺序</a></li>
-  <li><a href="#最终成果" id="toc-最终成果" class="nav-link" data-scroll-target="#最终成果">最终成果</a></li>
+  <li><a href="#pnpm-与-package.json" id="toc-pnpm-与-package.json" class="nav-link active" data-scroll-target="#pnpm-与-package.json">1. pnpm 与 package.json</a></li>
+  <li><a href="#eslint-与代码格式化" id="toc-eslint-与代码格式化" class="nav-link" data-scroll-target="#eslint-与代码格式化">2. ESLint 与代码格式化</a></li>
+  <li><a href="#环境变量与模式" id="toc-环境变量与模式" class="nav-link" data-scroll-target="#环境变量与模式">3. 环境变量与模式</a></li>
+  <li><a href="#开发环境与生产环境" id="toc-开发环境与生产环境" class="nav-link" data-scroll-target="#开发环境与生产环境">4. 开发环境与生产环境</a></li>
+  <li><a href="#错误边界" id="toc-错误边界" class="nav-link" data-scroll-target="#错误边界">5. 错误边界</a></li>
+  <li><a href="#测试应该关注什么" id="toc-测试应该关注什么" class="nav-link" data-scroll-target="#测试应该关注什么">6. 测试应该关注什么</a></li>
+  <li><a href="#配置-vitest-与-react-testing-library" id="toc-配置-vitest-与-react-testing-library" class="nav-link" data-scroll-target="#配置-vitest-与-react-testing-library">7. 配置 Vitest 与 React Testing Library</a></li>
+  <li><a href="#编写第一个组件测试" id="toc-编写第一个组件测试" class="nav-link" data-scroll-target="#编写第一个组件测试">8. 编写第一个组件测试</a></li>
+  <li><a href="#构建与静态部署" id="toc-构建与静态部署" class="nav-link" data-scroll-target="#构建与静态部署">9. 构建与静态部署</a></li>
+  <li><a href="#使用浏览器调试" id="toc-使用浏览器调试" class="nav-link" data-scroll-target="#使用浏览器调试">10. 使用浏览器调试</a>
+  <ul class="collapse">
+  <li><a href="#console-面板" id="toc-console-面板" class="nav-link" data-scroll-target="#console-面板">Console 面板</a></li>
+  <li><a href="#network-面板" id="toc-network-面板" class="nav-link" data-scroll-target="#network-面板">Network 面板</a></li>
+  </ul></li>
+  <li><a href="#阶段练习" id="toc-阶段练习" class="nav-link" data-scroll-target="#阶段练习">11. 阶段练习</a>
+  <ul class="collapse">
+  <li><a href="#练习一测试待办应用" id="toc-练习一测试待办应用" class="nav-link" data-scroll-target="#练习一测试待办应用">练习一：测试待办应用</a></li>
+  <li><a href="#练习二质量检查" id="toc-练习二质量检查" class="nav-link" data-scroll-target="#练习二质量检查">练习二：质量检查</a></li>
+  <li><a href="#练习三部署" id="toc-练习三部署" class="nav-link" data-scroll-target="#练习三部署">练习三：部署</a></li>
+  </ul></li>
+  <li><a href="#完成检查" id="toc-完成检查" class="nav-link" data-scroll-target="#完成检查">12. 完成检查</a></li>
   <li><a href="#参考资料" id="toc-参考资料" class="nav-link" data-scroll-target="#参考资料">参考资料</a></li>
   </ul>
 </nav>
@@ -457,15 +508,14 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">3. React 学习路线</li><li class="breadcrumb-item"><a href="../../../chapters/03-react-basics/01-introduction/index.html">3.1 认识 React 与开发环境</a></li><li class="breadcrumb-item"><a href="../../../chapters/03-react-basics/01-introduction/index.html">3.1 概览</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">3. React 学习路线</li><li class="breadcrumb-item"><a href="../../../chapters/03-react-basics/08-engineering-testing/index.html">3.8 工程化、测试与部署</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">认识 React 与开发环境</h1>
-<p class="subtitle lead">第 1 周学习概览</p>
+<h1 class="title">工程化、测试与部署</h1>
 </div>
 
 <div>
   <div class="description">
-    认识 React、组件化和声明式 UI，并使用 Node.js、pnpm 与 Vite 搭建开发环境
+    学习 pnpm、代码质量、环境变量、组件测试、构建部署和浏览器调试
   </div>
 </div>
 
@@ -482,106 +532,264 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>这一节是正式学习 React 的起点。我们会先理解 React 解决什么问题，再使用 Vite 创建项目，并沿着浏览器中的页面反向找到 <code>App.jsx</code>、<code>main.jsx</code> 和 <code>index.html</code>。</p>
-<p>完成环境搭建后，不要急着安装路由、状态管理或组件库。第一周最重要的目标，是理解一个最小 React 应用如何运行。</p>
-<section id="学习目标" class="level2">
-<h2 class="anchored" data-anchor-id="学习目标">学习目标</h2>
-<p>完成本节后，你应该能够：</p>
+<p><a href="../../../index.html">返回学习大纲</a></p>
+<p>完成页面功能只是开发的一部分。工程化工具帮助团队保持代码一致，自动化测试降低修改风险，构建与部署则把项目交付给真正的用户。</p>
+<section id="pnpm-与-package.json" class="level2">
+<h2 class="anchored" data-anchor-id="pnpm-与-package.json">1. pnpm 与 package.json</h2>
+<p>项目依赖和常用命令记录在 <code>package.json</code> 中：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"scripts"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"dev"</span><span class="fu">:</span> <span class="st">"vite"</span><span class="fu">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"build"</span><span class="fu">:</span> <span class="st">"vite build"</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"preview"</span><span class="fu">:</span> <span class="st">"vite preview"</span><span class="fu">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"lint"</span><span class="fu">:</span> <span class="st">"eslint ."</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"dependencies"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"react"</span><span class="fu">:</span> <span class="st">"^19.0.0"</span><span class="fu">,</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"react-dom"</span><span class="fu">:</span> <span class="st">"^19.0.0"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>常用命令：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> install</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> dev</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> lint</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> build</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>pnpm install</code> 会根据 <code>package.json</code> 安装依赖，并生成或更新 <code>pnpm-lock.yaml</code>。锁文件用于固定实际安装版本，应当提交到 Git，让本地和持续集成环境获得一致依赖。</p>
+<p>添加运行时依赖和开发依赖：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> add react-router</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> add <span class="at">-D</span> vitest</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="eslint-与代码格式化" class="level2">
+<h2 class="anchored" data-anchor-id="eslint-与代码格式化">2. ESLint 与代码格式化</h2>
+<p>ESLint 负责发现潜在错误和不符合约定的代码。Vite 的 React 模板通常已经包含基础 ESLint 配置，可以执行：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> lint</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>格式化工具负责统一缩进、引号和换行。无论选择编辑器内置格式化还是 Prettier，都建议团队统一配置，并开启“保存时格式化”。</p>
+<p>两者的职责不同：</p>
 <ul>
-<li>说明 React 是什么以及适合解决什么问题</li>
-<li>解释声明式 UI 和组件化的基本思想</li>
-<li>理解单页应用的基本工作方式</li>
-<li>区分 Node.js、pnpm、React 和 Vite 的职责</li>
-<li>使用 Vite 创建 JavaScript 版 React 项目</li>
-<li>说明项目中主要文件和目录的作用</li>
-<li>理解 React 如何挂载到 HTML 根节点</li>
-<li>启动开发服务器、构建项目和预览构建结果</li>
-<li>使用浏览器开发者工具和 React DevTools 检查页面</li>
+<li>ESLint 更关注代码是否存在问题。</li>
+<li>格式化工具更关注代码长什么样。</li>
+</ul>
+<p>提交前至少执行 lint、测试和生产构建，可以尽早发现导入错误、类型错误和构建配置问题。</p>
+</section>
+<section id="环境变量与模式" class="level2">
+<h2 class="anchored" data-anchor-id="环境变量与模式">3. 环境变量与模式</h2>
+<p>Vite 通过 <code>import.meta.env</code> 暴露环境信息：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode jsx code-with-copy"><code class="sourceCode javascriptreact"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> apiBaseUrl <span class="op">=</span> <span class="im">import</span><span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">env</span><span class="op">.</span><span class="at">VITE_API_BASE_URL</span><span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> isDevelopment <span class="op">=</span> <span class="im">import</span><span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">env</span><span class="op">.</span><span class="at">DEV</span><span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> isProduction <span class="op">=</span> <span class="im">import</span><span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">env</span><span class="op">.</span><span class="at">PROD</span><span class="op">;</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>本地 <code>.env.development</code> 可以写开发环境配置：</p>
+<pre class="dotenv"><code>VITE_API_BASE_URL=https://api.example.com</code></pre>
+<p>Vite 只会把以 <code>VITE_</code> 开头的自定义变量暴露给客户端代码。它们会进入浏览器可读取的构建产物，因此<strong>绝对不能存放密码、访问令牌、私钥或其他敏感数据</strong>。真正的秘密应保存在后端或部署平台的服务端密钥配置中。</p>
+<p>常见文件用途：</p>
+<ul>
+<li><code>.env</code>：所有模式共享的默认值</li>
+<li><code>.env.development</code>：开发模式配置</li>
+<li><code>.env.production</code>：生产模式配置</li>
+<li><code>.env.local</code>：仅本机使用，通常加入 <code>.gitignore</code></li>
 </ul>
 </section>
-<section id="本节内容" class="level2">
-<h2 class="anchored" data-anchor-id="本节内容">本节内容</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>编号</th>
-<th>文章</th>
-<th>重点</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>3.1.1</td>
-<td><a href="../../../chapters/03-react-basics/01-introduction/01-what-is-react.html">React 是什么</a></td>
-<td>React 的职责、适用场景和渐进式采用</td>
-</tr>
-<tr class="even">
-<td>3.1.2</td>
-<td><a href="../../../chapters/03-react-basics/01-introduction/02-declarative-ui.html">声明式 UI</a></td>
-<td>数据与界面的关系、声明式和命令式的区别</td>
-</tr>
-<tr class="odd">
-<td>3.1.3</td>
-<td><a href="../../../chapters/03-react-basics/01-introduction/03-component-thinking.html">组件化思想</a></td>
-<td>组件树、职责、组合和拆分原则</td>
-</tr>
-<tr class="even">
-<td>3.1.4</td>
-<td><a href="../../../chapters/03-react-basics/01-introduction/04-spa-basics.html">单页应用基础</a></td>
-<td>SPA 的加载过程、优点与额外问题</td>
-</tr>
-<tr class="odd">
-<td>3.1.5</td>
-<td><a href="../../../chapters/03-react-basics/01-introduction/05-development-tools.html">开发工具</a></td>
-<td>浏览器、Node.js、pnpm、Vite 和 React DOM</td>
-</tr>
-<tr class="even">
-<td>3.1.6</td>
-<td><a href="../../../chapters/03-react-basics/01-introduction/06-create-vite-project.html">创建 Vite 项目</a></td>
-<td>环境检查、创建、安装和启动项目</td>
-</tr>
-<tr class="odd">
-<td>3.1.7</td>
-<td><a href="../../../chapters/03-react-basics/01-introduction/07-project-structure.html">项目结构</a></td>
-<td>入口文件、组件、样式、静态资源和配置</td>
-</tr>
-<tr class="even">
-<td>3.1.8</td>
-<td><a href="../../../chapters/03-react-basics/01-introduction/08-development-debugging.html">开发、构建与调试</a></td>
-<td>开发脚本、构建、DevTools 和问题排查</td>
-</tr>
-</tbody>
-</table>
+<section id="开发环境与生产环境" class="level2">
+<h2 class="anchored" data-anchor-id="开发环境与生产环境">4. 开发环境与生产环境</h2>
+<p>开发服务器重视快速刷新和调试体验：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> dev</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>生产构建会优化并输出静态文件：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> build</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>默认输出在 <code>dist</code> 目录。部署前可在本地预览生产结果：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> preview</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>preview</code> 只用于检查构建结果，不是正式的生产服务器。</p>
 </section>
-<section id="建议学习顺序" class="level2">
-<h2 class="anchored" data-anchor-id="建议学习顺序">建议学习顺序</h2>
+<section id="错误边界" class="level2">
+<h2 class="anchored" data-anchor-id="错误边界">5. 错误边界</h2>
+<p>错误边界可以捕获后代组件渲染阶段的 JavaScript 错误，并显示备用界面，避免整棵页面变成空白。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode jsx code-with-copy"><code class="sourceCode javascriptreact"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Component } <span class="im">from</span> <span class="st">"react"</span><span class="op">;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">class</span> ErrorBoundary <span class="kw">extends</span> Component {</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  state <span class="op">=</span> { <span class="dt">hasError</span><span class="op">:</span> <span class="kw">false</span> }<span class="op">;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">static</span> <span class="fu">getDerivedStateFromError</span>() {</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> { <span class="dt">hasError</span><span class="op">:</span> <span class="kw">true</span> }<span class="op">;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">componentDidCatch</span>(error<span class="op">,</span> info) {</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="st">"页面渲染失败"</span><span class="op">,</span> error<span class="op">,</span> info)<span class="op">;</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">render</span>() {</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="kw">this</span><span class="op">.</span><span class="at">state</span><span class="op">.</span><span class="at">hasError</span>) {</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return </span><span class="kw">&lt;p</span> <span class="ot">role</span><span class="op">=</span><span class="st">"alert"</span><span class="kw">&gt;</span>页面出现问题，请稍后重试。<span class="kw">&lt;/p&gt;</span><span class="op">;</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="at">props</span><span class="op">.</span><span class="at">children</span><span class="op">;</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>使用时包裹可能出错的页面区域：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode jsx code-with-copy"><code class="sourceCode javascriptreact"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;ErrorBoundary&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">&lt;ProductPage</span> <span class="fu">/&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;/ErrorBoundary&gt;</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>错误边界不会捕获事件处理函数、异步回调以及错误边界自身的错误。现代框架或路由库也可能提供页面级错误处理机制，应优先遵循其约定。</p>
+</section>
+<section id="测试应该关注什么" class="level2">
+<h2 class="anchored" data-anchor-id="测试应该关注什么">6. 测试应该关注什么</h2>
+<p>组件测试应尽量模拟用户行为，而不是检查组件内部变量。一个典型测试过程是：</p>
 <ol type="1">
-<li>按侧边栏顺序阅读八篇文章。</li>
-<li>在阅读 3.1.6 时亲自创建项目，不要只看命令。</li>
-<li>在阅读 3.1.7 时打开真实项目逐个寻找对应文件。</li>
-<li>完成 3.1.8 的练习和检查清单。</li>
-<li>清理 Vite 示例页面，留下自己的学习首页。</li>
+<li>渲染组件。</li>
+<li>通过文本、标签或角色找到元素。</li>
+<li>模拟点击或输入。</li>
+<li>断言用户能看到的结果。</li>
 </ol>
+<p>优先使用 <code>getByRole</code>、<code>getByLabelText</code> 等符合可访问性的查询。这样写出的测试更接近真实使用方式，也能推动页面使用正确的语义标签。</p>
 </section>
-<section id="最终成果" class="level2">
-<h2 class="anchored" data-anchor-id="最终成果">最终成果</h2>
-<p>本节结束时，你应该拥有一个可以运行的 Vite React 项目，其中包含：</p>
+<section id="配置-vitest-与-react-testing-library" class="level2">
+<h2 class="anchored" data-anchor-id="配置-vitest-与-react-testing-library">7. 配置 Vitest 与 React Testing Library</h2>
+<p>安装测试依赖：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> add <span class="at">-D</span> vitest jsdom @testing-library/react @testing-library/dom @testing-library/user-event @testing-library/jest-dom</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>在 <code>vite.config.js</code> 中加入测试配置：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { defineConfig } <span class="im">from</span> <span class="st">"vite"</span><span class="op">;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> react <span class="im">from</span> <span class="st">"@vitejs/plugin-react"</span><span class="op">;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="im">default</span> <span class="fu">defineConfig</span>({</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">plugins</span><span class="op">:</span> [<span class="fu">react</span>()]<span class="op">,</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">test</span><span class="op">:</span> {</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">environment</span><span class="op">:</span> <span class="st">"jsdom"</span><span class="op">,</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">setupFiles</span><span class="op">:</span> <span class="st">"./src/test/setup.js"</span><span class="op">,</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>创建 <code>src/test/setup.js</code>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="st">"@testing-library/jest-dom/vitest"</span><span class="op">;</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>在 <code>package.json</code> 的 <code>scripts</code> 中增加：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"scripts"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"test"</span><span class="fu">:</span> <span class="st">"vitest"</span><span class="fu">,</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"test:run"</span><span class="fu">:</span> <span class="st">"vitest run"</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>pnpm test</code> 适合开发时持续监听，<code>pnpm test:run</code> 适合提交前检查和持续集成。</p>
+</section>
+<section id="编写第一个组件测试" class="level2">
+<h2 class="anchored" data-anchor-id="编写第一个组件测试">8. 编写第一个组件测试</h2>
+<p>假设有一个简单计数器：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode jsx code-with-copy"><code class="sourceCode javascriptreact"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { useState } <span class="im">from</span> <span class="st">"react"</span><span class="op">;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">Counter</span>() {</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [count<span class="op">,</span> setCount] <span class="op">=</span> <span class="fu">useState</span>(<span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;section&gt;</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;p&gt;</span>当前数量：<span class="va">{</span>count<span class="va">}</span><span class="kw">&lt;/p&gt;</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;button</span> <span class="ot">onClick</span><span class="op">=</span><span class="va">{</span>() <span class="kw">=&gt;</span> <span class="fu">setCount</span>((value) <span class="kw">=&gt;</span> value <span class="op">+</span> <span class="dv">1</span>)<span class="va">}</span><span class="kw">&gt;</span>增加<span class="kw">&lt;/button&gt;</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/section&gt;</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>测试用户点击后看到的结果：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode jsx code-with-copy"><code class="sourceCode javascriptreact"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { render<span class="op">,</span> <span class="bu">screen</span> } <span class="im">from</span> <span class="st">"@testing-library/react"</span><span class="op">;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> userEvent <span class="im">from</span> <span class="st">"@testing-library/user-event"</span><span class="op">;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { describe<span class="op">,</span> expect<span class="op">,</span> it } <span class="im">from</span> <span class="st">"vitest"</span><span class="op">;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Counter } <span class="im">from</span> <span class="st">"./Counter"</span><span class="op">;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(<span class="st">"Counter"</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">it</span>(<span class="st">"点击按钮后数量增加"</span><span class="op">,</span> <span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> user <span class="op">=</span> userEvent<span class="op">.</span><span class="fu">setup</span>()<span class="op">;</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">render</span>(<span class="fu">&lt;Counter</span> <span class="fu">/&gt;</span>)<span class="op">;</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">await</span> user<span class="op">.</span><span class="fu">click</span>(<span class="bu">screen</span><span class="op">.</span><span class="fu">getByRole</span>(<span class="st">"button"</span><span class="op">,</span> { <span class="dt">name</span><span class="op">:</span> <span class="st">"增加"</span> }))<span class="op">;</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect</span>(<span class="bu">screen</span><span class="op">.</span><span class="fu">getByText</span>(<span class="st">"当前数量：1"</span>))<span class="op">.</span><span class="fu">toBeInTheDocument</span>()<span class="op">;</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>避免断言 State 值或调用组件内部函数。用户并不知道这些实现细节，他们关心的是操作后界面是否正确变化。</p>
+</section>
+<section id="构建与静态部署" class="level2">
+<h2 class="anchored" data-anchor-id="构建与静态部署">9. 构建与静态部署</h2>
+<p>发布前运行完整检查：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> lint</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> test:run</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pnpm</span> build</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>将 <code>dist</code> 目录部署到 GitHub Pages、Cloudflare Pages、Netlify 等静态托管平台即可。</p>
+<p>如果网站部署在域名的子路径下，需要设置 Vite 的 <code>base</code>。例如网站地址是 <code>https://example.github.io/my-app/</code>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="im">default</span> <span class="fu">defineConfig</span>({</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">base</span><span class="op">:</span> <span class="st">"/my-app/"</span><span class="op">,</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">plugins</span><span class="op">:</span> [<span class="fu">react</span>()]<span class="op">,</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>使用客户端路由时，还要让托管平台把未知路径回退到 <code>index.html</code>，或者使用平台支持的路由方案。否则直接刷新详情页可能返回 404。</p>
+</section>
+<section id="使用浏览器调试" class="level2">
+<h2 class="anchored" data-anchor-id="使用浏览器调试">10. 使用浏览器调试</h2>
+<section id="console-面板" class="level3">
+<h3 class="anchored" data-anchor-id="console-面板">Console 面板</h3>
+<p>用于查看：</p>
 <ul>
-<li>自己编写的页面标题和课程介绍</li>
-<li>本周学习目标列表</li>
-<li>简单但清晰的响应式样式</li>
-<li>没有未使用导入和 Console 错误</li>
-<li>可以成功执行的开发、检查和生产构建命令</li>
+<li>JavaScript 异常和警告</li>
+<li>自己添加的日志</li>
+<li>React 的 key、Hook 等开发警告</li>
+<li>资源安全策略或跨域错误</li>
 </ul>
-<p>完成后返回<a href="../../../index.html">学习大纲</a>，继续学习 JSX、组件与 Props。</p>
+<p>看到错误时先阅读第一条有意义的报错，并根据文件名和行号回到源码。</p>
+</section>
+<section id="network-面板" class="level3">
+<h3 class="anchored" data-anchor-id="network-面板">Network 面板</h3>
+<p>用于检查：</p>
+<ul>
+<li>请求 URL、方法和状态码</li>
+<li>请求参数与响应内容</li>
+<li>请求耗时</li>
+<li>是否发生重复请求</li>
+<li>静态资源是否返回 404</li>
+</ul>
+<p>筛选 Fetch/XHR 后重新操作页面，通常能快速判断问题来自前端逻辑、请求参数还是服务端响应。</p>
+</section>
+</section>
+<section id="阶段练习" class="level2">
+<h2 class="anchored" data-anchor-id="阶段练习">11. 阶段练习</h2>
+<section id="练习一测试待办应用" class="level3">
+<h3 class="anchored" data-anchor-id="练习一测试待办应用">练习一：测试待办应用</h3>
+<ul>
+<li>测试新增任务</li>
+<li>测试勾选后状态变化</li>
+<li>测试删除任务</li>
+<li>测试空输入时的校验提示</li>
+</ul>
+</section>
+<section id="练习二质量检查" class="level3">
+<h3 class="anchored" data-anchor-id="练习二质量检查">练习二：质量检查</h3>
+<ul>
+<li>执行 <code>pnpm lint</code> 并修复问题</li>
+<li>执行 <code>pnpm test:run</code></li>
+<li>执行 <code>pnpm build</code></li>
+<li>在 Network 面板检查资源路径</li>
+</ul>
+</section>
+<section id="练习三部署" class="level3">
+<h3 class="anchored" data-anchor-id="练习三部署">练习三：部署</h3>
+<ul>
+<li>设置正确的 Vite <code>base</code></li>
+<li>将仓库连接到静态托管平台</li>
+<li>配置自动构建命令和输出目录</li>
+<li>访问线上首页和详情路由</li>
+</ul>
+</section>
+</section>
+<section id="完成检查" class="level2">
+<h2 class="anchored" data-anchor-id="完成检查">12. 完成检查</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">能使用 pnpm 安装依赖并运行项目脚本</label></li>
+<li><label><input type="checkbox">知道 <code>pnpm-lock.yaml</code> 为什么需要提交</label></li>
+<li><label><input type="checkbox">能区分开发模式与生产构建</label></li>
+<li><label><input type="checkbox">知道客户端环境变量不能保存敏感数据</label></li>
+<li><label><input type="checkbox">能解释错误边界可以处理哪些问题</label></li>
+<li><label><input type="checkbox">能使用 Vitest 和 React Testing Library 编写用户视角的测试</label></li>
+<li><label><input type="checkbox">能构建项目并处理子路径和客户端路由部署问题</label></li>
+<li><label><input type="checkbox">会使用 Console 和 Network 面板定位常见错误</label></li>
+</ul>
 </section>
 <section id="参考资料" class="level2">
 <h2 class="anchored" data-anchor-id="参考资料">参考资料</h2>
 <ul>
-<li><a href="https://react.dev/learn/installation">React 官方安装指南</a></li>
-<li><a href="https://react.dev/learn/build-a-react-app-from-scratch">React：从零构建应用</a></li>
-<li><a href="https://react.dev/learn/react-developer-tools">React Developer Tools</a></li>
-<li><a href="https://vite.dev/guide/">Vite 官方入门指南</a></li>
+<li><a href="https://pnpm.io/installation">pnpm：安装</a></li>
+<li><a href="https://vite.dev/guide/env-and-mode">Vite：环境变量与模式</a></li>
+<li><a href="https://vite.dev/guide/static-deploy">Vite：部署静态站点</a></li>
+<li><a href="https://vitest.dev/guide/">Vitest：开始使用</a></li>
+<li><a href="https://testing-library.com/docs/react-testing-library/intro/">Testing Library：React Testing Library</a></li>
+<li><a href="https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary">React：捕获渲染错误</a></li>
 </ul>
 
 
@@ -1003,14 +1211,11 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../../chapters/02-foundations/03-basic-exercises.html" class="pagination-link" aria-label="2.3 基础练习">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">2.3 基础练习</span>
+      <a href="../../../chapters/03-react-basics/07-state-performance/index.html" class="pagination-link" aria-label="3.7 状态管理与性能基础">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">3.7 状态管理与性能基础</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../chapters/03-react-basics/01-introduction/01-what-is-react.html" class="pagination-link" aria-label="3.1.1 React 是什么">
-        <span class="nav-page-text">3.1.1 React 是什么</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
