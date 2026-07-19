@@ -29,10 +29,24 @@ chapters/
 │   ├── 02-javascript-basics.qmd
 │   └── 03-basic-exercises.qmd
 └── 03-react-basics/
-    └── 01-introduction/
-        ├── index.qmd
-        ├── 01-what-is-react.qmd
-        └── ...
+    ├── 01-introduction/
+    │   ├── index.qmd
+    │   ├── 01-what-is-react.qmd
+    │   └── ...
+    ├── 02-jsx-components/
+    │   └── index.qmd
+    ├── 03-state-forms/
+    │   └── index.qmd
+    ├── 04-effects-data/
+    │   └── index.qmd
+    ├── 05-styling-design/
+    │   └── index.qmd
+    ├── 06-routing/
+    │   └── index.qmd
+    ├── 07-state-performance/
+    │   └── index.qmd
+    └── 08-engineering-testing/
+        └── index.qmd
 ```
 
 - 章节目录使用两位章节号和英文名称，例如 `03-react-basics`

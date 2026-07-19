@@ -1,0 +1,349 @@
+---
+title: "事件、State 与表单"
+subtitle: "第 3 周：让组件响应用户操作"
+description: "学习事件、useState、不可变更新、受控表单、状态提升和单向数据流"
+number-sections: false
+---
+
+静态组件只能显示数据。要实现计数、展开、输入和待办事项，需要用事件接收用户操作，并用 State 保存组件记忆。
+
+## 学习目标
+
+- 正确传递 React 事件处理函数
+- 使用 `useState` 保存组件状态
+- 理解 State 快照和更新后的重新渲染
+- 使用函数式更新处理连续更新
+- 不可变地更新对象和数组
+- 编写受控表单与基础校验
+- 通过状态提升让组件共享数据
+- 理解单向数据流
+
+## 事件处理
+
+React 事件使用驼峰命名并接收函数：
+
+```jsx
+function SaveButton() {
+  function handleClick() {
+    console.log("保存成功");
+  }
+
+  return <button onClick={handleClick}>保存</button>;
+}
+```
+
+传递函数，不要立即调用：
+
+```jsx
+// 正确
+<button onClick={handleClick}>保存</button>
+
+// 错误：渲染时立即执行
+<button onClick={handleClick()}>保存</button>
+```
+
+需要参数时包一层箭头函数：
+
+```jsx
+<button onClick={() => deleteProduct(product.id)}>删除</button>
+```
+
+### 事件对象
+
+```jsx
+function SearchForm() {
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log("提交搜索");
+  }
+
+  return <form onSubmit={handleSubmit}>...</form>;
+}
+```
+
+不要只监听提交按钮点击，表单的 `onSubmit` 同时支持键盘回车。
+
+### 阻止冒泡
+
+```jsx
+function DeleteButton() {
+  return (
+    <button
+      onClick={(event) => {
+        event.stopPropagation();
+        console.log("删除");
+      }}
+    >
+      删除
+    </button>
+  );
+}
+```
+
+只在确实需要时阻止冒泡，避免破坏父级交互。
+
+## `useState`
+
+```jsx
+import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      点击了 {count} 次
+    </button>
+  );
+}
+```
+
+- `count`：当前渲染中的 State
+- `setCount`：请求 React 使用新值重新渲染
+- `0`：初始值
+
+Hooks 必须在组件或自定义 Hook 顶层调用，不能放在条件、循环或普通嵌套函数中。
+
+## State 是一次渲染的快照
+
+调用更新函数不会修改当前事件函数中已经取得的 `count`：
+
+```jsx
+function handleClick() {
+  setCount(count + 1);
+  console.log(count); // 仍是当前渲染的值
+}
+```
+
+React 会安排下一次渲染，新渲染获得新的 State。
+
+### 基于前一个值更新
+
+```jsx
+function handleAddThree() {
+  setCount((current) => current + 1);
+  setCount((current) => current + 1);
+  setCount((current) => current + 1);
+}
+```
+
+当新值依赖前一个值时，使用函数式更新最清晰。
+
+## State 应保持最小
+
+能从现有 Props 或 State 计算出的数据，不要重复保存：
+
+```jsx
+const [firstName, setFirstName] = useState("");
+const [lastName, setLastName] = useState("");
+
+const fullName = `${firstName} ${lastName}`.trim();
+```
+
+重复状态容易不同步。
+
+## 更新对象
+
+不要直接修改：
+
+```jsx
+// 错误
+user.name = "小红";
+setUser(user);
+```
+
+创建新对象：
+
+```jsx
+setUser((current) => ({
+  ...current,
+  name: "小红",
+}));
+```
+
+通用输入处理：
+
+```jsx
+function handleChange(event) {
+  const { name, value } = event.target;
+
+  setForm((current) => ({
+    ...current,
+    [name]: value,
+  }));
+}
+```
+
+## 更新数组
+
+### 添加
+
+```jsx
+setTodos((current) => [...current, newTodo]);
+```
+
+### 删除
+
+```jsx
+setTodos((current) =>
+  current.filter((todo) => todo.id !== todoId)
+);
+```
+
+### 更新其中一项
+
+```jsx
+setTodos((current) =>
+  current.map((todo) =>
+    todo.id === todoId
+      ? { ...todo, completed: !todo.completed }
+      : todo
+  )
+);
+```
+
+避免对 State 数组直接使用 `push`、`splice` 或原地 `sort`。
+
+## 受控表单
+
+```jsx
+function LoginForm() {
+  const [form, setForm] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setForm((current) => ({ ...current, [name]: value }));
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    if (!form.email.includes("@")) {
+      setError("请输入有效邮箱");
+      return;
+    }
+
+    if (form.password.length < 8) {
+      setError("密码至少需要 8 个字符");
+      return;
+    }
+
+    setError("");
+    console.log("提交", form);
+  }
+
+  return (
+    <form onSubmit={handleSubmit} noValidate>
+      <label htmlFor="email">邮箱</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        value={form.email}
+        onChange={handleChange}
+      />
+
+      <label htmlFor="password">密码</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        value={form.password}
+        onChange={handleChange}
+      />
+
+      {error && <p role="alert">{error}</p>}
+      <button type="submit">登录</button>
+    </form>
+  );
+}
+```
+
+输入框的 `value` 来自 State，`onChange` 更新 State，这就是受控输入。
+
+## 状态提升
+
+两个组件需要共享同一数据时，把 State 移到它们最近的共同父组件：
+
+```jsx
+function ProductPage() {
+  const [query, setQuery] = useState("");
+
+  return (
+    <>
+      <SearchInput value={query} onChange={setQuery} />
+      <ProductList query={query} />
+    </>
+  );
+}
+```
+
+```jsx
+function SearchInput({ value, onChange }) {
+  return (
+    <input
+      value={value}
+      onChange={(event) => onChange(event.target.value)}
+    />
+  );
+}
+```
+
+父组件拥有状态，通过 Props 向下传数据和更新函数，这体现单向数据流。
+
+## 综合练习：待办事项
+
+实现以下功能：
+
+- 添加任务
+- 标记完成
+- 删除任务
+- 按全部、未完成、已完成筛选
+- 显示剩余数量
+- 阻止空白任务
+
+建议状态：
+
+```jsx
+const [todos, setTodos] = useState([]);
+const [title, setTitle] = useState("");
+const [filter, setFilter] = useState("all");
+```
+
+可见任务应由现有 State 计算，不要额外保存：
+
+```jsx
+const visibleTodos = todos.filter((todo) => {
+  if (filter === "active") return !todo.completed;
+  if (filter === "completed") return todo.completed;
+  return true;
+});
+```
+
+## 常见问题
+
+- 写成 `onClick={handleClick()}`
+- 在条件中调用 Hook
+- 更新后立即读取旧 State 并误以为更新失败
+- 直接修改对象或数组
+- 保存可以计算得到的冗余 State
+- 子组件复制一份 Props 到 State，导致两个来源不同步
+- 表单只监听按钮点击而忽略提交事件
+
+## 学习检查
+
+- [ ] 能正确处理点击和表单提交
+- [ ] 能解释 State 快照
+- [ ] 能使用函数式更新
+- [ ] 能不可变地更新对象和数组
+- [ ] 能编写受控表单和错误提示
+- [ ] 能通过状态提升共享数据
+
+返回[学习大纲](../../../index.qmd)，继续学习 Effect 与数据请求。
+
+## 参考资料
+
+- [React：响应事件](https://react.dev/learn/responding-to-events)
+- [React：组件的记忆](https://react.dev/learn/state-a-components-memory)
+- [React：共享 State](https://react.dev/learn/sharing-state-between-components)

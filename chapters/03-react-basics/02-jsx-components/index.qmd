@@ -1,0 +1,340 @@
+---
+title: "JSX 与组件"
+subtitle: "第 2 周：使用组件描述和复用界面"
+description: "掌握 JSX、函数组件、Props、children、条件渲染和列表渲染"
+number-sections: false
+---
+
+JSX 让我们在 JavaScript 中描述界面结构，组件则把结构、数据和行为组织成可组合的单元。本节完成后，你将能够把静态页面拆成组件，并通过 Props 复用它们。
+
+## 学习目标
+
+- 写出合法 JSX，并说出它与 HTML 的主要区别
+- 创建、导入和导出函数组件
+- 使用 Props 从父组件向子组件传递数据
+- 使用 `children` 组合组件
+- 根据条件显示不同内容
+- 使用 `map` 渲染列表并选择稳定 `key`
+
+## JSX 基础
+
+JSX 是 JavaScript 的语法扩展：
+
+```jsx
+const heading = <h1>欢迎学习 React</h1>;
+```
+
+浏览器不会直接执行 JSX，Vite 会在开发和构建过程中进行转换。
+
+### 只能返回一个根节点
+
+```jsx
+function Profile() {
+  return (
+    <section>
+      <h1>小明</h1>
+      <p>前端学习者</p>
+    </section>
+  );
+}
+```
+
+不希望增加额外 DOM 时使用 Fragment：
+
+```jsx
+function Profile() {
+  return (
+    <>
+      <h1>小明</h1>
+      <p>前端学习者</p>
+    </>
+  );
+}
+```
+
+### 标签必须闭合
+
+```jsx
+<img src="/avatar.png" alt="用户头像" />
+<input type="text" />
+```
+
+### 属性使用 React 命名
+
+```jsx
+<label htmlFor="email">邮箱</label>
+<input id="email" className="form-input" maxLength={100} />
+```
+
+- `class` → `className`
+- `for` → `htmlFor`
+- 多数多单词属性使用驼峰命名
+
+### JavaScript 表达式放在花括号中
+
+```jsx
+const user = { name: "小明", score: 92 };
+
+function Result() {
+  return (
+    <p>
+      {user.name} 的成绩是 {user.score}，
+      {user.score >= 60 ? "通过" : "未通过"}
+    </p>
+  );
+}
+```
+
+花括号中可以放表达式，不能直接放 `if`、`for` 等语句。
+
+### 样式对象
+
+```jsx
+<p style={{ color: "#2563eb", fontSize: "1.25rem" }}>
+  重点内容
+</p>
+```
+
+内联样式使用对象，CSS 属性采用驼峰命名。复杂样式仍应优先使用 CSS 类。
+
+### 注释
+
+```jsx
+function App() {
+  return (
+    <main>
+      {/* 这是 JSX 注释 */}
+      <h1>课程首页</h1>
+    </main>
+  );
+}
+```
+
+## 函数组件
+
+组件是返回 JSX 的 JavaScript 函数：
+
+```jsx
+function CourseCard() {
+  return (
+    <article>
+      <h2>React 入门</h2>
+      <p>从组件和 Props 开始。</p>
+    </article>
+  );
+}
+```
+
+组件名必须大写，使用时写成标签：
+
+```jsx
+function App() {
+  return <CourseCard />;
+}
+```
+
+组件渲染期间应保持纯粹：相同 Props 和 State 应得到相同 JSX，不要在组件函数顶层发送请求或修改外部变量。
+
+## 拆分、导出与导入
+
+```jsx
+// components/CourseCard.jsx
+export default function CourseCard() {
+  return <article>React 入门</article>;
+}
+```
+
+```jsx
+// App.jsx
+import CourseCard from "./components/CourseCard.jsx";
+
+export default function App() {
+  return <CourseCard />;
+}
+```
+
+命名导出适合一个文件中的多个工具或组件：
+
+```jsx
+export function CourseTitle() {}
+export function CourseMeta() {}
+```
+
+```jsx
+import { CourseTitle, CourseMeta } from "./CourseParts.jsx";
+```
+
+## Props
+
+Props 是父组件传给子组件的数据：
+
+```jsx
+function CourseCard({ title, level, students }) {
+  return (
+    <article>
+      <h2>{title}</h2>
+      <p>难度：{level}</p>
+      <p>{students} 人正在学习</p>
+    </article>
+  );
+}
+```
+
+```jsx
+function App() {
+  return (
+    <CourseCard
+      title="React 入门"
+      level="初级"
+      students={1280}
+    />
+  );
+}
+```
+
+字符串可以直接写，引号外的数字、布尔值、对象和表达式放在 `{}` 中。Props 是只读的，子组件不应修改它们。
+
+### 默认值
+
+```jsx
+function Badge({ text, tone = "neutral" }) {
+  return <span className={`badge badge-${tone}`}>{text}</span>;
+}
+```
+
+## `children` 与组合
+
+标签内部的内容通过 `children` 获得：
+
+```jsx
+function Panel({ title, children }) {
+  return (
+    <section className="panel">
+      <h2>{title}</h2>
+      <div>{children}</div>
+    </section>
+  );
+}
+```
+
+```jsx
+<Panel title="学习提示">
+  <p>每天完成一个小练习。</p>
+  <button type="button">知道了</button>
+</Panel>
+```
+
+组合让父组件决定插槽内容，通常比给组件添加大量配置属性更灵活。
+
+## 条件渲染
+
+### 提前返回
+
+```jsx
+function UserPanel({ user }) {
+  if (!user) {
+    return <p>请先登录</p>;
+  }
+
+  return <p>欢迎，{user.name}</p>;
+}
+```
+
+### 三元运算符
+
+```jsx
+<p>{inStock ? "有货" : "缺货"}</p>
+```
+
+### 逻辑与
+
+```jsx
+{isRecommended && <span>推荐</span>}
+```
+
+条件复杂时提取变量或子组件，不要堆叠多层三元表达式。
+
+## 列表渲染与 `key`
+
+```jsx
+const courses = [
+  { id: "react", title: "React 入门", level: "初级" },
+  { id: "router", title: "React Router", level: "中级" },
+];
+
+function CourseList() {
+  return (
+    <section className="course-grid">
+      {courses.map((course) => (
+        <CourseCard
+          key={course.id}
+          title={course.title}
+          level={course.level}
+        />
+      ))}
+    </section>
+  );
+}
+```
+
+`key` 帮助 React 区分同级列表项。它应该：
+
+- 在同一列表中唯一
+- 在数据生命周期中稳定
+- 优先来自数据库 ID 或业务 ID
+
+不要在列表会插入、删除或排序时使用数组索引，也不要在渲染时生成随机 `key`。
+
+`key` 不会作为普通 Prop 传入组件；组件需要 ID 时应单独传递：
+
+```jsx
+<CourseCard key={course.id} courseId={course.id} />
+```
+
+## 综合练习
+
+完成一个商品列表：
+
+1. 创建可复用 `Button`，支持 `children` 和 `variant`。
+2. 创建 `ProductCard`，通过 Props 接收商品。
+3. 使用 `map` 渲染商品数组。
+4. 有库存时显示购买按钮，缺货时显示提示。
+5. 推荐商品显示徽章。
+6. 使用稳定 ID 作为 `key`。
+
+```jsx
+function Button({ variant = "primary", children }) {
+  return (
+    <button className={`button button-${variant}`} type="button">
+      {children}
+    </button>
+  );
+}
+```
+
+## 常见问题
+
+- 返回多个根节点但没有容器或 Fragment
+- 使用 `class`、`for` 等 HTML 属性名
+- 把事件处理器写成字符串
+- 组件名以小写开头
+- 在子组件中修改 Props
+- 列表缺少 `key` 或使用随机 `key`
+- `map` 回调使用花括号后忘记 `return`
+
+## 学习检查
+
+- [ ] 能写出合法 JSX
+- [ ] 能拆分并导入函数组件
+- [ ] 能通过 Props 显示不同数据
+- [ ] 能使用 `children` 组合内容
+- [ ] 能使用三种条件渲染方式
+- [ ] 能渲染列表并解释稳定 `key`
+
+返回[学习大纲](../../../index.qmd)，继续学习事件、State 与表单。
+
+## 参考资料
+
+- [React：描述 UI](https://react.dev/learn/describing-the-ui)
+- [React：条件渲染](https://react.dev/learn/conditional-rendering)
+- [React：渲染列表](https://react.dev/learn/rendering-lists)

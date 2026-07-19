@@ -49,6 +49,20 @@ website:
                 text: 3.1.7 项目结构
               - href: chapters/03-react-basics/01-introduction/08-development-debugging.qmd
                 text: 3.1.8 开发、构建与调试
+          - href: chapters/03-react-basics/02-jsx-components/index.qmd
+            text: 3.2 JSX 与组件
+          - href: chapters/03-react-basics/03-state-forms/index.qmd
+            text: 3.3 事件、State 与表单
+          - href: chapters/03-react-basics/04-effects-data/index.qmd
+            text: 3.4 副作用与数据请求
+          - href: chapters/03-react-basics/05-styling-design/index.qmd
+            text: 3.5 样式与组件设计
+          - href: chapters/03-react-basics/06-routing/index.qmd
+            text: 3.6 路由与完整应用结构
+          - href: chapters/03-react-basics/07-state-performance/index.qmd
+            text: 3.7 状态管理与性能基础
+          - href: chapters/03-react-basics/08-engineering-testing/index.qmd
+            text: 3.8 工程化、测试与部署
   page-footer:
     center: "使用 Quarto 构建"
 

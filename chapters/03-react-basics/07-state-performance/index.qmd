@@ -1,0 +1,293 @@
+---
+title: "状态管理与性能基础"
+description: "学习状态放置、Context、Reducer，以及 React 中基础而实用的性能优化方法"
+number-sections: false
+---
+
+[返回学习大纲](../../../index.qmd)
+
+这一节解决两个常见问题：**状态应该放在哪里**，以及**什么时候才需要性能优化**。先让数据流保持简单，再在有证据时优化，通常比一开始引入复杂工具更可靠。
+
+## 1. 局部状态与共享状态
+
+只被一个组件使用的数据，优先放在该组件中：
+
+```jsx
+import { useState } from "react";
+
+function SearchBox() {
+  const [keyword, setKeyword] = useState("");
+
+  return (
+    <input
+      value={keyword}
+      onChange={(event) => setKeyword(event.target.value)}
+      placeholder="搜索商品"
+    />
+  );
+}
+```
+
+如果两个兄弟组件需要同一份状态，把状态提升到它们最近的共同父组件，再通过 Props 向下传递：
+
+```jsx
+function ProductPage() {
+  const [keyword, setKeyword] = useState("");
+
+  return (
+    <>
+      <SearchInput value={keyword} onChange={setKeyword} />
+      <ProductList keyword={keyword} />
+    </>
+  );
+}
+```
+
+“全局状态”不是指必须使用某个状态库，而是指多个相距较远的组件都需要访问的数据，例如当前用户、主题和语言。
+
+## 2. 状态应该放在哪里
+
+可以按照下面的顺序判断：
+
+1. 找出哪些组件需要读取或修改这份状态。
+2. 找到它们最近的共同父组件。
+3. 先把状态放到这个父组件中。
+4. 如果 Props 需要跨越很多层，而且中间组件并不使用它，再考虑 Context。
+5. 如果状态更新规则复杂，再考虑 `useReducer`。
+
+不要把所有数据都放进全局状态。表单输入、弹窗开关、列表当前页等局部数据，留在离使用位置最近的组件中更容易理解和维护。
+
+以下数据通常也不需要存入 State：
+
+- 能由现有 Props 或 State 计算得到的值
+- 固定不变的配置
+- 只用于保存 DOM 节点或计时器编号的值，这类值更适合 `useRef`
+
+## 3. 使用 Context 跨层共享数据
+
+Context 可以让后代组件读取共同数据，避免逐层转发 Props。
+
+```jsx
+import { createContext, useContext, useState } from "react";
+
+const ThemeContext = createContext(null);
+
+export function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState("light");
+
+  function toggleTheme() {
+    setTheme((current) => (current === "light" ? "dark" : "light"));
+  }
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+export function useTheme() {
+  const context = useContext(ThemeContext);
+
+  if (context === null) {
+    throw new Error("useTheme 必须在 ThemeProvider 内使用");
+  }
+
+  return context;
+}
+```
+
+在应用入口包裹 Provider：
+
+```jsx
+<ThemeProvider>
+  <App />
+</ThemeProvider>
+```
+
+后代组件可以直接读取：
+
+```jsx
+function ThemeButton() {
+  const { theme, toggleTheme } = useTheme();
+
+  return <button onClick={toggleTheme}>当前主题：{theme}</button>;
+}
+```
+
+Context 适合低频变化、使用范围广的数据。不要仅仅为了少传一层 Props 就使用它。
+
+## 4. 使用 useReducer 管理复杂更新
+
+当同一份状态有多种更新动作，或者新状态依赖旧状态时，可以把更新规则集中到 Reducer 中。
+
+```jsx
+import { useReducer } from "react";
+
+function tasksReducer(tasks, action) {
+  switch (action.type) {
+    case "added":
+      return [
+        ...tasks,
+        { id: action.id, text: action.text, done: false },
+      ];
+    case "toggled":
+      return tasks.map((task) =>
+        task.id === action.id ? { ...task, done: !task.done } : task,
+      );
+    case "deleted":
+      return tasks.filter((task) => task.id !== action.id);
+    default:
+      throw new Error(`未知操作：${action.type}`);
+  }
+}
+
+function TodoApp() {
+  const [tasks, dispatch] = useReducer(tasksReducer, []);
+
+  function addTask(text) {
+    dispatch({ type: "added", id: crypto.randomUUID(), text });
+  }
+
+  return <TodoList tasks={tasks} onAdd={addTask} dispatch={dispatch} />;
+}
+```
+
+Reducer 必须保持纯粹：相同输入应得到相同输出，不应直接修改原数组，也不应在 Reducer 内发送请求。
+
+## 5. Context 与 Reducer 组合
+
+大型组件树可以通过两个 Context 分别共享状态和操作函数：
+
+```jsx
+const TasksContext = createContext(null);
+const TasksDispatchContext = createContext(null);
+
+function TasksProvider({ children }) {
+  const [tasks, dispatch] = useReducer(tasksReducer, []);
+
+  return (
+    <TasksContext.Provider value={tasks}>
+      <TasksDispatchContext.Provider value={dispatch}>
+        {children}
+      </TasksDispatchContext.Provider>
+    </TasksContext.Provider>
+  );
+}
+```
+
+这样，展示列表的组件只读取 `TasksContext`，按钮组件只读取 `TasksDispatchContext`。更新规则仍集中在 Reducer 中。
+
+## 6. 理解重新渲染
+
+组件通常会在以下情况重新执行：
+
+- 自身 State 更新
+- 父组件重新渲染
+- 读取的 Context 值变化
+
+“组件函数重新执行”不等于浏览器中的整个页面都被重建。React 会比较前后结果，只把必要变化提交给 DOM。
+
+重新渲染本身通常不是问题。先关注代码是否正确、数据流是否清晰。只有当页面确实出现卡顿时，再定位耗时部分。
+
+## 7. memo、useMemo 与 useCallback
+
+### memo
+
+`memo` 可以在 Props 没有变化时跳过子组件重新渲染：
+
+```jsx
+import { memo } from "react";
+
+const ProductRow = memo(function ProductRow({ product }) {
+  return <li>{product.name}</li>;
+});
+```
+
+它更适合渲染成本明显、Props 又经常保持不变的组件。
+
+### useMemo
+
+`useMemo` 缓存一次计算结果：
+
+```jsx
+const visibleProducts = useMemo(
+  () => filterProducts(products, keyword),
+  [products, keyword],
+);
+```
+
+普通的筛选和计算通常很快。只有计算确实昂贵，或稳定引用对其他优化有帮助时，才需要它。
+
+### useCallback
+
+`useCallback` 缓存函数引用：
+
+```jsx
+const handleSelect = useCallback((id) => {
+  setSelectedId(id);
+}, []);
+```
+
+它常与 `memo` 组件配合。单独给所有函数套上 `useCallback`，可能增加复杂度却没有实际收益。
+
+## 8. 先测量，再优化
+
+推荐的优化顺序：
+
+1. 在浏览器中复现卡顿。
+2. 使用 React DevTools Profiler 录制交互。
+3. 找出耗时长或重复渲染多的组件。
+4. 检查是否有不必要的 Effect、过大的组件或昂贵计算。
+5. 只对确认的热点使用缓存或调整状态结构。
+6. 再次测量，确认优化有效。
+
+## 9. 什么时候考虑状态库
+
+掌握 React 自带工具后，可以按问题类型了解这些方案：
+
+- **Zustand**：API 简洁，适合共享客户端状态。
+- **Redux Toolkit**：规则明确、工具完整，适合状态复杂且需要可预测更新的大型应用。
+- **TanStack Query**：重点解决服务端数据请求、缓存、失效和同步，它并不是普通客户端状态的替代品。
+
+不要因为项目开始变大就立即引入状态库。先明确问题是跨组件共享、复杂更新，还是服务端数据缓存，再选择工具。
+
+## 10. 阶段练习
+
+### 练习一：主题 Context
+
+- 创建 `ThemeProvider`
+- 提供浅色和深色主题切换
+- 在导航栏和内容区域读取主题
+- 刷新页面后可以选做本地持久化
+
+### 练习二：Todo Reducer
+
+- 用 `useReducer` 实现新增、完成、编辑和删除
+- 每一种动作使用清晰的 `type`
+- 保持 Reducer 纯粹且不直接修改 State
+- 再尝试用 Context 让多个组件访问任务数据
+
+### 练习三：观察渲染
+
+- 打开 React DevTools Profiler
+- 录制一次新增和切换任务的操作
+- 找出哪些组件重新渲染
+- 只在有明显问题时尝试 `memo`
+
+## 11. 完成检查
+
+- [ ] 能判断状态应留在局部、提升到父组件还是放入 Context
+- [ ] 能使用 `useContext` 读取共享数据
+- [ ] 能使用 `useReducer` 管理多种状态更新
+- [ ] 理解 State 和 Context 变化为什么会触发重新渲染
+- [ ] 知道 `memo`、`useMemo` 和 `useCallback` 的用途与限制
+- [ ] 会使用 Profiler 先定位问题再优化
+
+## 参考资料
+
+- [React：状态管理](https://react.dev/learn/managing-state)
+- [React：使用 Context 深层传递数据](https://react.dev/learn/passing-data-deeply-with-context)
+- [React：使用 Reducer 和 Context 扩展应用](https://react.dev/learn/scaling-up-with-reducer-and-context)
+- [React：memo](https://react.dev/reference/react/memo)
+- [React：useMemo](https://react.dev/reference/react/useMemo)

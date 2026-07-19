@@ -22,7 +22,7 @@ react-first-app/
 ├── eslint.config.js
 ├── index.html
 ├── package.json
-├── package-lock.json
+├── pnpm-lock.yaml
 └── vite.config.js
 ```
 
@@ -54,15 +54,15 @@ react-first-app/
 
 - `dependencies`：应用运行所需的包
 - `devDependencies`：开发、检查和构建工具
-- `scripts`：通过 `npm run 名称` 执行的命令
+- `scripts`：通过 `pnpm <名称>` 执行的命令
 
-## `package-lock.json`
+## `pnpm-lock.yaml`
 
 锁文件记录依赖树的具体版本，帮助不同环境得到一致安装结果。它通常应该提交到 Git，不要手动编辑或随意删除。
 
 ## `node_modules`
 
-`npm install` 会生成 `node_modules`：
+`pnpm install` 会生成 `node_modules`：
 
 - 保存已安装依赖
 - 文件数量很多

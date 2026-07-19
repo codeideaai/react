@@ -60,7 +60,7 @@ React 本质上仍然是 JavaScript。需要熟悉以下内容。
 - React 是什么，适合解决什么问题
 - 单页应用（SPA）的基本概念
 - 声明式编程与命令式 DOM 操作的区别
-- 安装 Node.js，认识 npm
+- 安装 Node.js，认识 pnpm
 - 使用 Vite 创建 React 项目
 - 理解项目中的主要文件：
   - `package.json`
@@ -80,7 +80,7 @@ React 本质上仍然是 JavaScript。需要熟悉以下内容。
 
 能够独立创建并运行 React 项目，知道浏览器中显示的内容是从哪里渲染出来的。
 
-### JSX 与组件（第 2 周）
+### [JSX 与组件（第 2 周）](chapters/03-react-basics/02-jsx-components/index.qmd)
 
 #### 学习内容
 
@@ -108,7 +108,7 @@ React 本质上仍然是 JavaScript。需要熟悉以下内容。
 
 能够把一个页面拆分成多个组件，并通过 Props 复用组件。
 
-### 事件、State 与表单（第 3 周）
+### [事件、State 与表单（第 3 周）](chapters/03-react-basics/03-state-forms/index.qmd)
 
 #### 学习内容
 
@@ -133,7 +133,7 @@ React 本质上仍然是 JavaScript。需要熟悉以下内容。
 
 能够让页面响应用户操作，并理解“数据变化驱动页面更新”。
 
-### 副作用与数据请求（第 4 周）
+### [副作用与数据请求（第 4 周）](chapters/03-react-basics/04-effects-data/index.qmd)
 
 #### 学习内容
 
@@ -157,7 +157,7 @@ React 本质上仍然是 JavaScript。需要熟悉以下内容。
 
 能够从后端获取数据，并完整处理请求过程中的各种页面状态。
 
-### 样式与组件设计（第 5 周）
+### [样式与组件设计（第 5 周）](chapters/03-react-basics/05-styling-design/index.qmd)
 
 #### 学习内容
 
@@ -180,7 +180,7 @@ React 本质上仍然是 JavaScript。需要熟悉以下内容。
 
 能够编写结构清晰、样式可维护、具有一定复用性的组件。
 
-### 路由与完整应用结构（第 6 周）
+### [路由与完整应用结构（第 6 周）](chapters/03-react-basics/06-routing/index.qmd)
 
 #### 学习内容
 
@@ -204,7 +204,7 @@ React 本质上仍然是 JavaScript。需要熟悉以下内容。
 
 能够开发具有多个页面、公共布局和详情路由的 React 单页应用。
 
-### 状态管理与性能基础（第 7 周）
+### [状态管理与性能基础（第 7 周）](chapters/03-react-basics/07-state-performance/index.qmd)
 
 #### 学习内容
 
@@ -232,11 +232,11 @@ React 本质上仍然是 JavaScript。需要熟悉以下内容。
 
 能够根据状态的使用范围选择合适的位置，并理解基础性能问题。
 
-### 工程化、测试与部署（第 8 周）
+### [工程化、测试与部署（第 8 周）](chapters/03-react-basics/08-engineering-testing/index.qmd)
 
 #### 学习内容
 
-- npm 包和 `package.json` 脚本
+- pnpm 包管理和 `package.json` 脚本
 - ESLint 和代码格式化
 - 环境变量
 - 开发环境与生产环境

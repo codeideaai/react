@@ -1,0 +1,333 @@
+---
+title: "工程化、测试与部署"
+description: "学习 pnpm、代码质量、环境变量、组件测试、构建部署和浏览器调试"
+number-sections: false
+---
+
+[返回学习大纲](../../../index.qmd)
+
+完成页面功能只是开发的一部分。工程化工具帮助团队保持代码一致，自动化测试降低修改风险，构建与部署则把项目交付给真正的用户。
+
+## 1. pnpm 与 package.json
+
+项目依赖和常用命令记录在 `package.json` 中：
+
+```json
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
+```
+
+常用命令：
+
+```bash
+pnpm install
+pnpm dev
+pnpm lint
+pnpm build
+```
+
+`pnpm install` 会根据 `package.json` 安装依赖，并生成或更新 `pnpm-lock.yaml`。锁文件用于固定实际安装版本，应当提交到 Git，让本地和持续集成环境获得一致依赖。
+
+添加运行时依赖和开发依赖：
+
+```bash
+pnpm add react-router
+pnpm add -D vitest
+```
+
+## 2. ESLint 与代码格式化
+
+ESLint 负责发现潜在错误和不符合约定的代码。Vite 的 React 模板通常已经包含基础 ESLint 配置，可以执行：
+
+```bash
+pnpm lint
+```
+
+格式化工具负责统一缩进、引号和换行。无论选择编辑器内置格式化还是 Prettier，都建议团队统一配置，并开启“保存时格式化”。
+
+两者的职责不同：
+
+- ESLint 更关注代码是否存在问题。
+- 格式化工具更关注代码长什么样。
+
+提交前至少执行 lint、测试和生产构建，可以尽早发现导入错误、类型错误和构建配置问题。
+
+## 3. 环境变量与模式
+
+Vite 通过 `import.meta.env` 暴露环境信息：
+
+```jsx
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+const isDevelopment = import.meta.env.DEV;
+const isProduction = import.meta.env.PROD;
+```
+
+本地 `.env.development` 可以写开发环境配置：
+
+```dotenv
+VITE_API_BASE_URL=https://api.example.com
+```
+
+Vite 只会把以 `VITE_` 开头的自定义变量暴露给客户端代码。它们会进入浏览器可读取的构建产物，因此**绝对不能存放密码、访问令牌、私钥或其他敏感数据**。真正的秘密应保存在后端或部署平台的服务端密钥配置中。
+
+常见文件用途：
+
+- `.env`：所有模式共享的默认值
+- `.env.development`：开发模式配置
+- `.env.production`：生产模式配置
+- `.env.local`：仅本机使用，通常加入 `.gitignore`
+
+## 4. 开发环境与生产环境
+
+开发服务器重视快速刷新和调试体验：
+
+```bash
+pnpm dev
+```
+
+生产构建会优化并输出静态文件：
+
+```bash
+pnpm build
+```
+
+默认输出在 `dist` 目录。部署前可在本地预览生产结果：
+
+```bash
+pnpm preview
+```
+
+`preview` 只用于检查构建结果，不是正式的生产服务器。
+
+## 5. 错误边界
+
+错误边界可以捕获后代组件渲染阶段的 JavaScript 错误，并显示备用界面，避免整棵页面变成空白。
+
+```jsx
+import { Component } from "react";
+
+export class ErrorBoundary extends Component {
+  state = { hasError: false };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    console.error("页面渲染失败", error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <p role="alert">页面出现问题，请稍后重试。</p>;
+    }
+
+    return this.props.children;
+  }
+}
+```
+
+使用时包裹可能出错的页面区域：
+
+```jsx
+<ErrorBoundary>
+  <ProductPage />
+</ErrorBoundary>
+```
+
+错误边界不会捕获事件处理函数、异步回调以及错误边界自身的错误。现代框架或路由库也可能提供页面级错误处理机制，应优先遵循其约定。
+
+## 6. 测试应该关注什么
+
+组件测试应尽量模拟用户行为，而不是检查组件内部变量。一个典型测试过程是：
+
+1. 渲染组件。
+2. 通过文本、标签或角色找到元素。
+3. 模拟点击或输入。
+4. 断言用户能看到的结果。
+
+优先使用 `getByRole`、`getByLabelText` 等符合可访问性的查询。这样写出的测试更接近真实使用方式，也能推动页面使用正确的语义标签。
+
+## 7. 配置 Vitest 与 React Testing Library
+
+安装测试依赖：
+
+```bash
+pnpm add -D vitest jsdom @testing-library/react @testing-library/dom @testing-library/user-event @testing-library/jest-dom
+```
+
+在 `vite.config.js` 中加入测试配置：
+
+```js
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    environment: "jsdom",
+    setupFiles: "./src/test/setup.js",
+  },
+});
+```
+
+创建 `src/test/setup.js`：
+
+```js
+import "@testing-library/jest-dom/vitest";
+```
+
+在 `package.json` 的 `scripts` 中增加：
+
+```json
+{
+  "scripts": {
+    "test": "vitest",
+    "test:run": "vitest run"
+  }
+}
+```
+
+`pnpm test` 适合开发时持续监听，`pnpm test:run` 适合提交前检查和持续集成。
+
+## 8. 编写第一个组件测试
+
+假设有一个简单计数器：
+
+```jsx
+import { useState } from "react";
+
+export function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <section>
+      <p>当前数量：{count}</p>
+      <button onClick={() => setCount((value) => value + 1)}>增加</button>
+    </section>
+  );
+}
+```
+
+测试用户点击后看到的结果：
+
+```jsx
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { describe, expect, it } from "vitest";
+import { Counter } from "./Counter";
+
+describe("Counter", () => {
+  it("点击按钮后数量增加", async () => {
+    const user = userEvent.setup();
+    render(<Counter />);
+
+    await user.click(screen.getByRole("button", { name: "增加" }));
+
+    expect(screen.getByText("当前数量：1")).toBeInTheDocument();
+  });
+});
+```
+
+避免断言 State 值或调用组件内部函数。用户并不知道这些实现细节，他们关心的是操作后界面是否正确变化。
+
+## 9. 构建与静态部署
+
+发布前运行完整检查：
+
+```bash
+pnpm lint
+pnpm test:run
+pnpm build
+```
+
+将 `dist` 目录部署到 GitHub Pages、Cloudflare Pages、Netlify 等静态托管平台即可。
+
+如果网站部署在域名的子路径下，需要设置 Vite 的 `base`。例如网站地址是 `https://example.github.io/my-app/`：
+
+```js
+export default defineConfig({
+  base: "/my-app/",
+  plugins: [react()],
+});
+```
+
+使用客户端路由时，还要让托管平台把未知路径回退到 `index.html`，或者使用平台支持的路由方案。否则直接刷新详情页可能返回 404。
+
+## 10. 使用浏览器调试
+
+### Console 面板
+
+用于查看：
+
+- JavaScript 异常和警告
+- 自己添加的日志
+- React 的 key、Hook 等开发警告
+- 资源安全策略或跨域错误
+
+看到错误时先阅读第一条有意义的报错，并根据文件名和行号回到源码。
+
+### Network 面板
+
+用于检查：
+
+- 请求 URL、方法和状态码
+- 请求参数与响应内容
+- 请求耗时
+- 是否发生重复请求
+- 静态资源是否返回 404
+
+筛选 Fetch/XHR 后重新操作页面，通常能快速判断问题来自前端逻辑、请求参数还是服务端响应。
+
+## 11. 阶段练习
+
+### 练习一：测试待办应用
+
+- 测试新增任务
+- 测试勾选后状态变化
+- 测试删除任务
+- 测试空输入时的校验提示
+
+### 练习二：质量检查
+
+- 执行 `pnpm lint` 并修复问题
+- 执行 `pnpm test:run`
+- 执行 `pnpm build`
+- 在 Network 面板检查资源路径
+
+### 练习三：部署
+
+- 设置正确的 Vite `base`
+- 将仓库连接到静态托管平台
+- 配置自动构建命令和输出目录
+- 访问线上首页和详情路由
+
+## 12. 完成检查
+
+- [ ] 能使用 pnpm 安装依赖并运行项目脚本
+- [ ] 知道 `pnpm-lock.yaml` 为什么需要提交
+- [ ] 能区分开发模式与生产构建
+- [ ] 知道客户端环境变量不能保存敏感数据
+- [ ] 能解释错误边界可以处理哪些问题
+- [ ] 能使用 Vitest 和 React Testing Library 编写用户视角的测试
+- [ ] 能构建项目并处理子路径和客户端路由部署问题
+- [ ] 会使用 Console 和 Network 面板定位常见错误
+
+## 参考资料
+
+- [pnpm：安装](https://pnpm.io/installation)
+- [Vite：环境变量与模式](https://vite.dev/guide/env-and-mode)
+- [Vite：部署静态站点](https://vite.dev/guide/static-deploy)
+- [Vitest：开始使用](https://vitest.dev/guide/)
+- [Testing Library：React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- [React：捕获渲染错误](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary)

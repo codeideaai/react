@@ -1,7 +1,7 @@
 ---
 title: "认识 React 与开发环境"
 subtitle: "第 1 周学习概览"
-description: "认识 React、组件化和声明式 UI，并使用 Node.js、npm 与 Vite 搭建开发环境"
+description: "认识 React、组件化和声明式 UI，并使用 Node.js、pnpm 与 Vite 搭建开发环境"
 number-sections: false
 ---
 
@@ -16,7 +16,7 @@ number-sections: false
 - 说明 React 是什么以及适合解决什么问题
 - 解释声明式 UI 和组件化的基本思想
 - 理解单页应用的基本工作方式
-- 区分 Node.js、npm、React 和 Vite 的职责
+- 区分 Node.js、pnpm、React 和 Vite 的职责
 - 使用 Vite 创建 JavaScript 版 React 项目
 - 说明项目中主要文件和目录的作用
 - 理解 React 如何挂载到 HTML 根节点
@@ -31,7 +31,7 @@ number-sections: false
 | 3.1.2 | [声明式 UI](02-declarative-ui.qmd) | 数据与界面的关系、声明式和命令式的区别 |
 | 3.1.3 | [组件化思想](03-component-thinking.qmd) | 组件树、职责、组合和拆分原则 |
 | 3.1.4 | [单页应用基础](04-spa-basics.qmd) | SPA 的加载过程、优点与额外问题 |
-| 3.1.5 | [开发工具](05-development-tools.qmd) | 浏览器、Node.js、npm、Vite 和 React DOM |
+| 3.1.5 | [开发工具](05-development-tools.qmd) | 浏览器、Node.js、pnpm、Vite 和 React DOM |
 | 3.1.6 | [创建 Vite 项目](06-create-vite-project.qmd) | 环境检查、创建、安装和启动项目 |
 | 3.1.7 | [项目结构](07-project-structure.qmd) | 入口文件、组件、样式、静态资源和配置 |
 | 3.1.8 | [开发、构建与调试](08-development-debugging.qmd) | 开发脚本、构建、DevTools 和问题排查 |

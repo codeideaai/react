@@ -1,0 +1,393 @@
+---
+title: "副作用与数据请求"
+subtitle: "第 4 周：同步外部系统并处理异步数据"
+description: "掌握 useEffect、依赖、清理、fetch、请求状态和自定义 Hook"
+number-sections: false
+---
+
+Effect 用于让 React 组件与外部系统同步，例如网络、浏览器 API、计时器或第三方组件。它不是处理所有逻辑的通用工具；能在渲染期间计算或由用户事件触发的逻辑，通常不需要 Effect。
+
+## 学习目标
+
+- 区分渲染逻辑、事件逻辑和 Effect
+- 正确声明 `useEffect` 和依赖数组
+- 编写清理函数
+- 解释 Strict Mode 开发检查
+- 使用 `fetch` 处理加载、成功、空数据和错误状态
+- 取消过期请求，避免竞态问题
+- 把重复同步逻辑提取成自定义 Hook
+
+## 什么是副作用
+
+组件渲染应该是纯计算：读取 Props 和 State，返回 JSX。
+
+以下操作会与组件外部环境交互：
+
+- 建立网络连接
+- 订阅浏览器事件
+- 启动计时器
+- 控制视频播放
+- 操作第三方地图或图表
+- 发起与页面显示相关的数据请求
+
+这些同步过程适合 Effect。
+
+## 事件与 Effect
+
+事件由特定用户操作触发：
+
+```jsx
+function BuyButton({ productId }) {
+  async function handleClick() {
+    await fetch(`/api/products/${productId}/buy`, {
+      method: "POST",
+    });
+  }
+
+  return <button onClick={handleClick}>购买</button>;
+}
+```
+
+购买不能放在 Effect 中，否则组件重新出现时可能重复执行。
+
+Effect 由组件渲染和依赖变化触发：
+
+```jsx
+useEffect(() => {
+  document.title = `购物车（${count}）`;
+}, [count]);
+```
+
+## 可能不需要 Effect
+
+不要用 Effect 保存计算结果：
+
+```jsx
+// 不推荐
+const [fullName, setFullName] = useState("");
+
+useEffect(() => {
+  setFullName(`${firstName} ${lastName}`);
+}, [firstName, lastName]);
+```
+
+直接在渲染中计算：
+
+```jsx
+const fullName = `${firstName} ${lastName}`;
+```
+
+常见不需要 Effect 的情况：
+
+- 根据 Props/State 过滤或排序数据
+- 用户点击后提交请求
+- 根据已有值计算显示文本
+- 在父子组件之间通知状态变化
+
+## `useEffect` 基本写法
+
+```jsx
+import { useEffect } from "react";
+
+function Clock() {
+  useEffect(() => {
+    console.log("组件已显示");
+  }, []);
+
+  return <p>时钟</p>;
+}
+```
+
+执行时机：React 提交 DOM 更新后运行 Effect。
+
+### 没有依赖数组
+
+```jsx
+useEffect(() => {
+  // 每次提交后执行
+});
+```
+
+### 空依赖数组
+
+```jsx
+useEffect(() => {
+  // 组件加入页面后开始同步
+}, []);
+```
+
+### 指定依赖
+
+```jsx
+useEffect(() => {
+  const connection = createConnection(roomId);
+  connection.connect();
+
+  return () => connection.disconnect();
+}, [roomId]);
+```
+
+`roomId` 改变时，React 先清理旧连接，再建立新连接。
+
+## 依赖数组
+
+依赖不是由开发者随意选择。Effect 读取的组件内响应式值应该出现在依赖中：
+
+```jsx
+function ChatRoom({ roomId, serverUrl }) {
+  useEffect(() => {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () => connection.disconnect();
+  }, [serverUrl, roomId]);
+}
+```
+
+不要通过关闭 ESLint 规则隐藏依赖问题。先检查：
+
+- 这个 Effect 是否必要
+- 是否混合了多个独立同步过程
+- 对象或函数是否每次渲染都重新创建
+- 某段逻辑是否应该移到事件处理器
+
+## 清理函数
+
+Effect 可以返回清理函数：
+
+```jsx
+useEffect(() => {
+  function handleResize() {
+    console.log(window.innerWidth);
+  }
+
+  window.addEventListener("resize", handleResize);
+
+  return () => {
+    window.removeEventListener("resize", handleResize);
+  };
+}, []);
+```
+
+需要清理的常见资源：
+
+- 事件监听
+- 计时器
+- WebSocket 或聊天连接
+- 订阅
+- 未完成的网络请求
+
+### 计时器
+
+```jsx
+useEffect(() => {
+  const timerId = window.setInterval(() => {
+    setSeconds((current) => current + 1);
+  }, 1000);
+
+  return () => window.clearInterval(timerId);
+}, []);
+```
+
+## Strict Mode
+
+开发环境中，Strict Mode 会执行额外的挂载、清理、再挂载检查，用来发现缺少清理的 Effect。
+
+如果 Effect 执行两次造成明显问题，不要只删除 Strict Mode。正确问题通常是：
+
+- Effect 不应该执行该操作
+- 缺少清理
+- 请求没有处理过期响应
+- 逻辑并非幂等
+
+生产构建不会进行相同的开发检查。
+
+## 使用 `fetch` 请求数据
+
+```jsx
+import { useEffect, useState } from "react";
+
+function UserList() {
+  const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function loadUsers() {
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch("/api/users", {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error(`请求失败：${response.status}`);
+        }
+
+        const data = await response.json();
+        setUsers(data);
+      } catch (requestError) {
+        if (requestError.name !== "AbortError") {
+          setError(requestError);
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    loadUsers();
+
+    return () => controller.abort();
+  }, []);
+
+  if (isLoading) return <p>正在加载用户……</p>;
+  if (error) return <p role="alert">{error.message}</p>;
+  if (users.length === 0) return <p>暂无用户</p>;
+
+  return (
+    <ul>
+      {users.map((user) => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+请求页面至少考虑：
+
+- 初始加载
+- 成功
+- 空数据
+- HTTP 错误
+- 网络错误
+- 组件离开或依赖变化
+
+## 根据关键词请求
+
+```jsx
+function SearchResults({ query }) {
+  const [results, setResults] = useState([]);
+
+  useEffect(() => {
+    if (!query.trim()) {
+      setResults([]);
+      return;
+    }
+
+    const controller = new AbortController();
+
+    async function search() {
+      const params = new URLSearchParams({ q: query });
+      const response = await fetch(`/api/search?${params}`, {
+        signal: controller.signal,
+      });
+
+      if (!response.ok) throw new Error("搜索失败");
+      setResults(await response.json());
+    }
+
+    search().catch((error) => {
+      if (error.name !== "AbortError") console.error(error);
+    });
+
+    return () => controller.abort();
+  }, [query]);
+
+  return <ResultList results={results} />;
+}
+```
+
+旧请求会在关键词变化时取消，避免较慢响应覆盖较新结果。
+
+## 自定义 Hook
+
+自定义 Hook 提取可复用的状态与 Effect 逻辑：
+
+```jsx
+import { useEffect, useState } from "react";
+
+export function useFetch(url) {
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!url) return;
+
+    const controller = new AbortController();
+
+    async function load() {
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch(url, {
+          signal: controller.signal,
+        });
+        if (!response.ok) throw new Error(`请求失败：${response.status}`);
+        setData(await response.json());
+      } catch (requestError) {
+        if (requestError.name !== "AbortError") setError(requestError);
+      } finally {
+        if (!controller.signal.aborted) setIsLoading(false);
+      }
+    }
+
+    load();
+    return () => controller.abort();
+  }, [url]);
+
+  return { data, isLoading, error };
+}
+```
+
+自定义 Hook 名称必须以 `use` 开头。它共享逻辑，不共享同一份 State；每次调用都有独立状态。
+
+::: {.callout-note title="生产项目的数据请求"}
+直接在 Effect 中请求适合学习基础和简单场景。完整框架或 TanStack Query 等工具可以进一步处理缓存、去重、重新验证和服务端渲染。
+:::
+
+## 综合练习
+
+创建用户搜索页面：
+
+1. 输入关键词并提交搜索。
+2. 请求期间显示加载状态。
+3. 分别处理错误和空结果。
+4. 关键词变化时取消旧请求。
+5. 提取 `useFetch` 或 `useSearch`。
+6. 在 Strict Mode 中确认没有错误警告。
+
+## 常见问题
+
+- 用 Effect 计算渲染数据
+- 在 Effect 中处理明确的点击操作
+- 漏掉依赖或关闭依赖检查
+- 依赖中放每次渲染新建的对象
+- Effect 更新 State 导致无限循环
+- 没有移除事件监听或计时器
+- 请求失败时仍停留在加载状态
+- 没有处理过期响应
+
+## 学习检查
+
+- [ ] 能判断逻辑属于渲染、事件还是 Effect
+- [ ] 能解释依赖数组和清理顺序
+- [ ] 能处理 Strict Mode 的额外检查
+- [ ] 能完整处理请求页面状态
+- [ ] 能取消过期请求
+- [ ] 能编写简单自定义 Hook
+
+返回[学习大纲](../../../index.qmd)，继续学习样式与组件设计。
+
+## 参考资料
+
+- [React：与 Effect 同步](https://react.dev/learn/synchronizing-with-effects)
+- [React：你可能不需要 Effect](https://react.dev/learn/you-might-not-need-an-effect)
+- [React：自定义 Hook](https://react.dev/learn/reusing-logic-with-custom-hooks)

@@ -1,0 +1,347 @@
+---
+title: "样式与组件设计"
+subtitle: "第 5 周：构建可维护、可复用且可访问的组件"
+description: "学习普通 CSS、CSS Modules、动态样式、组件职责、组合和基础可访问性"
+number-sections: false
+---
+
+React 不限制样式方案。初学阶段最重要的不是追逐 CSS 工具，而是掌握清晰的样式边界、合理的组件职责和可访问的交互。
+
+## 学习目标
+
+- 在 React 中组织普通 CSS 和 CSS Modules
+- 根据 Props 和 State 动态组合类名
+- 正确使用内联样式
+- 区分展示组件和业务组件的职责
+- 使用组合设计可复用组件 API
+- 编写可访问的 Button、Input 和 Modal
+- 使用 CSS 变量实现主题
+- 实现基础响应式布局
+
+## 普通 CSS 文件
+
+Vite 可以直接导入 CSS：
+
+```jsx
+// main.jsx
+import "./index.css";
+```
+
+```jsx
+// ProductCard.jsx
+import "./ProductCard.css";
+
+export default function ProductCard({ product }) {
+  return (
+    <article className="product-card">
+      <h2 className="product-card__title">{product.name}</h2>
+    </article>
+  );
+}
+```
+
+```css
+.product-card {
+  padding: 1.25rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+}
+
+.product-card__title {
+  margin: 0;
+}
+```
+
+普通 CSS 简单直接，但类名是全局的。使用明确命名，避免 `.title`、`.item` 这类容易冲突的名称。
+
+## CSS Modules
+
+文件名使用 `.module.css`：
+
+```css
+/* ProductCard.module.css */
+.card {
+  padding: 1.25rem;
+  border-radius: 1rem;
+  background: white;
+}
+
+.title {
+  font-size: 1.25rem;
+}
+```
+
+```jsx
+import styles from "./ProductCard.module.css";
+
+export default function ProductCard({ product }) {
+  return (
+    <article className={styles.card}>
+      <h2 className={styles.title}>{product.name}</h2>
+    </article>
+  );
+}
+```
+
+构建工具会为类名生成局部标识，降低跨组件冲突。CSS Modules 仍然是 CSS，不需要学习新的布局系统。
+
+## 动态 `className`
+
+### 模板字符串
+
+```jsx
+function Badge({ tone = "neutral", children }) {
+  return (
+    <span className={`badge badge-${tone}`}>
+      {children}
+    </span>
+  );
+}
+```
+
+### 条件组合
+
+```jsx
+function Button({ isActive, isLoading, children }) {
+  const className = [
+    "button",
+    isActive && "button-active",
+    isLoading && "button-loading",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return <button className={className}>{children}</button>;
+}
+```
+
+项目复杂后可以使用类名组合库，但先理解字符串如何形成。
+
+## 内联样式
+
+适合真正由数据计算的单个值：
+
+```jsx
+function Progress({ value }) {
+  const safeValue = Math.min(100, Math.max(0, value));
+
+  return (
+    <div className="progress" aria-label={`完成 ${safeValue}%`}>
+      <div
+        className="progress-bar"
+        style={{ width: `${safeValue}%` }}
+      />
+    </div>
+  );
+}
+```
+
+内联样式不方便处理媒体查询、伪类和复杂主题。固定样式优先使用 CSS。
+
+## CSS 变量与主题
+
+```css
+:root {
+  --color-background: #ffffff;
+  --color-text: #1f2937;
+  --color-primary: #2563eb;
+}
+
+[data-theme="dark"] {
+  --color-background: #111827;
+  --color-text: #f9fafb;
+  --color-primary: #60a5fa;
+}
+
+body {
+  color: var(--color-text);
+  background: var(--color-background);
+}
+```
+
+React 只需要切换属性：
+
+```jsx
+<div data-theme={theme}>...</div>
+```
+
+不要为每个组件分别保存主题 State；将主题放在共同父级，后续可使用 Context。
+
+## 组件职责
+
+### 展示组件
+
+重点是根据 Props 显示界面：
+
+```jsx
+function UserCard({ user, onSelect }) {
+  return (
+    <article>
+      <h2>{user.name}</h2>
+      <button onClick={() => onSelect(user.id)}>查看</button>
+    </article>
+  );
+}
+```
+
+### 业务组件
+
+负责获取或组织业务数据：
+
+```jsx
+function UserListPage() {
+  const { users, isLoading, error } = useUsers();
+
+  if (isLoading) return <p>加载中……</p>;
+  if (error) return <p role="alert">加载失败</p>;
+
+  return users.map((user) => (
+    <UserCard key={user.id} user={user} onSelect={openUser} />
+  ));
+}
+```
+
+这不是强制分类，而是帮助思考：哪些组件负责数据，哪些组件负责呈现。
+
+## 组合优于过度配置
+
+不要创建包含几十个布尔 Props 的万能组件：
+
+```jsx
+// 难以维护
+<Card showHeader showFooter compact centered hasDivider />
+```
+
+使用组合让调用方提供内容：
+
+```jsx
+function Card({ children }) {
+  return <article className="card">{children}</article>;
+}
+
+<Card>
+  <CardHeader title="React 入门" />
+  <CardBody>课程介绍</CardBody>
+  <CardActions><Button>开始学习</Button></CardActions>
+</Card>
+```
+
+## 设计 Button API
+
+```jsx
+function Button({
+  variant = "primary",
+  isLoading = false,
+  disabled = false,
+  children,
+  ...buttonProps
+}) {
+  return (
+    <button
+      className={`button button-${variant}`}
+      disabled={disabled || isLoading}
+      {...buttonProps}
+    >
+      {isLoading ? "处理中……" : children}
+    </button>
+  );
+}
+```
+
+`...buttonProps` 保留原生按钮的 `type`、`onClick`、`aria-*` 等能力。组件默认不应阻止调用方使用原生语义。
+
+## 设计 Input API
+
+```jsx
+function Input({ id, label, error, ...inputProps }) {
+  const errorId = error ? `${id}-error` : undefined;
+
+  return (
+    <div className="field">
+      <label htmlFor={id}>{label}</label>
+      <input
+        id={id}
+        aria-invalid={Boolean(error)}
+        aria-describedby={errorId}
+        {...inputProps}
+      />
+      {error && <p id={errorId} role="alert">{error}</p>}
+    </div>
+  );
+}
+```
+
+## Modal 与可访问性
+
+浏览器原生 `dialog` 可以提供部分弹窗语义：
+
+```jsx
+import { useEffect, useRef } from "react";
+
+function Modal({ isOpen, title, onClose, children }) {
+  const dialogRef = useRef(null);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    if (isOpen && !dialog.open) dialog.showModal();
+    if (!isOpen && dialog.open) dialog.close();
+  }, [isOpen]);
+
+  return (
+    <dialog ref={dialogRef} onClose={onClose}>
+      <h2>{title}</h2>
+      {children}
+      <button type="button" onClick={onClose}>关闭</button>
+    </dialog>
+  );
+}
+```
+
+完整弹窗还要考虑：
+
+- 打开后焦点位置
+- 关闭后焦点返回触发按钮
+- Escape 关闭
+- 背景不可交互
+- 清晰标题和关闭按钮
+
+复杂场景优先采用经过可访问性验证的组件方案，不要只做视觉遮罩。
+
+## 响应式布局
+
+```css
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.5rem;
+}
+
+.page {
+  width: min(100% - 2rem, 75rem);
+  margin-inline: auto;
+}
+```
+
+组件应适应容器，而不是假设固定屏幕宽度。测试文本放大、长标题和键盘导航。
+
+## 综合练习
+
+1. 创建 `Button`、`Input`、`Modal`。
+2. Button 支持 variant、loading 和原生 Props。
+3. Input 正确关联 label 与错误提示。
+4. Modal 支持关闭和基础焦点行为。
+5. 给待办应用添加 CSS 变量主题。
+6. 在窄屏和宽屏下测试布局。
+
+## 学习检查
+
+- [ ] 能选择普通 CSS 或 CSS Modules
+- [ ] 能组合动态类名
+- [ ] 能说明内联样式的适用范围
+- [ ] 能设计保留原生能力的组件 API
+- [ ] 能使用组合减少布尔 Props
+- [ ] 能检查标签、键盘焦点和语义
+
+返回[学习大纲](../../../index.qmd)，继续学习路由。

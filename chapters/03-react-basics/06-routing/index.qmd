@@ -1,0 +1,294 @@
+---
+title: "路由与完整应用结构"
+subtitle: "第 6 周：用 URL 组织多页面体验"
+description: "使用 React Router 配置页面、导航、参数、查询字符串、嵌套路由和 404"
+number-sections: false
+---
+
+客户端路由让 React 单页应用根据 URL 显示不同页面，并支持链接、前进、后退、刷新和分享地址。本节采用 React Router 当前的声明式模式。
+
+## 学习目标
+
+- 安装并配置 React Router
+- 使用 `Routes` 和 `Route` 映射 URL 与页面
+- 使用 `Link`、`NavLink` 和 `useNavigate`
+- 读取动态路由参数和查询参数
+- 使用嵌套路由与 `Outlet` 创建公共布局
+- 添加 404 页面
+- 组织路由和页面目录
+
+## 安装
+
+```bash
+pnpm add react-router
+```
+
+React Router 提供不同使用模式。本节使用声明式模式，适合在 Vite 客户端项目中学习基础路由。
+
+## 添加 `BrowserRouter`
+
+```jsx
+// main.jsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router";
+import App from "./App.jsx";
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>
+);
+```
+
+路由 Hooks 和组件必须位于 Router 内部。
+
+## 配置页面路由
+
+```jsx
+// App.jsx
+import { Route, Routes } from "react-router";
+import HomePage from "./pages/HomePage.jsx";
+import ProductListPage from "./pages/ProductListPage.jsx";
+import ProductDetailPage from "./pages/ProductDetailPage.jsx";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/products" element={<ProductListPage />} />
+      <Route path="/products/:productId" element={<ProductDetailPage />} />
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
+  );
+}
+```
+
+`Route` 根据当前 URL 选择 `element`。
+
+## `Link` 与 `NavLink`
+
+应用内导航使用 `Link`，避免普通 `<a>` 触发完整文档重新加载：
+
+```jsx
+import { Link } from "react-router";
+
+<Link to="/products">查看商品</Link>
+```
+
+导航栏使用 `NavLink` 获取活动状态：
+
+```jsx
+import { NavLink } from "react-router";
+
+function MainNav() {
+  return (
+    <nav aria-label="主导航">
+      <NavLink
+        to="/"
+        className={({ isActive }) => isActive ? "active" : ""}
+      >
+        首页
+      </NavLink>
+      <NavLink to="/products">商品</NavLink>
+    </nav>
+  );
+}
+```
+
+外部网站、文件下载和邮箱地址仍使用普通 `a`。
+
+## 编程式导航
+
+提交成功后跳转：
+
+```jsx
+import { useNavigate } from "react-router";
+
+function CreateProductForm() {
+  const navigate = useNavigate();
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const product = await createProduct();
+    navigate(`/products/${product.id}`);
+  }
+
+  return <form onSubmit={handleSubmit}>...</form>;
+}
+```
+
+普通导航优先使用 `Link`，它提供更好的链接语义。只有事件完成后跳转等场景才使用 `useNavigate`。
+
+返回上一页：
+
+```jsx
+navigate(-1);
+```
+
+## 动态路由参数
+
+路由中的 `:productId` 是动态段：
+
+```jsx
+<Route path="/products/:productId" element={<ProductDetailPage />} />
+```
+
+页面读取参数：
+
+```jsx
+import { useParams } from "react-router";
+
+function ProductDetailPage() {
+  const { productId } = useParams();
+  return <h1>商品编号：{productId}</h1>;
+}
+```
+
+参数来自 URL，通常是字符串。用于数组查找或请求前要验证和转换。
+
+## 查询参数
+
+列表筛选适合使用查询参数：
+
+```text
+/products?query=keyboard&sort=price
+```
+
+```jsx
+import { useSearchParams } from "react-router";
+
+function ProductListPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("query") ?? "";
+  const sort = searchParams.get("sort") ?? "default";
+
+  function updateQuery(nextQuery) {
+    setSearchParams((current) => {
+      const next = new URLSearchParams(current);
+      if (nextQuery) next.set("query", nextQuery);
+      else next.delete("query");
+      return next;
+    });
+  }
+
+  return <SearchForm query={query} onQueryChange={updateQuery} />;
+}
+```
+
+把筛选条件放入 URL，可以刷新、分享并使用浏览器历史。
+
+## 嵌套路由与公共布局
+
+```jsx
+import { Outlet } from "react-router";
+
+function RootLayout() {
+  return (
+    <>
+      <Header />
+      <main><Outlet /></main>
+      <Footer />
+    </>
+  );
+}
+```
+
+```jsx
+<Routes>
+  <Route element={<RootLayout />}>
+    <Route index element={<HomePage />} />
+    <Route path="products">
+      <Route index element={<ProductListPage />} />
+      <Route path=":productId" element={<ProductDetailPage />} />
+    </Route>
+    <Route path="*" element={<NotFoundPage />} />
+  </Route>
+</Routes>
+```
+
+- `Outlet` 是匹配子路由的显示位置
+- `index` 是父路径的默认子页面
+- 子路由路径通常使用相对写法
+
+## 404 页面
+
+```jsx
+function NotFoundPage() {
+  return (
+    <main>
+      <h1>页面不存在</h1>
+      <p>请检查地址，或返回首页。</p>
+      <Link to="/">返回首页</Link>
+    </main>
+  );
+}
+```
+
+`path="*"` 捕获未匹配路径。数据找不到与路由找不到是不同问题，详情页也要处理不存在的商品。
+
+## 推荐目录
+
+```text
+src/
+├── components/
+├── layouts/
+│   └── RootLayout.jsx
+├── pages/
+│   ├── HomePage.jsx
+│   ├── ProductListPage.jsx
+│   ├── ProductDetailPage.jsx
+│   └── NotFoundPage.jsx
+├── App.jsx
+└── main.jsx
+```
+
+页面组件负责路由级组合，可复用小组件放在 `components`。
+
+## 部署注意事项
+
+使用 `BrowserRouter` 时，生产服务器需要把未知客户端路径回退到 `index.html`。否则直接刷新 `/products/42` 可能得到服务器 404。
+
+部署在子路径时，还要正确配置 Vite `base` 和 Router 的 `basename`。不要等部署失败后才考虑路径前缀。
+
+## 综合练习
+
+创建课程应用：
+
+1. 首页 `/`
+2. 课程列表 `/courses`
+3. 课程详情 `/courses/:courseId`
+4. 查询参数 `/courses?level=beginner`
+5. 公共 Header、Footer 和 `Outlet`
+6. 活动导航样式
+7. 404 页面
+8. 详情不存在时显示明确提示
+
+## 常见问题
+
+- Router 放在使用路由 Hooks 的组件内部
+- 应用内导航仍使用普通 `a`
+- 动态参数未验证
+- 所有筛选状态只存在内存，无法分享 URL
+- 父布局忘记渲染 `Outlet`
+- 没有 `*` 路由
+- 部署服务器未配置 SPA 回退
+
+## 学习检查
+
+- [ ] 能配置基础和动态路由
+- [ ] 能选择 Link 或编程式导航
+- [ ] 能读取路由参数和查询参数
+- [ ] 能使用嵌套路由和 Outlet
+- [ ] 能组织页面与布局目录
+- [ ] 能说明部署回退问题
+
+返回[学习大纲](../../../index.qmd)，继续学习状态管理和性能。
+
+## 参考资料
+
+- [React Router：选择模式](https://reactrouter.com/start/modes)
+- [React Router：声明式路由](https://reactrouter.com/start/declarative/routing)
