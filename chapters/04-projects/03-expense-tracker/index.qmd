@@ -1,0 +1,477 @@
+---
+title: "个人记账应用"
+subtitle: "复杂表单、筛选与数据汇总"
+description: "通过收入支出记录、筛选统计和本地持久化练习复杂状态与组件设计"
+number-sections: false
+---
+
+[返回学习大纲](../../../index.qmd)
+
+个人记账应用比待办事项多了日期、金额、类型和分类等字段，并需要从记录中计算余额和汇总数据。它适合练习复杂表单、精确计算、筛选和数据可视化。
+
+本项目只保存练习数据。不要输入真实账户、银行卡、身份信息或其他隐私数据，也不要把浏览器本地存储当作安全账本。
+
+## 学习目标
+
+- 设计包含多种字段的受控表单
+- 使用整数表示金额，避免浮点数误差
+- 使用 Reducer 管理交易记录
+- 根据筛选条件派生列表和统计结果
+- 使用 CSS 制作简单分类图表
+- 导入、导出并校验本地数据
+
+## 1. 功能与验收标准
+
+第一版功能：
+
+- 添加收入和支出记录
+- 编辑、删除记录
+- 按月份、类型和分类筛选
+- 显示总收入、总支出和结余
+- 显示支出分类占比
+- 刷新后保留数据
+
+验收时特别检查：
+
+- 金额必须大于零且最多两位小数
+- 收入增加余额，支出减少余额
+- 修改筛选条件后，汇总数字与列表同步变化
+- 编辑记录不会改变其唯一编号
+- 无记录、无筛选结果和存储损坏都有合理界面
+
+## 2. 创建项目和目录
+
+```bash
+pnpm create vite expense-tracker --template react
+cd expense-tracker
+pnpm install
+pnpm dev
+```
+
+```text
+src/
+├── components/
+│   ├── TransactionForm.jsx
+│   ├── TransactionList.jsx
+│   ├── TransactionItem.jsx
+│   ├── TransactionFilters.jsx
+│   ├── SummaryCards.jsx
+│   └── CategoryChart.jsx
+├── data/
+│   └── categories.js
+├── utils/
+│   ├── money.js
+│   └── transactions.js
+├── transactionsReducer.js
+└── App.jsx
+```
+
+## 3. 设计交易数据
+
+```js
+{
+  id: "3a7378d4-...",
+  type: "expense",
+  amountInCents: 2580,
+  category: "food",
+  date: "2026-07-19",
+  note: "午餐",
+  createdAt: "2026-07-19T08:30:00.000Z"
+}
+```
+
+关键设计：
+
+- `type` 只允许 `income` 或 `expense`
+- 金额保存为整数分，例如 25.80 元保存为 `2580`
+- 日期使用 `YYYY-MM-DD`，便于 `<input type="date">` 和排序
+- 分类保存稳定英文值，界面显示中文标签
+
+分类配置集中维护：
+
+```js
+export const categories = {
+  salary: { label: "工资", type: "income" },
+  bonus: { label: "奖金", type: "income" },
+  food: { label: "餐饮", type: "expense" },
+  transport: { label: "交通", type: "expense" },
+  housing: { label: "居住", type: "expense" },
+  learning: { label: "学习", type: "expense" },
+  other: { label: "其他", type: "expense" },
+};
+```
+
+## 4. 安全地处理金额
+
+JavaScript 小数计算可能产生精度误差。对日常两位小数的练习项目，可以转换为整数分：
+
+```js
+export function yuanToCents(value) {
+  const normalized = String(value).trim();
+
+  if (!/^\d+(\.\d{1,2})?$/.test(normalized)) {
+    throw new Error("金额必须是最多两位小数的正数");
+  }
+
+  const [yuan, decimal = ""] = normalized.split(".");
+  return Number(yuan) * 100 + Number(decimal.padEnd(2, "0"));
+}
+
+export function formatMoney(cents) {
+  return new Intl.NumberFormat("zh-CN", {
+    style: "currency",
+    currency: "CNY",
+  }).format(cents / 100);
+}
+```
+
+正式金融系统还要考虑币种、精度、舍入规则和后端校验，不能仅依赖这个教学示例。
+
+## 5. 表单状态与校验
+
+```jsx
+const initialForm = {
+  type: "expense",
+  amount: "",
+  category: "food",
+  date: new Date().toISOString().slice(0, 10),
+  note: "",
+};
+
+export function TransactionForm({ onSubmit, initialValue = initialForm }) {
+  const [form, setForm] = useState(initialValue);
+  const [errors, setErrors] = useState({});
+
+  function updateField(event) {
+    const { name, value } = event.target;
+
+    setForm((current) => ({
+      ...current,
+      [name]: value,
+      ...(name === "type" ? {
+        category: value === "income" ? "salary" : "food",
+      } : {}),
+    }));
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    try {
+      const amountInCents = yuanToCents(form.amount);
+      if (amountInCents <= 0) throw new Error("金额必须大于零");
+      if (!form.date) throw new Error("请选择日期");
+
+      onSubmit({
+        ...form,
+        amountInCents,
+        note: form.note.trim(),
+      });
+      setForm(initialForm);
+      setErrors({});
+    } catch (error) {
+      setErrors({ form: error.message });
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        类型
+        <select name="type" value={form.type} onChange={updateField}>
+          <option value="expense">支出</option>
+          <option value="income">收入</option>
+        </select>
+      </label>
+
+      <label>
+        金额（元）
+        <input
+          name="amount"
+          inputMode="decimal"
+          value={form.amount}
+          onChange={updateField}
+        />
+      </label>
+
+      <label>
+        日期
+        <input name="date" type="date" value={form.date} onChange={updateField} />
+      </label>
+
+      <label>
+        备注
+        <input name="note" maxLength="100" value={form.note} onChange={updateField} />
+      </label>
+
+      {errors.form && <p role="alert">{errors.form}</p>}
+      <button type="submit">保存记录</button>
+    </form>
+  );
+}
+```
+
+分类 `<select>` 可以根据 `form.type` 过滤 `categories` 后生成选项。
+
+## 6. 使用 Reducer 管理记录
+
+```js
+export function transactionsReducer(transactions, action) {
+  switch (action.type) {
+    case "added":
+      return [action.transaction, ...transactions];
+
+    case "updated":
+      return transactions.map((transaction) =>
+        transaction.id === action.transaction.id
+          ? action.transaction
+          : transaction,
+      );
+
+    case "deleted":
+      return transactions.filter((item) => item.id !== action.id);
+
+    case "imported":
+      return action.transactions;
+
+    default:
+      throw new Error(`未知操作：${action.type}`);
+  }
+}
+```
+
+新增记录时补齐系统字段：
+
+```js
+dispatch({
+  type: "added",
+  transaction: {
+    ...formData,
+    id: crypto.randomUUID(),
+    createdAt: new Date().toISOString(),
+  },
+});
+```
+
+## 7. 筛选交易
+
+筛选条件可以集中在一个对象中：
+
+```js
+const initialFilters = {
+  month: "all",
+  type: "all",
+  category: "all",
+};
+```
+
+纯函数负责筛选：
+
+```js
+export function filterTransactions(transactions, filters) {
+  return transactions.filter((transaction) => {
+    const matchesMonth = filters.month === "all"
+      || transaction.date.startsWith(filters.month);
+    const matchesType = filters.type === "all"
+      || transaction.type === filters.type;
+    const matchesCategory = filters.category === "all"
+      || transaction.category === filters.category;
+
+    return matchesMonth && matchesType && matchesCategory;
+  });
+}
+```
+
+月份值可以使用 `2026-07`。修改类型后，如果当前分类不再适用，应把分类重置为 `all`。
+
+## 8. 计算收入、支出与余额
+
+```js
+export function summarizeTransactions(transactions) {
+  return transactions.reduce(
+    (summary, transaction) => {
+      if (transaction.type === "income") {
+        summary.income += transaction.amountInCents;
+      } else {
+        summary.expense += transaction.amountInCents;
+      }
+
+      summary.balance = summary.income - summary.expense;
+      return summary;
+    },
+    { income: 0, expense: 0, balance: 0 },
+  );
+}
+```
+
+在组件中对筛选后的记录计算：
+
+```jsx
+const visibleTransactions = filterTransactions(transactions, filters);
+const summary = summarizeTransactions(visibleTransactions);
+```
+
+这样卡片显示的是当前筛选范围的汇总。界面需要明确标注“当前筛选”，避免用户误以为它表示所有数据。
+
+## 9. 分类汇总与图表
+
+```js
+export function summarizeExpensesByCategory(transactions) {
+  return transactions
+    .filter((item) => item.type === "expense")
+    .reduce((result, item) => ({
+      ...result,
+      [item.category]: (result[item.category] ?? 0) + item.amountInCents,
+    }), {});
+}
+```
+
+初学阶段不必立即安装图表库。可以先用 CSS 宽度展示水平条形图：
+
+```jsx
+function CategoryChart({ data }) {
+  const entries = Object.entries(data);
+  const maximum = Math.max(...entries.map(([, amount]) => amount), 0);
+
+  if (entries.length === 0) return <p>暂无支出数据。</p>;
+
+  return (
+    <div aria-label="支出分类统计">
+      {entries.map(([category, amount]) => (
+        <div key={category}>
+          <span>{categories[category].label}</span>
+          <div
+            className="chart-bar"
+            style={{ width: `${(amount / maximum) * 100}%` }}
+          />
+          <span>{formatMoney(amount)}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+颜色不能作为唯一信息来源，同时显示分类名称和金额。
+
+## 10. 本地保存与数据版本
+
+建议保存带版本的对象，而不是直接保存数组：
+
+```js
+const storageValue = {
+  version: 1,
+  transactions,
+};
+
+localStorage.setItem("expense-tracker", JSON.stringify(storageValue));
+```
+
+读取时验证基本结构：
+
+```js
+function readTransactions() {
+  try {
+    const raw = localStorage.getItem("expense-tracker");
+    if (!raw) return [];
+
+    const data = JSON.parse(raw);
+    if (data.version !== 1 || !Array.isArray(data.transactions)) return [];
+    return data.transactions.filter(isValidTransaction);
+  } catch {
+    return [];
+  }
+}
+```
+
+数据版本为以后迁移字段留下空间。`isValidTransaction` 应检查编号、类型、整数金额、日期和分类，而不是盲目信任本地数据。
+
+## 11. 编辑与删除体验
+
+- 点击编辑时把当前记录填入表单或弹窗
+- 保存时保留原 `id` 和 `createdAt`
+- 删除前显示包含金额和备注的确认信息
+- 删除后用状态提示结果，并考虑提供短时间撤销
+- 不要只用颜色区分收入和支出
+
+原生 `window.confirm` 可以用于第一版，之后再实现具有焦点管理的确认对话框。
+
+## 12. 导入与导出
+
+导出可以把版本化 JSON 下载到本地。导入时必须：
+
+1. 限制文件类型和合理大小。
+2. 捕获 JSON 解析错误。
+3. 校验每条数据结构。
+4. 先显示将导入多少条记录。
+5. 让用户选择覆盖或合并。
+
+不要把导入文件中的内容直接作为 HTML 渲染。React 默认会转义文本，避免使用 `dangerouslySetInnerHTML`。
+
+## 13. 测试策略
+
+纯函数最容易测试：
+
+```js
+it("正确计算收入、支出和余额", () => {
+  const result = summarizeTransactions([
+    { type: "income", amountInCents: 100000 },
+    { type: "expense", amountInCents: 2580 },
+  ]);
+
+  expect(result).toEqual({
+    income: 100000,
+    expense: 2580,
+    balance: 97420,
+  });
+});
+```
+
+组件流程还应覆盖：
+
+- 无效金额显示错误
+- 新增记录后列表和汇总同时更新
+- 筛选月份后只显示匹配记录
+- 编辑保持编号不变
+- 删除后记录消失
+- 损坏的存储数据不会让应用崩溃
+
+## 14. 开发顺序
+
+1. 静态布局和模拟记录
+2. 金额工具函数及测试
+3. 新增、展示和删除
+4. 编辑功能
+5. 筛选与汇总
+6. 分类图表
+7. 本地持久化
+8. 导入导出、测试和部署
+
+## 15. 扩展练习
+
+- 支持多个账本或成员
+- 增加预算和超支提示
+- 增加按周、季度和年份汇总
+- 使用 SVG 绘制饼图或折线图
+- 增加重复交易规则
+- 接入后端并增加身份验证
+- 为数据变更增加迁移脚本
+
+## 完成检查
+
+- [ ] 金额以整数分保存和计算
+- [ ] 表单能够阻止无效金额与日期
+- [ ] 筛选列表和汇总数据保持一致
+- [ ] 编辑不会产生新的记录编号
+- [ ] 分类图表同时提供文字和金额
+- [ ] 本地数据包含版本并经过校验
+- [ ] 应用不收集或保存真实敏感信息
+- [ ] 核心计算和用户流程具有测试
+- [ ] lint、测试和生产构建通过
+
+## 参考资料
+
+- [React：选择 State 结构](https://react.dev/learn/choosing-the-state-structure)
+- [React：更新 State 中的对象](https://react.dev/learn/updating-objects-in-state)
+- [MDN：Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)
+- [MDN：Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API)

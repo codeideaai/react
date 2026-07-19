@@ -28,24 +28,31 @@ chapters/
 │   ├── 01-html-css.qmd
 │   ├── 02-javascript-basics.qmd
 │   └── 03-basic-exercises.qmd
-└── 03-react-basics/
-    ├── 01-introduction/
-    │   ├── index.qmd
-    │   ├── 01-what-is-react.qmd
-    │   └── ...
-    ├── 02-jsx-components/
+├── 03-react-basics/
+│   ├── 01-introduction/
+│   │   ├── index.qmd
+│   │   ├── 01-what-is-react.qmd
+│   │   └── ...
+│   ├── 02-jsx-components/
+│   │   └── index.qmd
+│   ├── 03-state-forms/
+│   │   └── index.qmd
+│   ├── 04-effects-data/
+│   │   └── index.qmd
+│   ├── 05-styling-design/
+│   │   └── index.qmd
+│   ├── 06-routing/
+│   │   └── index.qmd
+│   ├── 07-state-performance/
+│   │   └── index.qmd
+│   └── 08-engineering-testing/
+│       └── index.qmd
+└── 04-projects/
+    ├── 01-todo/
     │   └── index.qmd
-    ├── 03-state-forms/
+    ├── 02-book-search/
     │   └── index.qmd
-    ├── 04-effects-data/
-    │   └── index.qmd
-    ├── 05-styling-design/
-    │   └── index.qmd
-    ├── 06-routing/
-    │   └── index.qmd
-    ├── 07-state-performance/
-    │   └── index.qmd
-    └── 08-engineering-testing/
+    └── 03-expense-tracker/
         └── index.qmd
 ```
 

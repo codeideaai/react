@@ -260,7 +260,7 @@ React 本质上仍然是 JavaScript。需要熟悉以下内容。
 
 建议按照难度逐步完成，不要只看教程而不动手。
 
-### 待办事项应用
+### [待办事项应用](chapters/04-projects/01-todo/index.qmd)
 
 核心功能：
 
@@ -271,7 +271,7 @@ React 本质上仍然是 JavaScript。需要熟悉以下内容。
 
 重点知识：组件、Props、State、表单、列表渲染、Effect。
 
-### 电影或图书搜索应用
+### [图书搜索应用](chapters/04-projects/02-book-search/index.qmd)
 
 核心功能：
 
@@ -283,7 +283,7 @@ React 本质上仍然是 JavaScript。需要熟悉以下内容。
 
 重点知识：API 请求、路由、自定义 Hook、状态共享。
 
-### 个人记账应用
+### [个人记账应用](chapters/04-projects/03-expense-tracker/index.qmd)
 
 核心功能：
 

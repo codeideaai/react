@@ -1,0 +1,422 @@
+---
+title: "待办事项应用"
+subtitle: "第一个完整 React 项目"
+description: "综合运用组件、表单、Reducer、筛选、本地存储和组件测试完成待办事项应用"
+number-sections: false
+---
+
+[返回学习大纲](../../../index.qmd)
+
+这个项目不追求功能数量，而是练习一条完整开发路径：分析需求、设计数据、拆分组件、实现交互、保存数据、测试关键行为，最后构建发布。
+
+## 学习目标
+
+- 根据页面功能设计组件和 State
+- 使用受控表单新增任务
+- 使用 Reducer 集中管理增删改查
+- 从 State 派生筛选结果和统计数据
+- 使用 `localStorage` 保存任务
+- 为关键用户行为编写测试
+
+## 1. 明确需求与验收标准
+
+第一版实现以下功能：
+
+- 新增任务，空内容不能提交
+- 编辑和删除任务
+- 切换完成状态
+- 按全部、未完成、已完成筛选
+- 显示剩余任务数量
+- 清除全部已完成任务
+- 刷新页面后保留数据
+
+验收标准要描述用户能观察到的结果。例如：“输入任务并提交后，新任务出现在列表中，输入框被清空”，比“调用新增函数”更适合作为测试目标。
+
+## 2. 创建项目
+
+```bash
+pnpm create vite todo-app --template react
+cd todo-app
+pnpm install
+pnpm dev
+```
+
+建议目录：
+
+```text
+src/
+├── components/
+│   ├── TodoForm.jsx
+│   ├── TodoItem.jsx
+│   ├── TodoList.jsx
+│   ├── TodoFilters.jsx
+│   └── TodoStats.jsx
+├── hooks/
+│   └── usePersistentTodos.js
+├── reducers/
+│   └── todosReducer.js
+├── utils/
+│   └── todos.js
+├── App.jsx
+├── App.css
+└── main.jsx
+```
+
+先实现功能，再根据真实职责拆分文件。不要为了追求目录整齐而创建只用一次、没有独立职责的小组件。
+
+## 3. 设计任务数据
+
+每个任务使用如下结构：
+
+```js
+{
+  id: "e08ec8df-...",
+  text: "完成 React 练习",
+  completed: false,
+  createdAt: "2026-07-19T08:00:00.000Z"
+}
+```
+
+- `id` 用于更新、删除和 React 的 `key`
+- `text` 是用户输入的内容
+- `completed` 表示完成状态
+- `createdAt` 便于以后增加排序功能
+
+筛选结果和剩余数量可以由任务数组计算，不要重复存入 State，否则容易出现数据不一致。
+
+## 4. 使用 Reducer 管理任务
+
+创建 `src/reducers/todosReducer.js`：
+
+```js
+export function todosReducer(todos, action) {
+  switch (action.type) {
+    case "added":
+      return [
+        ...todos,
+        {
+          id: action.id,
+          text: action.text,
+          completed: false,
+          createdAt: action.createdAt,
+        },
+      ];
+
+    case "toggled":
+      return todos.map((todo) =>
+        todo.id === action.id
+          ? { ...todo, completed: !todo.completed }
+          : todo,
+      );
+
+    case "edited":
+      return todos.map((todo) =>
+        todo.id === action.id ? { ...todo, text: action.text } : todo,
+      );
+
+    case "deleted":
+      return todos.filter((todo) => todo.id !== action.id);
+
+    case "completedCleared":
+      return todos.filter((todo) => !todo.completed);
+
+    default:
+      throw new Error(`未知操作：${action.type}`);
+  }
+}
+```
+
+Reducer 只负责根据旧 State 和 Action 计算新 State，不读取 DOM、不写存储，也不直接修改原数组。
+
+## 5. 实现新增表单
+
+```jsx
+import { useState } from "react";
+
+export function TodoForm({ onAdd }) {
+  const [text, setText] = useState("");
+  const [error, setError] = useState("");
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const value = text.trim();
+
+    if (!value) {
+      setError("请输入任务内容");
+      return;
+    }
+
+    onAdd(value);
+    setText("");
+    setError("");
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="new-todo">新任务</label>
+      <input
+        id="new-todo"
+        value={text}
+        onChange={(event) => setText(event.target.value)}
+        aria-describedby={error ? "todo-error" : undefined}
+      />
+      <button type="submit">添加</button>
+      {error && <p id="todo-error" role="alert">{error}</p>}
+    </form>
+  );
+}
+```
+
+表单保留自己的输入和错误状态，任务数组由父组件管理。这体现了“状态放在离使用位置最近处”的原则。
+
+## 6. 实现任务项
+
+```jsx
+import { useState } from "react";
+
+export function TodoItem({ todo, onToggle, onEdit, onDelete }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [draft, setDraft] = useState(todo.text);
+
+  function saveEdit(event) {
+    event.preventDefault();
+    const value = draft.trim();
+
+    if (value) {
+      onEdit(todo.id, value);
+      setIsEditing(false);
+    }
+  }
+
+  if (isEditing) {
+    return (
+      <li>
+        <form onSubmit={saveEdit}>
+          <label className="sr-only" htmlFor={`edit-${todo.id}`}>编辑任务</label>
+          <input
+            id={`edit-${todo.id}`}
+            value={draft}
+            onChange={(event) => setDraft(event.target.value)}
+          />
+          <button type="submit">保存</button>
+          <button type="button" onClick={() => setIsEditing(false)}>取消</button>
+        </form>
+      </li>
+    );
+  }
+
+  return (
+    <li>
+      <label>
+        <input
+          type="checkbox"
+          checked={todo.completed}
+          onChange={() => onToggle(todo.id)}
+        />
+        <span>{todo.text}</span>
+      </label>
+      <button type="button" onClick={() => setIsEditing(true)}>编辑</button>
+      <button type="button" onClick={() => onDelete(todo.id)}>删除</button>
+    </li>
+  );
+}
+```
+
+按钮明确设置 `type="button"`，避免它在将来被放入表单时意外触发提交。
+
+## 7. 筛选与统计
+
+```js
+export function filterTodos(todos, filter) {
+  if (filter === "active") {
+    return todos.filter((todo) => !todo.completed);
+  }
+
+  if (filter === "completed") {
+    return todos.filter((todo) => todo.completed);
+  }
+
+  return todos;
+}
+```
+
+在组件渲染时派生数据：
+
+```jsx
+const visibleTodos = filterTodos(todos, filter);
+const remainingCount = todos.filter((todo) => !todo.completed).length;
+```
+
+筛选按钮应让辅助技术知道当前选项：
+
+```jsx
+function TodoFilters({ value, onChange }) {
+  const options = [
+    ["all", "全部"],
+    ["active", "未完成"],
+    ["completed", "已完成"],
+  ];
+
+  return (
+    <div aria-label="筛选任务">
+      {options.map(([key, label]) => (
+        <button
+          key={key}
+          type="button"
+          aria-pressed={value === key}
+          onClick={() => onChange(key)}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+  );
+}
+```
+
+## 8. 使用 localStorage 持久化
+
+浏览器存储的是字符串，因此写入时使用 `JSON.stringify`，读取时使用 `JSON.parse`。
+
+```jsx
+import { useEffect, useReducer } from "react";
+
+const storageKey = "react-course-todos";
+
+function readInitialTodos() {
+  try {
+    const saved = localStorage.getItem(storageKey);
+    return saved ? JSON.parse(saved) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function usePersistentTodos(reducer) {
+  const [todos, dispatch] = useReducer(reducer, [], readInitialTodos);
+
+  useEffect(() => {
+    localStorage.setItem(storageKey, JSON.stringify(todos));
+  }, [todos]);
+
+  return [todos, dispatch];
+}
+```
+
+`localStorage` 只适合少量、非敏感的客户端数据。不要用它保存密码、令牌或隐私信息。
+
+## 9. 组装 App
+
+```jsx
+import { useState } from "react";
+import { TodoForm } from "./components/TodoForm";
+import { TodoFilters } from "./components/TodoFilters";
+import { TodoItem } from "./components/TodoItem";
+import { usePersistentTodos } from "./hooks/usePersistentTodos";
+import { todosReducer } from "./reducers/todosReducer";
+import { filterTodos } from "./utils/todos";
+
+export default function App() {
+  const [todos, dispatch] = usePersistentTodos(todosReducer);
+  const [filter, setFilter] = useState("all");
+  const visibleTodos = filterTodos(todos, filter);
+  const remaining = todos.filter((todo) => !todo.completed).length;
+
+  return (
+    <main>
+      <h1>我的任务</h1>
+      <TodoForm
+        onAdd={(text) => dispatch({
+          type: "added",
+          id: crypto.randomUUID(),
+          text,
+          createdAt: new Date().toISOString(),
+        })}
+      />
+      <TodoFilters value={filter} onChange={setFilter} />
+      <p aria-live="polite">剩余 {remaining} 项</p>
+      {visibleTodos.length === 0 ? (
+        <p>当前没有任务。</p>
+      ) : (
+        <ul>
+          {visibleTodos.map((todo) => (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              onToggle={(id) => dispatch({ type: "toggled", id })}
+              onEdit={(id, text) => dispatch({ type: "edited", id, text })}
+              onDelete={(id) => dispatch({ type: "deleted", id })}
+            />
+          ))}
+        </ul>
+      )}
+      <button
+        type="button"
+        onClick={() => dispatch({ type: "completedCleared" })}
+      >
+        清除已完成
+      </button>
+    </main>
+  );
+}
+```
+
+## 10. 测试关键行为
+
+重点测试用户真正依赖的流程：
+
+```jsx
+it("可以新增并完成任务", async () => {
+  const user = userEvent.setup();
+  render(<App />);
+
+  await user.type(screen.getByLabelText("新任务"), "学习 Reducer");
+  await user.click(screen.getByRole("button", { name: "添加" }));
+
+  const checkbox = screen.getByRole("checkbox", { name: "学习 Reducer" });
+  expect(checkbox).not.toBeChecked();
+
+  await user.click(checkbox);
+  expect(checkbox).toBeChecked();
+});
+```
+
+还应测试空输入校验、筛选、编辑、删除和刷新后的数据恢复。每个测试开始前清空测试环境中的存储，避免用例相互影响。
+
+## 11. 开发顺序
+
+建议逐步提交：
+
+1. 静态页面与基础样式
+2. 新增和展示任务
+3. 完成、编辑与删除
+4. 筛选和统计
+5. 本地持久化
+6. 测试、响应式布局和部署
+
+每一步都先运行并手动验证，再进入下一步。出现问题时更容易定位是哪次改动造成的。
+
+## 12. 扩展练习
+
+- 增加全部完成和全部取消
+- 增加截止日期、优先级和排序
+- 支持拖拽排序
+- 使用 URL 查询参数保存筛选条件
+- 增加撤销删除功能
+- 把数据源替换为后端 API
+
+## 完成检查
+
+- [ ] 所有核心功能符合验收标准
+- [ ] Reducer 不直接修改原 State
+- [ ] 筛选结果和统计数据由现有 State 计算
+- [ ] 刷新后任务仍然存在
+- [ ] 表单可使用键盘操作并显示明确错误
+- [ ] 至少覆盖新增、完成、筛选三个测试流程
+- [ ] `pnpm lint`、`pnpm test:run` 和 `pnpm build` 均通过
+
+## 参考资料
+
+- [React：提取 State 逻辑到 Reducer](https://react.dev/learn/extracting-state-logic-into-a-reducer)
+- [React：选择 State 结构](https://react.dev/learn/choosing-the-state-structure)
+- [MDN：使用 Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API)

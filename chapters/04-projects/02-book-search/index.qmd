@@ -1,0 +1,453 @@
+---
+title: "图书搜索应用"
+subtitle: "数据请求、路由与收藏"
+description: "使用 Open Library API 完成搜索、分页、详情路由、收藏与完整请求状态"
+number-sections: false
+---
+
+[返回学习大纲](../../../index.qmd)
+
+这个项目把前面学过的数据请求和路由串成完整用户流程：用户搜索图书、浏览结果、进入详情页，并把喜欢的图书加入本地收藏。
+
+示例使用不需要密钥的 Open Library Search API。公开 API 可能限流或调整字段，项目代码需要处理响应异常，不能假设网络永远正常。
+
+## 学习目标
+
+- 根据 API 响应建立前端数据模型
+- 使用 URL 查询参数保存关键词和页码
+- 处理加载、错误、空结果和成功状态
+- 取消过期请求，避免旧结果覆盖新结果
+- 使用动态路由实现详情页
+- 使用本地存储实现收藏
+
+## 1. 功能与页面
+
+第一版包含三个页面：
+
+- `/`：搜索首页
+- `/books/:workId`：图书详情
+- `/favorites`：收藏列表
+
+核心验收标准：
+
+- 未输入关键词时不发送请求
+- 提交搜索后，URL 包含关键词和页码
+- 请求期间显示加载提示
+- 请求失败、无结果和成功有不同界面
+- 前后翻页后可通过浏览器后退恢复状态
+- 刷新详情页仍能加载数据
+- 收藏在刷新后保留
+
+## 2. 创建项目与安装路由
+
+```bash
+pnpm create vite book-search --template react
+cd book-search
+pnpm install
+pnpm add react-router
+pnpm dev
+```
+
+推荐目录：
+
+```text
+src/
+├── api/
+│   └── openLibrary.js
+├── components/
+│   ├── BookCard.jsx
+│   ├── BookGrid.jsx
+│   ├── Pagination.jsx
+│   └── SearchForm.jsx
+├── hooks/
+│   └── useFavorites.js
+├── pages/
+│   ├── SearchPage.jsx
+│   ├── BookDetailPage.jsx
+│   ├── FavoritesPage.jsx
+│   └── NotFoundPage.jsx
+├── App.jsx
+└── main.jsx
+```
+
+## 3. 认识 API
+
+搜索地址格式：
+
+```text
+https://openlibrary.org/search.json?q=react&page=1&limit=12
+```
+
+为了减小响应体，明确指定需要的字段：
+
+```text
+key,title,author_name,first_publish_year,cover_i
+```
+
+我们把外部 API 数据转换为应用内部统一结构：
+
+```js
+function mapBook(document) {
+  return {
+    id: document.key.replace("/works/", ""),
+    title: document.title,
+    authors: document.author_name ?? ["未知作者"],
+    firstPublishYear: document.first_publish_year ?? null,
+    coverId: document.cover_i ?? null,
+  };
+}
+```
+
+转换层可以隔离字段缺失和命名差异，组件不需要理解服务端原始结构。
+
+## 4. 封装搜索请求
+
+创建 `src/api/openLibrary.js`：
+
+```js
+const apiBaseUrl = "https://openlibrary.org";
+
+export async function searchBooks({ query, page, signal }) {
+  const params = new URLSearchParams({
+    q: query,
+    page: String(page),
+    limit: "12",
+    fields: "key,title,author_name,first_publish_year,cover_i",
+  });
+
+  const response = await fetch(`${apiBaseUrl}/search.json?${params}`, {
+    signal,
+  });
+
+  if (!response.ok) {
+    throw new Error(`搜索失败：${response.status}`);
+  }
+
+  const data = await response.json();
+
+  return {
+    books: data.docs.map(mapBook),
+    total: data.numFound ?? data.num_found ?? 0,
+  };
+}
+
+export function getCoverUrl(coverId, size = "M") {
+  if (!coverId) return null;
+  return `https://covers.openlibrary.org/b/id/${coverId}-${size}.jpg`;
+}
+```
+
+使用 `URLSearchParams` 可以正确编码用户输入，不要自己用字符串拼接关键词。
+
+## 5. 配置路由
+
+```jsx
+import { NavLink, Route, Routes } from "react-router";
+import { SearchPage } from "./pages/SearchPage";
+import { BookDetailPage } from "./pages/BookDetailPage";
+import { FavoritesPage } from "./pages/FavoritesPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
+
+export default function App() {
+  return (
+    <>
+      <header>
+        <nav aria-label="主导航">
+          <NavLink to="/">搜索</NavLink>
+          <NavLink to="/favorites">收藏</NavLink>
+        </nav>
+      </header>
+      <main>
+        <Routes>
+          <Route path="/" element={<SearchPage />} />
+          <Route path="/books/:workId" element={<BookDetailPage />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </main>
+    </>
+  );
+}
+```
+
+应用入口需要使用 `BrowserRouter` 包裹 `App`，具体方式可复习 3.6。
+
+## 6. 让 URL 保存搜索条件
+
+如果只把关键词放在 State 中，刷新和分享地址时条件会丢失。这里使用 `useSearchParams`：
+
+```jsx
+import { useState } from "react";
+
+export function SearchForm({ initialValue, onSearch }) {
+  const [value, setValue] = useState(initialValue);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const query = value.trim();
+    if (query) onSearch(query);
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="book-query">书名、作者或主题</label>
+      <input
+        id="book-query"
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+      />
+      <button type="submit">搜索</button>
+    </form>
+  );
+}
+```
+
+在搜索页读写 URL：
+
+```jsx
+const [searchParams, setSearchParams] = useSearchParams();
+const query = searchParams.get("q")?.trim() ?? "";
+const parsedPage = Number(searchParams.get("page"));
+const page = Number.isInteger(parsedPage) && parsedPage > 0 ? parsedPage : 1;
+
+function handleSearch(nextQuery) {
+  setSearchParams({ q: nextQuery, page: "1" });
+}
+
+function changePage(nextPage) {
+  setSearchParams({ q: query, page: String(nextPage) });
+}
+```
+
+## 7. 管理请求状态
+
+搜索页需要同时管理数据和请求状态：
+
+```jsx
+const [result, setResult] = useState({ books: [], total: 0 });
+const [status, setStatus] = useState("idle");
+const [error, setError] = useState("");
+
+useEffect(() => {
+  if (!query) {
+    setResult({ books: [], total: 0 });
+    setStatus("idle");
+    return;
+  }
+
+  const controller = new AbortController();
+  setStatus("loading");
+  setError("");
+
+  searchBooks({ query, page, signal: controller.signal })
+    .then((data) => {
+      setResult(data);
+      setStatus("success");
+    })
+    .catch((requestError) => {
+      if (requestError.name !== "AbortError") {
+        setError("暂时无法获取图书，请稍后重试。");
+        setStatus("error");
+      }
+    });
+
+  return () => controller.abort();
+}, [query, page]);
+```
+
+关键词或页码变化时，清理函数取消上一次请求。这样快速连续搜索时，较慢的旧请求不会覆盖最新结果。
+
+根据状态渲染明确界面：
+
+```jsx
+{status === "idle" && <p>输入关键词开始搜索。</p>}
+{status === "loading" && <p aria-live="polite">正在搜索……</p>}
+{status === "error" && <p role="alert">{error}</p>}
+{status === "success" && result.books.length === 0 && <p>没有找到相关图书。</p>}
+{status === "success" && result.books.length > 0 && (
+  <BookGrid books={result.books} />
+)}
+```
+
+## 8. 展示搜索结果
+
+```jsx
+import { Link } from "react-router";
+import { getCoverUrl } from "../api/openLibrary";
+
+export function BookCard({ book, isFavorite, onToggleFavorite }) {
+  const coverUrl = getCoverUrl(book.coverId);
+
+  return (
+    <article>
+      {coverUrl ? (
+        <img src={coverUrl} alt="" loading="lazy" />
+      ) : (
+        <div aria-hidden="true">暂无封面</div>
+      )}
+      <h2><Link to={`/books/${book.id}`}>{book.title}</Link></h2>
+      <p>{book.authors.join("、")}</p>
+      {book.firstPublishYear && <p>首次出版：{book.firstPublishYear}</p>}
+      <button type="button" onClick={() => onToggleFavorite(book)}>
+        {isFavorite ? "取消收藏" : "加入收藏"}
+      </button>
+    </article>
+  );
+}
+```
+
+装饰性封面使用空 `alt`，标题链接已经提供图书名称，避免屏幕阅读器重复朗读。
+
+## 9. 分页
+
+```jsx
+export function Pagination({ page, total, pageSize, onChange }) {
+  const totalPages = Math.ceil(total / pageSize);
+  if (totalPages <= 1) return null;
+
+  return (
+    <nav aria-label="搜索结果分页">
+      <button
+        type="button"
+        disabled={page === 1}
+        onClick={() => onChange(page - 1)}
+      >
+        上一页
+      </button>
+      <span>第 {page} 页，共 {totalPages} 页</span>
+      <button
+        type="button"
+        disabled={page >= totalPages}
+        onClick={() => onChange(page + 1)}
+      >
+        下一页
+      </button>
+    </nav>
+  );
+}
+```
+
+切换页码后可以把焦点移到结果标题，或滚动到结果区域顶部，避免用户停留在页面底部。
+
+## 10. 详情页
+
+从动态路由读取作品编号：
+
+```jsx
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router";
+
+export function BookDetailPage() {
+  const { workId } = useParams();
+  const [book, setBook] = useState(null);
+  const [status, setStatus] = useState("loading");
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    fetch(`https://openlibrary.org/works/${encodeURIComponent(workId)}.json`, {
+      signal: controller.signal,
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("图书不存在");
+        return response.json();
+      })
+      .then((data) => {
+        setBook(data);
+        setStatus("success");
+      })
+      .catch((error) => {
+        if (error.name !== "AbortError") setStatus("error");
+      });
+
+    return () => controller.abort();
+  }, [workId]);
+
+  if (status === "loading") return <p>正在加载详情……</p>;
+  if (status === "error") return <p role="alert">无法加载图书详情。</p>;
+
+  const description = typeof book.description === "string"
+    ? book.description
+    : book.description?.value;
+
+  return (
+    <article>
+      <Link to="/">返回搜索</Link>
+      <h1>{book.title}</h1>
+      <p>{description || "暂无简介。"}</p>
+    </article>
+  );
+}
+```
+
+即使用户直接刷新详情地址，页面也会根据 `workId` 重新请求，不依赖从列表页传来的临时 State。
+
+## 11. 收藏功能
+
+收藏数据可以保存完整的展示模型：
+
+```jsx
+function useFavorites() {
+  const [favorites, setFavorites] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("book-favorites")) ?? [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem("book-favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
+  function toggleFavorite(book) {
+    setFavorites((current) =>
+      current.some((item) => item.id === book.id)
+        ? current.filter((item) => item.id !== book.id)
+        : [...current, book],
+    );
+  }
+
+  return { favorites, toggleFavorite };
+}
+```
+
+如果搜索页、详情页和收藏页都需要它，可以把 Hook 放在 `App` 中，再用 Context 向下共享。
+
+## 12. 测试策略
+
+- 模拟 API，不让测试依赖真实网络
+- 测试提交搜索后显示加载状态和结果
+- 测试空结果与请求失败
+- 测试翻页会改变 URL
+- 使用内存路由测试详情路径
+- 测试收藏和取消收藏
+
+测试异步结果时使用 `findByRole` 或 `findByText`，不要使用固定等待时间。
+
+## 13. 扩展练习
+
+- 输入停止一段时间后自动搜索
+- 按作者、语言或出版年份筛选
+- 缓存已经访问过的查询结果
+- 增加最近搜索历史
+- 给收藏添加备注和分类
+- 使用 TanStack Query 重构服务端数据状态
+
+## 完成检查
+
+- [ ] 搜索条件与页码保存在 URL 中
+- [ ] 所有请求状态都有清晰界面
+- [ ] 快速切换搜索不会显示过期结果
+- [ ] 详情页可以直接访问和刷新
+- [ ] 收藏刷新后仍然存在
+- [ ] 图片、表单、导航和加载提示具备基础可访问性
+- [ ] API 已被封装，组件不依赖原始响应字段
+- [ ] lint、测试和生产构建通过
+
+## 参考资料
+
+- [Open Library：Search API](https://openlibrary.org/dev/docs/api/search)
+- [Open Library：API 使用规范](https://openlibrary.org/developers/api)
+- [React Router：声明式路由](https://reactrouter.com/start/declarative/routing)
+- [MDN：AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController)

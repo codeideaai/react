@@ -63,6 +63,14 @@ website:
             text: 3.7 状态管理与性能基础
           - href: chapters/03-react-basics/08-engineering-testing/index.qmd
             text: 3.8 工程化、测试与部署
+      - section: "4. 推荐实战项目"
+        contents:
+          - href: chapters/04-projects/01-todo/index.qmd
+            text: 4.1 待办事项应用
+          - href: chapters/04-projects/02-book-search/index.qmd
+            text: 4.2 图书搜索应用
+          - href: chapters/04-projects/03-expense-tracker/index.qmd
+            text: 4.3 个人记账应用
   page-footer:
     center: "使用 Quarto 构建"
 
