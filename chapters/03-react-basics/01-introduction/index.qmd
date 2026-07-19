@@ -1,0 +1,64 @@
+---
+title: "认识 React 与开发环境"
+subtitle: "第 1 周学习概览"
+description: "认识 React、组件化和声明式 UI，并使用 Node.js、npm 与 Vite 搭建开发环境"
+number-sections: false
+---
+
+这一节是正式学习 React 的起点。我们会先理解 React 解决什么问题，再使用 Vite 创建项目，并沿着浏览器中的页面反向找到 `App.jsx`、`main.jsx` 和 `index.html`。
+
+完成环境搭建后，不要急着安装路由、状态管理或组件库。第一周最重要的目标，是理解一个最小 React 应用如何运行。
+
+## 学习目标
+
+完成本节后，你应该能够：
+
+- 说明 React 是什么以及适合解决什么问题
+- 解释声明式 UI 和组件化的基本思想
+- 理解单页应用的基本工作方式
+- 区分 Node.js、npm、React 和 Vite 的职责
+- 使用 Vite 创建 JavaScript 版 React 项目
+- 说明项目中主要文件和目录的作用
+- 理解 React 如何挂载到 HTML 根节点
+- 启动开发服务器、构建项目和预览构建结果
+- 使用浏览器开发者工具和 React DevTools 检查页面
+
+## 本节内容
+
+| 编号 | 文章 | 重点 |
+| --- | --- | --- |
+| 3.1.1 | [React 是什么](01-what-is-react.qmd) | React 的职责、适用场景和渐进式采用 |
+| 3.1.2 | [声明式 UI](02-declarative-ui.qmd) | 数据与界面的关系、声明式和命令式的区别 |
+| 3.1.3 | [组件化思想](03-component-thinking.qmd) | 组件树、职责、组合和拆分原则 |
+| 3.1.4 | [单页应用基础](04-spa-basics.qmd) | SPA 的加载过程、优点与额外问题 |
+| 3.1.5 | [开发工具](05-development-tools.qmd) | 浏览器、Node.js、npm、Vite 和 React DOM |
+| 3.1.6 | [创建 Vite 项目](06-create-vite-project.qmd) | 环境检查、创建、安装和启动项目 |
+| 3.1.7 | [项目结构](07-project-structure.qmd) | 入口文件、组件、样式、静态资源和配置 |
+| 3.1.8 | [开发、构建与调试](08-development-debugging.qmd) | 开发脚本、构建、DevTools 和问题排查 |
+
+## 建议学习顺序
+
+1. 按侧边栏顺序阅读八篇文章。
+2. 在阅读 3.1.6 时亲自创建项目，不要只看命令。
+3. 在阅读 3.1.7 时打开真实项目逐个寻找对应文件。
+4. 完成 3.1.8 的练习和检查清单。
+5. 清理 Vite 示例页面，留下自己的学习首页。
+
+## 最终成果
+
+本节结束时，你应该拥有一个可以运行的 Vite React 项目，其中包含：
+
+- 自己编写的页面标题和课程介绍
+- 本周学习目标列表
+- 简单但清晰的响应式样式
+- 没有未使用导入和 Console 错误
+- 可以成功执行的开发、检查和生产构建命令
+
+完成后返回[学习大纲](../../../index.qmd)，继续学习 JSX、组件与 Props。
+
+## 参考资料
+
+- [React 官方安装指南](https://react.dev/learn/installation)
+- [React：从零构建应用](https://react.dev/learn/build-a-react-app-from-scratch)
+- [React Developer Tools](https://react.dev/learn/react-developer-tools)
+- [Vite 官方入门指南](https://vite.dev/guide/)

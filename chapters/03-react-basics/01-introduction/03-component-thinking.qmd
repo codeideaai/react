@@ -1,0 +1,189 @@
+---
+title: "组件化思想"
+description: "学习如何识别组件边界、组织组件树并通过组合构建页面"
+---
+
+组件是 React 应用的基本组成单位。组件化不是简单地把文件切小，而是围绕清晰的界面概念和职责组织代码。
+
+## 从页面识别组件
+
+一个商品搜索页面可以拆成：
+
+```text
+App
+├── Header
+├── SearchForm
+├── ProductList
+│   ├── ProductCard
+│   ├── ProductCard
+│   └── ProductCard
+└── Footer
+```
+
+对应 JSX：
+
+```jsx
+function App() {
+  return (
+    <>
+      <Header />
+      <main>
+        <SearchForm />
+        <ProductList />
+      </main>
+      <Footer />
+    </>
+  );
+}
+```
+
+这棵结构称为组件树。父组件包含子组件，子组件还可以继续包含其他组件。
+
+## 什么适合成为组件
+
+遇到以下情况时，可以考虑拆分组件：
+
+- 页面中重复出现相同结构
+- 一部分界面具有明确名称和职责
+- 一段代码包含相对独立的交互
+- 组件已经太长，难以快速理解
+- 某部分需要单独测试或复用
+
+例如多次出现的商品卡片很适合成为组件：
+
+```jsx
+function ProductCard({ name, price, inStock }) {
+  return (
+    <article className="product-card">
+      <h2>{name}</h2>
+      <p>¥{price}</p>
+      <p>{inStock ? "有货" : "缺货"}</p>
+    </article>
+  );
+}
+```
+
+## 组件通过数据复用
+
+同一个结构可以接收不同数据：
+
+```jsx
+function ProductList({ products }) {
+  return (
+    <section className="product-grid">
+      {products.map((product) => (
+        <ProductCard
+          key={product.id}
+          name={product.name}
+          price={product.price}
+          inStock={product.inStock}
+        />
+      ))}
+    </section>
+  );
+}
+```
+
+组件不应该把每件商品写死在内部，而是通过 Props 接收数据。
+
+## 组合优于巨型组件
+
+巨型组件把所有内容放在一个函数中：
+
+```jsx
+function App() {
+  // 搜索、筛选、商品列表、弹窗、页脚等全部代码
+}
+```
+
+随着功能增长，它会变得难以阅读。组合后的 `App` 更像页面结构说明：
+
+```jsx
+function App() {
+  return (
+    <PageLayout>
+      <SearchForm />
+      <ProductList />
+    </PageLayout>
+  );
+}
+```
+
+## 不要过度拆分
+
+下面这种组件通常没有提供明显价值：
+
+```jsx
+function ProductName({ name }) {
+  return <span>{name}</span>;
+}
+```
+
+如果它只使用一次、没有独立行为，也不表达重要概念，直接写 `<span>{name}</span>` 可能更清晰。
+
+::: {.callout-tip title="初学阶段的拆分顺序"}
+先写出可以工作的页面，再观察重复结构和职责边界。不要在还不了解页面需求时提前创建大量只有一两行的组件。
+:::
+
+## 组件名和文件名
+
+React 组件名必须以大写字母开头：
+
+```jsx
+function ProductCard() {
+  return <article>商品</article>;
+}
+```
+
+小写名称会被当作 HTML 标签：
+
+```jsx
+// React 会把 productCard 当成未知 HTML 标签
+function productCard() {
+  return <article>商品</article>;
+}
+```
+
+常见做法是组件文件也使用相同名称：
+
+```text
+components/
+├── Header.jsx
+├── ProductCard.jsx
+└── ProductList.jsx
+```
+
+## 练习：拆分课程页面
+
+为下面页面画出组件树：
+
+- 顶部导航
+- 课程介绍
+- 课程筛选栏
+- 课程卡片列表
+- 每张卡片包含标题、难度、学习人数和按钮
+- 页面底部
+
+一种可能的结果：
+
+```text
+App
+├── Header
+├── CourseHero
+├── CourseFilters
+├── CourseList
+│   └── CourseCard × N
+└── Footer
+```
+
+组件树没有唯一正确答案。关键是能够解释每个边界为什么存在。
+
+## 本节检查
+
+- [ ] 能画出一个页面的组件树
+- [ ] 能识别重复且适合复用的结构
+- [ ] 知道组件名必须大写
+- [ ] 能说明 Props 如何帮助组件复用
+- [ ] 知道组件不是越小越好
+
+上一篇：[声明式 UI](02-declarative-ui.qmd) ｜ 下一篇：[单页应用基础](04-spa-basics.qmd)

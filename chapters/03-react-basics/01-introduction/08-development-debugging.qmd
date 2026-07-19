@@ -1,0 +1,236 @@
+---
+title: "开发、构建与调试"
+description: "掌握 Vite 脚本、浏览器开发者工具、React DevTools 和常见问题排查"
+---
+
+开发环境搭建完成后，要学会运行不同脚本、观察错误并验证生产构建。
+
+## 启动开发服务器
+
+```bash
+npm run dev
+```
+
+开发服务器提供快速更新和错误提示，适合日常编码。
+
+修改 `App.jsx` 并保存时，React Fast Refresh 通常会更新页面而不完整刷新浏览器。
+
+## 运行代码检查
+
+如果模板提供 `lint` 脚本：
+
+```bash
+npm run lint
+```
+
+ESLint 会检查常见代码问题，例如：
+
+- 未使用的变量和导入
+- 违反 Hooks 规则
+- 可疑语法
+
+不要看到警告就关闭规则，先理解它指出的问题。
+
+## 构建生产文件
+
+```bash
+npm run build
+```
+
+构建结果默认位于 `dist`。生产构建会处理模块、JSX 和静态资源，生成适合部署的文件。
+
+构建成功不能证明业务功能全部正确，但可以发现部分导入、语法和构建配置问题。
+
+## 预览生产构建
+
+```bash
+npm run preview
+```
+
+它会启动本地服务器预览 `dist`。`preview` 用于检查构建产物，不是日常开发服务器，也不是正式生产服务器。
+
+推荐的提交前顺序：
+
+```bash
+npm run lint
+npm run build
+```
+
+项目有测试后，再加入测试命令。
+
+## 浏览器开发者工具
+
+### Elements
+
+检查 React 最终生成的 DOM 和 CSS。浏览器中看不到 JSX，只能看到转换后的真实 DOM。
+
+### Console
+
+查看：
+
+- JavaScript 错误
+- React 警告
+- `console.log` 输出
+- 资源和请求失败信息
+
+优先阅读第一条错误，注意文件名和行号。
+
+### Network
+
+检查：
+
+- JavaScript、CSS 和图片是否加载成功
+- API 请求状态
+- 请求和响应内容
+- 静态资源路径
+
+### Sources
+
+设置断点、逐行执行代码并观察变量。
+
+## React Developer Tools
+
+安装官方 React Developer Tools 后，浏览器开发者工具会增加：
+
+- Components：检查组件树、Props、State 和 Hooks
+- Profiler：分析组件渲染和性能
+
+第一周先完成：
+
+1. 在 Components 面板找到 `App`
+2. 对比组件树和 Elements 中的 DOM 树
+3. 查看 `App` 是否包含 Props 或 Hooks
+
+React 组件不一定对应唯一 DOM 元素，组件树和 DOM 树不是同一种结构。
+
+安装方式以 [React Developer Tools 官方文档](https://react.dev/learn/react-developer-tools) 为准。
+
+## 常见问题排查
+
+### 找不到 npm 脚本
+
+```text
+Missing script: "dev"
+```
+
+确认当前目录包含正确的 `package.json`：
+
+```bash
+pwd
+ls
+```
+
+### 缺少依赖
+
+刚克隆项目或没有 `node_modules` 时：
+
+```bash
+npm install
+```
+
+不要复制别人的 `node_modules`。
+
+### 端口被占用
+
+Vite 通常会自动尝试其他端口。使用终端显示的实际地址。
+
+也可以指定端口：
+
+```bash
+npm run dev -- --port 3000
+```
+
+### 页面空白
+
+依次检查：
+
+1. 终端是否有编译错误
+2. Console 是否有第一条红色错误
+3. `index.html` 是否存在 `#root`
+4. `main.jsx` 是否查找相同 ID
+5. `App.jsx` 是否正确导出
+6. 文件名大小写是否与导入一致
+
+### 修改后没有更新
+
+检查：
+
+- 文件是否保存
+- 开发服务器是否仍在运行
+- 浏览器是否打开正确端口
+- 是否有错误阻止模块更新
+
+### 开发模式出现额外执行
+
+`StrictMode` 会在开发环境执行额外检查。不要先删除它来隐藏问题，应先确认代码是否包含不纯渲染或缺少清理的副作用。Effect 章节会详细讲解。
+
+## 本周综合练习
+
+### 清理模板
+
+- 删除示例 Logo 和计数器
+- 修复所有未使用导入
+- 保留清晰的 `App.jsx` 和样式入口
+- 确保 Console 没有错误
+
+### 制作学习首页
+
+页面至少包含：
+
+- 页面标题
+- 一段课程介绍
+- 本周目标列表
+- 一个“开始学习”按钮
+- 基础响应式样式
+
+先只使用静态 JSX，按钮交互会在学习事件和 State 时实现。
+
+示例：
+
+```jsx
+import "./App.css";
+
+function App() {
+  return (
+    <main className="course-page">
+      <header>
+        <p className="eyebrow">React 学习计划</p>
+        <h1>欢迎学习 React</h1>
+        <p>从组件、Props 和 State 开始构建交互界面。</p>
+      </header>
+
+      <section>
+        <h2>本周目标</h2>
+        <ul>
+          <li>理解 React 的作用</li>
+          <li>熟悉 Vite 项目结构</li>
+          <li>完成第一个组件</li>
+        </ul>
+      </section>
+    </main>
+  );
+}
+
+export default App;
+```
+
+### 验证项目
+
+```bash
+npm run lint
+npm run build
+npm run preview
+```
+
+## 学习检查
+
+- [ ] 能启动和停止开发服务器
+- [ ] 能运行 ESLint 和生产构建
+- [ ] 能说明 `dev`、`build` 和 `preview` 的区别
+- [ ] 能在 Console 中找到第一条错误
+- [ ] 能用 Network 检查资源请求
+- [ ] 能在 React DevTools 中找到 `App`
+- [ ] 能排查常见空白页面问题
+- [ ] 已完成并验证自己的学习首页
+
+上一篇：[项目结构](07-project-structure.qmd) ｜ 返回：[3.1 概览](index.qmd)

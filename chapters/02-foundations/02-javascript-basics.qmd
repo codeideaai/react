@@ -604,4 +604,4 @@ const nextProducts = products.map((product) =>
 - [ ] 能使用 `async/await` 请求数据并处理错误
 - [ ] 能说明为什么 React 通常不直接操作 DOM
 
-下一步可以返回[学习大纲](index.qmd)，进入“认识 React 与开发环境”。
+下一步可以返回[学习大纲](../../index.qmd)，进入“认识 React 与开发环境”。

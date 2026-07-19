@@ -1,0 +1,173 @@
+---
+title: "声明式 UI"
+description: "通过计数器和提交按钮理解声明式界面与命令式 DOM 操作的区别"
+---
+
+声明式 UI 是理解 React 的关键。它要求我们描述“在当前数据下，界面应该是什么样子”，而不是为每种情况编写一串 DOM 修改步骤。
+
+## 命令式 DOM 操作
+
+使用原生 JavaScript 编写计数器时，我们可以主动查找和修改 DOM：
+
+```html
+<p id="count">0</p>
+<button id="add-button" type="button">增加</button>
+```
+
+```js
+const countElement = document.querySelector("#count");
+const button = document.querySelector("#add-button");
+
+let count = 0;
+
+button.addEventListener("click", () => {
+  count += 1;
+  countElement.textContent = count;
+});
+```
+
+这段代码明确告诉浏览器：
+
+1. 找到计数元素
+2. 找到按钮
+3. 监听点击
+4. 修改变量
+5. 修改 DOM 文字
+
+这是一种命令式思路。
+
+## 声明式计数器
+
+React 版本更关注数据与界面的对应关系：
+
+```jsx
+import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <section>
+      <p>当前数量：{count}</p>
+      <button onClick={() => setCount(count + 1)}>
+        增加
+      </button>
+    </section>
+  );
+}
+```
+
+点击按钮时，我们更新 `count`。React 根据新的 `count` 重新计算组件界面，并完成必要的 DOM 更新。
+
+```text
+用户点击
+   ↓
+更新数据 count
+   ↓
+组件重新计算 JSX
+   ↓
+React 更新必要的 DOM
+```
+
+## 用状态描述界面
+
+假设一个提交按钮存在两种状态：
+
+| 数据状态 | 按钮文字 | 是否禁用 |
+| --- | --- | --- |
+| `isSubmitting = false` | 提交 | 否 |
+| `isSubmitting = true` | 提交中…… | 是 |
+
+JSX 可以直接表达这个关系：
+
+```jsx
+function SubmitButton({ isSubmitting }) {
+  return (
+    <button disabled={isSubmitting}>
+      {isSubmitting ? "提交中……" : "提交"}
+    </button>
+  );
+}
+```
+
+不需要分别编写“把文字改为提交中”“禁用按钮”“恢复按钮”这些 DOM 步骤。
+
+## 多种页面状态
+
+数据请求页面通常至少包含四种状态：
+
+- 加载中
+- 加载失败
+- 空数据
+- 加载成功
+
+可以将它们清晰地写成条件：
+
+```jsx
+function ProductList({ products, isLoading, error }) {
+  if (isLoading) {
+    return <p>正在加载商品……</p>;
+  }
+
+  if (error) {
+    return <p role="alert">商品加载失败</p>;
+  }
+
+  if (products.length === 0) {
+    return <p>暂时没有商品</p>;
+  }
+
+  return (
+    <ul>
+      {products.map((product) => (
+        <li key={product.id}>{product.name}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+每个数据状态都有明确的界面结果。
+
+## 声明式不等于没有步骤
+
+React 内部仍然需要创建、比较和更新 DOM。声明式的意义是：
+
+- 开发者描述目标界面
+- React 负责具体更新步骤
+- 相同数据应产生可预测的界面
+
+这让复杂界面的状态组合更容易理解。
+
+## 数据应该是界面的事实来源
+
+如果按钮是否禁用由 `isSubmitting` 决定，就不要再额外维护一个独立变量表示按钮状态，否则两个值可能不一致。
+
+```jsx
+// 推荐：直接从已有状态得到结果
+const buttonText = isSubmitting ? "提交中……" : "提交";
+```
+
+能从已有数据计算出来的值，通常不需要保存为额外状态。
+
+## 思考练习
+
+为登录表单设计以下状态对应的界面：
+
+- 用户尚未输入
+- 正在登录
+- 登录成功
+- 密码错误
+- 网络失败
+
+先写出状态表格，再考虑 JSX。不要从“我要修改哪个 DOM”开始。
+
+## 本节检查
+
+- [ ] 能解释命令式和声明式的区别
+- [ ] 能根据布尔值决定按钮文字和状态
+- [ ] 能列出数据请求页面的常见状态
+- [ ] 理解 React 仍然会更新真实 DOM
+- [ ] 知道数据应作为界面的事实来源
+
+上一篇：[React 是什么](01-what-is-react.qmd) ｜ 下一篇：[组件化思想](03-component-thinking.qmd)

@@ -4,7 +4,7 @@ subtitle: "用三个小项目巩固 HTML、CSS 与 JavaScript"
 description: "通过商品统计、异步数据列表和待办事项应用，为学习 React 做好准备"
 ---
 
-前两节分别回顾了 [HTML 与 CSS](html-css-basics.qmd) 和 [JavaScript 必备知识](javascript-basics.qmd)。这一节不再增加太多新语法，而是通过三个练习把已有知识连接起来。
+前两节分别回顾了 [HTML 与 CSS](01-html-css.qmd) 和 [JavaScript 必备知识](02-javascript-basics.qmd)。这一节不再增加太多新语法，而是通过三个练习把已有知识连接起来。
 
 三个练习会逐步增加难度：
 
@@ -989,4 +989,4 @@ debugger;
 - [ ] 使用浏览器开发者工具定位常见错误
 - [ ] 解释“状态变化驱动页面更新”的基本流程
 
-完成这些练习后，可以回到[学习大纲](index.qmd)，开始学习 React 与开发环境。
+完成这些练习后，可以回到[学习大纲](../../index.qmd)，开始学习 React 与开发环境。

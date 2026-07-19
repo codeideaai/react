@@ -896,4 +896,4 @@ Grid 可以从下面的规则开始：
 - [ ] 能说明 `relative` 与 `absolute` 定位的关系
 - [ ] 能把普通 HTML 改写为合法 JSX
 
-下一步可以阅读 [JavaScript 必备知识](javascript-basics.qmd)，继续完成 React 学习前的基础回顾。
+下一步可以阅读 [JavaScript 必备知识](02-javascript-basics.qmd)，继续完成 React 学习前的基础回顾。

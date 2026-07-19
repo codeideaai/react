@@ -1,0 +1,142 @@
+---
+title: "React 是什么"
+description: "理解 React 的职责、适用场景以及它与 HTML、CSS 和 JavaScript 的关系"
+---
+
+React 是一个用于构建 Web 和原生用户界面的 JavaScript 库。在 Web 项目中，我们主要使用它根据数据描述页面，并把页面拆分成可以组合和复用的组件。
+
+## 最小 React 组件
+
+下面的函数就是一个 React 组件：
+
+```jsx
+function Welcome() {
+  return <h1>欢迎学习 React</h1>;
+}
+```
+
+这个函数返回的内容看起来像 HTML，但它实际上是 JSX。构建工具会把 JSX 转换成浏览器能够执行的 JavaScript。
+
+组件可以接收数据：
+
+```jsx
+function Welcome({ name }) {
+  return <h1>欢迎你，{name}</h1>;
+}
+```
+
+使用组件时，可以传入不同数据：
+
+```jsx
+function App() {
+  return (
+    <main>
+      <Welcome name="小明" />
+      <Welcome name="小红" />
+    </main>
+  );
+}
+```
+
+React 主要关心两件事：
+
+1. 当前数据应该对应什么界面
+2. 数据变化后，哪些界面需要更新
+
+## React 不会替代什么
+
+React 不会替代 HTML、CSS 和 JavaScript。
+
+- 组件仍然使用 HTML 语义组织内容
+- 页面仍然使用 CSS 控制样式和布局
+- 数据处理、函数和异步请求仍然是 JavaScript
+- 浏览器最终显示的仍然是 DOM
+
+React 改变的是我们组织界面和处理更新的方式。
+
+```jsx
+function ProductCard({ product }) {
+  return (
+    <article className="product-card">
+      <h2>{product.name}</h2>
+      <p>¥{product.price}</p>
+      <button type="button">加入购物车</button>
+    </article>
+  );
+}
+```
+
+这段代码同时使用了：
+
+- HTML 语义：`article`、`h2`、`p`、`button`
+- CSS 类：`product-card`
+- JavaScript：参数、对象属性和表达式
+- React：组件和 JSX
+
+## React 适合解决的问题
+
+React 特别适合界面由数据驱动、交互较多或需要复用大量界面结构的项目，例如：
+
+- 管理后台
+- 电商购物流程
+- 即时通信界面
+- 在线编辑器
+- 数据看板
+- 具有复杂表单的业务应用
+- 需要跨页面复用组件的产品
+
+一个商品列表中，每张卡片结构相同、数据不同，就非常适合组件化：
+
+```jsx
+function ProductList({ products }) {
+  return (
+    <section>
+      {products.map((product) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </section>
+  );
+}
+```
+
+## 不一定需要 React 的情况
+
+React 不是所有网页的唯一选择。下面这些情况可能只需要 HTML、CSS 和少量 JavaScript：
+
+- 内容固定的简单宣传页
+- 只有少量交互的单页说明文档
+- 一个很小的嵌入式功能
+- 已有技术栈能够清晰完成需求的项目
+
+技术选择应该根据项目复杂度、团队经验、运行环境和维护成本决定，而不是因为某个工具流行。
+
+## 渐进式采用
+
+React 可以用于整个应用，也可以只负责页面中的一小块交互区域。
+
+例如，一个已有网站可以先把复杂搜索面板改为 React 组件，而保留其他页面结构。随着需求增长，再决定是否扩大 React 的使用范围。
+
+这种方式说明 React 是一个 UI 库，不要求所有项目必须从头重写。
+
+## React 与完整框架
+
+React 主要提供组件和界面更新能力。一个完整应用通常还需要：
+
+- 路由
+- 数据请求与缓存
+- 构建和部署
+- 身份认证
+- 服务端渲染或静态生成
+- 错误处理
+
+完整 React 框架会把其中多项能力组合起来。本课程先使用 Vite 学习客户端 React 核心，避免在第一周同时引入太多概念。
+
+## 本节检查
+
+- [ ] 能用一句话说明 React 是什么
+- [ ] 能说明 React 与 JavaScript 的关系
+- [ ] 能举出适合使用 React 的界面
+- [ ] 知道 React 不负责完整应用的所有能力
+- [ ] 理解 React 可以逐步加入已有项目
+
+下一篇：[声明式 UI](02-declarative-ui.qmd)

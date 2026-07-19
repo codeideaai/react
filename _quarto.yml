@@ -16,16 +16,39 @@ website:
     title: "目录"
     style: docked
     search: true
+    collapse-level: 3
     contents:
       - index.qmd
       - section: "2. 基础回顾"
         contents:
-          - href: html-css-basics.qmd
+          - href: chapters/02-foundations/01-html-css.qmd
             text: 2.1 HTML 与 CSS
-          - href: javascript-basics.qmd
+          - href: chapters/02-foundations/02-javascript-basics.qmd
             text: 2.2 JavaScript 必备知识
-          - href: basic-exercises.qmd
+          - href: chapters/02-foundations/03-basic-exercises.qmd
             text: 2.3 基础练习
+      - section: "3. React 学习路线"
+        contents:
+          - section: "3.1 认识 React 与开发环境"
+            contents:
+              - href: chapters/03-react-basics/01-introduction/index.qmd
+                text: 3.1 概览
+              - href: chapters/03-react-basics/01-introduction/01-what-is-react.qmd
+                text: 3.1.1 React 是什么
+              - href: chapters/03-react-basics/01-introduction/02-declarative-ui.qmd
+                text: 3.1.2 声明式 UI
+              - href: chapters/03-react-basics/01-introduction/03-component-thinking.qmd
+                text: 3.1.3 组件化思想
+              - href: chapters/03-react-basics/01-introduction/04-spa-basics.qmd
+                text: 3.1.4 单页应用基础
+              - href: chapters/03-react-basics/01-introduction/05-development-tools.qmd
+                text: 3.1.5 开发工具
+              - href: chapters/03-react-basics/01-introduction/06-create-vite-project.qmd
+                text: 3.1.6 创建 Vite 项目
+              - href: chapters/03-react-basics/01-introduction/07-project-structure.qmd
+                text: 3.1.7 项目结构
+              - href: chapters/03-react-basics/01-introduction/08-development-debugging.qmd
+                text: 3.1.8 开发、构建与调试
   page-footer:
     center: "使用 Quarto 构建"
 

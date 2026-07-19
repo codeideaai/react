@@ -1,0 +1,158 @@
+---
+title: "开发工具"
+description: "区分浏览器、Node.js、npm、Vite、React 与 React DOM 的职责"
+---
+
+初学时很容易把 Node.js、npm、Vite 和 React 混在一起。它们会同时出现在项目中，但负责不同工作。
+
+## 浏览器
+
+浏览器最终负责运行 Web 应用：
+
+- 解析 HTML 和 CSS
+- 执行 JavaScript
+- 创建并显示 DOM
+- 处理用户事件
+- 发起网络请求
+- 提供本地存储等 Web API
+
+React Web 应用最终仍然运行在浏览器中。
+
+## Node.js
+
+Node.js 可以在浏览器外运行 JavaScript。在前端项目中，它主要运行开发工具：
+
+- npm
+- Vite 开发服务器
+- ESLint
+- 测试工具
+- 构建脚本
+
+```text
+开发阶段：Node.js 运行 Vite、ESLint 等工具
+生产阶段：浏览器运行构建后的客户端应用
+```
+
+这不表示所有 React 项目都只能运行客户端。一些框架也会使用 Node.js 运行服务端代码，但当前 Vite 学习项目主要是客户端应用。
+
+## npm
+
+npm 是 Node.js 常用的包管理器，负责：
+
+- 安装 React、Vite 等依赖
+- 记录项目依赖关系
+- 从 npm 包仓库获取第三方代码
+- 执行 `package.json` 中的脚本
+
+常见命令：
+
+```bash
+npm install
+npm run dev
+npm run build
+```
+
+`npm install` 会读取项目清单并安装依赖；`npm run` 会执行项目定义的脚本。
+
+## Vite
+
+Vite 是前端构建工具，主要提供：
+
+- 项目模板
+- 本地开发服务器
+- JavaScript 模块处理
+- JSX 转换
+- React Fast Refresh
+- CSS 和静态资源处理
+- 生产构建
+
+浏览器不能直接理解项目中的所有开发期约定。Vite 负责把源码组织成适合开发和部署的形式。
+
+## React
+
+`react` 包提供组件和 Hooks 等核心能力。
+
+```jsx
+import { useState } from "react";
+```
+
+React 的职责主要是描述组件以及管理界面更新逻辑。
+
+## React DOM
+
+`react-dom` 负责把 React 组件连接到浏览器 DOM：
+
+```jsx
+import { createRoot } from "react-dom/client";
+
+const root = createRoot(document.getElementById("root"));
+root.render(<App />);
+```
+
+如果使用 React Native，会由另一套渲染环境把组件转换为原生界面，而不是浏览器 DOM。
+
+## 关系图
+
+```text
+Node.js
+  └── 运行 npm 和 Vite
+
+npm
+  ├── 安装 react
+  ├── 安装 react-dom
+  └── 安装 vite
+
+Vite
+  ├── 启动开发服务器
+  ├── 转换 JSX
+  └── 构建生产文件
+
+React + React DOM
+  └── 在浏览器中创建和更新界面
+```
+
+可以用一句话概括：
+
+```text
+Node.js 运行工具，npm 管理依赖，Vite 开发和构建，React 描述界面，浏览器运行结果。
+```
+
+## 编辑器和终端
+
+编辑器用于编写和浏览代码，终端用于执行项目命令。
+
+运行命令时，终端的当前目录非常重要：
+
+```bash
+pwd
+ls
+```
+
+必须进入包含 `package.json` 的项目目录，`npm run dev` 才能找到相应脚本。
+
+## Git
+
+Git 不是 React 的依赖，但它用于记录代码版本和协作。
+
+React 项目通常提交：
+
+- 源代码
+- `package.json`
+- 锁文件
+- 配置文件
+
+通常不提交：
+
+- `node_modules`
+- 本地环境文件中的凭据
+- 构建缓存
+
+## 本节检查
+
+- [ ] 能解释 Node.js 为什么出现在前端项目中
+- [ ] 能说明 npm 和 Vite 的区别
+- [ ] 能说明 `react` 和 `react-dom` 的区别
+- [ ] 知道浏览器运行最终客户端应用
+- [ ] 知道 npm 命令应在项目目录执行
+
+上一篇：[单页应用基础](04-spa-basics.qmd) ｜ 下一篇：[创建 Vite 项目](06-create-vite-project.qmd)

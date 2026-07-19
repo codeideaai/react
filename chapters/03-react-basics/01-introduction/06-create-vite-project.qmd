@@ -1,0 +1,163 @@
+---
+title: "创建 Vite 项目"
+description: "检查 Node.js 环境，并使用 Vite 创建、安装和启动 JavaScript 版 React 项目"
+---
+
+这一篇会完成第一个可以运行的 React 项目。请亲自在终端执行命令，不要只阅读结果。
+
+## 检查 Node.js 和 npm
+
+终端中运行：
+
+```bash
+node --version
+npm --version
+```
+
+两个命令都应该输出版本号。
+
+::: {.callout-important title="检查 Vite 的 Node.js 要求"}
+Vite 对 Node.js 的最低版本要求会随主要版本更新。截至本文编写时，Vite 官方入门文档要求 Node.js `20.19+` 或 `22.12+`。如果出现版本警告，请以 [Vite 官方入门文档](https://vite.dev/guide/) 的最新要求为准。
+:::
+
+初学阶段建议使用仍在维护的 LTS 版本。如果电脑上有多个项目，再考虑使用 Node.js 版本管理工具。
+
+## 创建项目
+
+进入希望保存练习项目的目录：
+
+```bash
+npm create vite@latest react-first-app -- --template react
+```
+
+命令含义：
+
+- `npm create vite@latest`：运行 Vite 项目创建工具
+- `react-first-app`：创建的目录名
+- `--template react`：选择 JavaScript 版 React 模板
+- 额外的 `--`：让 npm 把后续参数传给 Vite
+
+本课程先使用 JavaScript 模板，不需要选择 `react-ts`。
+
+## 进入项目
+
+```bash
+cd react-first-app
+```
+
+检查目录：
+
+```bash
+pwd
+ls
+```
+
+应该能看到 `package.json`、`index.html` 和 `src`。
+
+## 安装依赖
+
+```bash
+npm install
+```
+
+这一步会：
+
+- 读取 `package.json`
+- 根据锁文件解析版本
+- 下载项目依赖
+- 创建 `node_modules`
+
+::: {.callout-note title="不必全局安装 Vite"}
+Vite 会作为项目开发依赖安装。通过 `npm run dev` 使用项目记录的版本，可以减少不同电脑和项目之间的版本差异。
+:::
+
+## 启动开发服务器
+
+```bash
+npm run dev
+```
+
+终端会显示本地地址，例如：
+
+```text
+http://localhost:5173/
+```
+
+端口可能因为占用而变化，始终使用终端实际显示的地址。
+
+开发服务器运行时，当前终端会被占用。需要执行其他命令时，可以打开另一个终端标签页。
+
+停止服务器：
+
+```text
+Ctrl + C
+```
+
+## 验证热更新
+
+保持开发服务器运行：
+
+1. 打开 `src/App.jsx`
+2. 修改页面标题
+3. 保存文件
+4. 观察浏览器自动更新
+
+如果修改后页面没有变化，检查：
+
+- 文件是否保存
+- 开发服务器是否仍在运行
+- 浏览器是否打开了正确端口
+- 终端和 Console 是否存在错误
+
+## 可选：在当前空目录创建
+
+如果当前目录专门用于新项目并且是空的，可以使用 `.`：
+
+```bash
+npm create vite@latest . -- --template react
+```
+
+执行前必须确认当前目录没有需要保留的同名文件。初学阶段使用新目录名通常更安全。
+
+## Create React App 提示
+
+旧教程可能使用：
+
+```text
+create-react-app
+```
+
+Create React App 已被弃用。不要为了跟随旧教程重新使用它。本课程采用 React 官方“从零构建”文档列出的 Vite 方案。
+
+## 常见错误
+
+### 找不到 `node` 或 `npm`
+
+```text
+command not found: node
+```
+
+检查 Node.js 是否安装，安装后重新打开终端。
+
+### Node.js 版本不满足要求
+
+如果出现 engine 或版本警告，先升级 Node.js，不要忽略后继续排查其他问题。
+
+### 网络安装失败
+
+确认网络连接和 npm 配置。不要从不可信来源下载别人打包的 `node_modules`。
+
+### 目录已存在
+
+换一个项目名称，或先确认现有目录中的内容是否可以安全处理。不要直接删除不清楚用途的文件。
+
+## 完成检查
+
+- [ ] `node --version` 和 `npm --version` 正常
+- [ ] 已使用 React JavaScript 模板创建项目
+- [ ] `npm install` 成功
+- [ ] `npm run dev` 成功
+- [ ] 浏览器可以访问项目
+- [ ] 修改 `App.jsx` 后页面自动更新
+
+上一篇：[开发工具](05-development-tools.qmd) ｜ 下一篇：[项目结构](07-project-structure.qmd)
