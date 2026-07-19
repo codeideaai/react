@@ -44,7 +44,7 @@
     "href": "index.html#推荐实战项目",
     "title": "React 学习大纲",
     "section": "4 推荐实战项目",
-    "text": "4 推荐实战项目\n建议按照难度逐步完成，不要只看教程而不动手。\n\n4.1 待办事项应用\n核心功能：\n\n新增、编辑、删除任务\n标记完成状态\n按全部、未完成、已完成筛选\n使用 localStorage 保存数据\n\n重点知识：组件、Props、State、表单、列表渲染、Effect。\n\n\n4.2 电影或图书搜索应用\n核心功能：\n\n输入关键词搜索\n展示加载、错误和空结果状态\n列表页与详情页\n收藏功能\n分页或加载更多\n\n重点知识：API 请求、路由、自定义 Hook、状态共享。\n\n\n4.3 个人记账应用\n核心功能：\n\n添加收入和支出\n按日期、类型筛选\n计算余额和分类合计\n图表展示\n本地存储或连接后端 API\n\n重点知识：复杂状态、表单校验、数据计算、组件设计。",
+    "text": "4 推荐实战项目\n建议按照难度逐步完成，不要只看教程而不动手。\n\n4.1 待办事项应用\n核心功能：\n\n新增、编辑、删除任务\n标记完成状态\n按全部、未完成、已完成筛选\n使用 localStorage 保存数据\n\n重点知识：组件、Props、State、表单、列表渲染、Effect。\n\n\n4.2 图书搜索应用\n核心功能：\n\n输入关键词搜索\n展示加载、错误和空结果状态\n列表页与详情页\n收藏功能\n分页或加载更多\n\n重点知识：API 请求、路由、自定义 Hook、状态共享。\n\n\n4.3 个人记账应用\n核心功能：\n\n添加收入和支出\n按日期、类型筛选\n计算余额和分类合计\n图表展示\n本地存储或连接后端 API\n\n重点知识：复杂状态、表单校验、数据计算、组件设计。",
     "crumbs": [
       "React 学习大纲"
     ]
@@ -1501,6 +1501,369 @@
     ]
   },
   {
+    "objectID": "chapters/04-projects/01-todo/index.html",
+    "href": "chapters/04-projects/01-todo/index.html",
+    "title": "待办事项应用",
+    "section": "",
+    "text": "返回学习大纲\n这个项目不追求功能数量，而是练习一条完整开发路径：分析需求、设计数据、拆分组件、实现交互、保存数据、测试关键行为，最后构建发布。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.1 待办事项应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/01-todo/index.html#学习目标",
+    "href": "chapters/04-projects/01-todo/index.html#学习目标",
+    "title": "待办事项应用",
+    "section": "学习目标",
+    "text": "学习目标\n\n根据页面功能设计组件和 State\n使用受控表单新增任务\n使用 Reducer 集中管理增删改查\n从 State 派生筛选结果和统计数据\n使用 localStorage 保存任务\n为关键用户行为编写测试",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.1 待办事项应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/01-todo/index.html#明确需求与验收标准",
+    "href": "chapters/04-projects/01-todo/index.html#明确需求与验收标准",
+    "title": "待办事项应用",
+    "section": "1. 明确需求与验收标准",
+    "text": "1. 明确需求与验收标准\n第一版实现以下功能：\n\n新增任务，空内容不能提交\n编辑和删除任务\n切换完成状态\n按全部、未完成、已完成筛选\n显示剩余任务数量\n清除全部已完成任务\n刷新页面后保留数据\n\n验收标准要描述用户能观察到的结果。例如：“输入任务并提交后，新任务出现在列表中，输入框被清空”，比“调用新增函数”更适合作为测试目标。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.1 待办事项应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/01-todo/index.html#创建项目",
+    "href": "chapters/04-projects/01-todo/index.html#创建项目",
+    "title": "待办事项应用",
+    "section": "2. 创建项目",
+    "text": "2. 创建项目\npnpm create vite todo-app --template react\ncd todo-app\npnpm install\npnpm dev\n建议目录：\nsrc/\n├── components/\n│   ├── TodoForm.jsx\n│   ├── TodoItem.jsx\n│   ├── TodoList.jsx\n│   ├── TodoFilters.jsx\n│   └── TodoStats.jsx\n├── hooks/\n│   └── usePersistentTodos.js\n├── reducers/\n│   └── todosReducer.js\n├── utils/\n│   └── todos.js\n├── App.jsx\n├── App.css\n└── main.jsx\n先实现功能，再根据真实职责拆分文件。不要为了追求目录整齐而创建只用一次、没有独立职责的小组件。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.1 待办事项应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/01-todo/index.html#设计任务数据",
+    "href": "chapters/04-projects/01-todo/index.html#设计任务数据",
+    "title": "待办事项应用",
+    "section": "3. 设计任务数据",
+    "text": "3. 设计任务数据\n每个任务使用如下结构：\n{\n  id: \"e08ec8df-...\",\n  text: \"完成 React 练习\",\n  completed: false,\n  createdAt: \"2026-07-19T08:00:00.000Z\"\n}\n\nid 用于更新、删除和 React 的 key\ntext 是用户输入的内容\ncompleted 表示完成状态\ncreatedAt 便于以后增加排序功能\n\n筛选结果和剩余数量可以由任务数组计算，不要重复存入 State，否则容易出现数据不一致。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.1 待办事项应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/01-todo/index.html#使用-reducer-管理任务",
+    "href": "chapters/04-projects/01-todo/index.html#使用-reducer-管理任务",
+    "title": "待办事项应用",
+    "section": "4. 使用 Reducer 管理任务",
+    "text": "4. 使用 Reducer 管理任务\n创建 src/reducers/todosReducer.js：\nexport function todosReducer(todos, action) {\n  switch (action.type) {\n    case \"added\":\n      return [\n        ...todos,\n        {\n          id: action.id,\n          text: action.text,\n          completed: false,\n          createdAt: action.createdAt,\n        },\n      ];\n\n    case \"toggled\":\n      return todos.map((todo) =&gt;\n        todo.id === action.id\n          ? { ...todo, completed: !todo.completed }\n          : todo,\n      );\n\n    case \"edited\":\n      return todos.map((todo) =&gt;\n        todo.id === action.id ? { ...todo, text: action.text } : todo,\n      );\n\n    case \"deleted\":\n      return todos.filter((todo) =&gt; todo.id !== action.id);\n\n    case \"completedCleared\":\n      return todos.filter((todo) =&gt; !todo.completed);\n\n    default:\n      throw new Error(`未知操作：${action.type}`);\n  }\n}\nReducer 只负责根据旧 State 和 Action 计算新 State，不读取 DOM、不写存储，也不直接修改原数组。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.1 待办事项应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/01-todo/index.html#实现新增表单",
+    "href": "chapters/04-projects/01-todo/index.html#实现新增表单",
+    "title": "待办事项应用",
+    "section": "5. 实现新增表单",
+    "text": "5. 实现新增表单\nimport { useState } from \"react\";\n\nexport function TodoForm({ onAdd }) {\n  const [text, setText] = useState(\"\");\n  const [error, setError] = useState(\"\");\n\n  function handleSubmit(event) {\n    event.preventDefault();\n    const value = text.trim();\n\n    if (!value) {\n      setError(\"请输入任务内容\");\n      return;\n    }\n\n    onAdd(value);\n    setText(\"\");\n    setError(\"\");\n  }\n\n  return (\n    &lt;form onSubmit={handleSubmit}&gt;\n      &lt;label htmlFor=\"new-todo\"&gt;新任务&lt;/label&gt;\n      &lt;input\n        id=\"new-todo\"\n        value={text}\n        onChange={(event) =&gt; setText(event.target.value)}\n        aria-describedby={error ? \"todo-error\" : undefined}\n      /&gt;\n      &lt;button type=\"submit\"&gt;添加&lt;/button&gt;\n      {error && &lt;p id=\"todo-error\" role=\"alert\"&gt;{error}&lt;/p&gt;}\n    &lt;/form&gt;\n  );\n}\n表单保留自己的输入和错误状态，任务数组由父组件管理。这体现了“状态放在离使用位置最近处”的原则。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.1 待办事项应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/01-todo/index.html#实现任务项",
+    "href": "chapters/04-projects/01-todo/index.html#实现任务项",
+    "title": "待办事项应用",
+    "section": "6. 实现任务项",
+    "text": "6. 实现任务项\nimport { useState } from \"react\";\n\nexport function TodoItem({ todo, onToggle, onEdit, onDelete }) {\n  const [isEditing, setIsEditing] = useState(false);\n  const [draft, setDraft] = useState(todo.text);\n\n  function saveEdit(event) {\n    event.preventDefault();\n    const value = draft.trim();\n\n    if (value) {\n      onEdit(todo.id, value);\n      setIsEditing(false);\n    }\n  }\n\n  if (isEditing) {\n    return (\n      &lt;li&gt;\n        &lt;form onSubmit={saveEdit}&gt;\n          &lt;label className=\"sr-only\" htmlFor={`edit-${todo.id}`}&gt;编辑任务&lt;/label&gt;\n          &lt;input\n            id={`edit-${todo.id}`}\n            value={draft}\n            onChange={(event) =&gt; setDraft(event.target.value)}\n          /&gt;\n          &lt;button type=\"submit\"&gt;保存&lt;/button&gt;\n          &lt;button type=\"button\" onClick={() =&gt; setIsEditing(false)}&gt;取消&lt;/button&gt;\n        &lt;/form&gt;\n      &lt;/li&gt;\n    );\n  }\n\n  return (\n    &lt;li&gt;\n      &lt;label&gt;\n        &lt;input\n          type=\"checkbox\"\n          checked={todo.completed}\n          onChange={() =&gt; onToggle(todo.id)}\n        /&gt;\n        &lt;span&gt;{todo.text}&lt;/span&gt;\n      &lt;/label&gt;\n      &lt;button type=\"button\" onClick={() =&gt; setIsEditing(true)}&gt;编辑&lt;/button&gt;\n      &lt;button type=\"button\" onClick={() =&gt; onDelete(todo.id)}&gt;删除&lt;/button&gt;\n    &lt;/li&gt;\n  );\n}\n按钮明确设置 type=\"button\"，避免它在将来被放入表单时意外触发提交。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.1 待办事项应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/01-todo/index.html#筛选与统计",
+    "href": "chapters/04-projects/01-todo/index.html#筛选与统计",
+    "title": "待办事项应用",
+    "section": "7. 筛选与统计",
+    "text": "7. 筛选与统计\nexport function filterTodos(todos, filter) {\n  if (filter === \"active\") {\n    return todos.filter((todo) =&gt; !todo.completed);\n  }\n\n  if (filter === \"completed\") {\n    return todos.filter((todo) =&gt; todo.completed);\n  }\n\n  return todos;\n}\n在组件渲染时派生数据：\nconst visibleTodos = filterTodos(todos, filter);\nconst remainingCount = todos.filter((todo) =&gt; !todo.completed).length;\n筛选按钮应让辅助技术知道当前选项：\nfunction TodoFilters({ value, onChange }) {\n  const options = [\n    [\"all\", \"全部\"],\n    [\"active\", \"未完成\"],\n    [\"completed\", \"已完成\"],\n  ];\n\n  return (\n    &lt;div aria-label=\"筛选任务\"&gt;\n      {options.map(([key, label]) =&gt; (\n        &lt;button\n          key={key}\n          type=\"button\"\n          aria-pressed={value === key}\n          onClick={() =&gt; onChange(key)}\n        &gt;\n          {label}\n        &lt;/button&gt;\n      ))}\n    &lt;/div&gt;\n  );\n}",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.1 待办事项应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/01-todo/index.html#使用-localstorage-持久化",
+    "href": "chapters/04-projects/01-todo/index.html#使用-localstorage-持久化",
+    "title": "待办事项应用",
+    "section": "8. 使用 localStorage 持久化",
+    "text": "8. 使用 localStorage 持久化\n浏览器存储的是字符串，因此写入时使用 JSON.stringify，读取时使用 JSON.parse。\nimport { useEffect, useReducer } from \"react\";\n\nconst storageKey = \"react-course-todos\";\n\nfunction readInitialTodos() {\n  try {\n    const saved = localStorage.getItem(storageKey);\n    return saved ? JSON.parse(saved) : [];\n  } catch {\n    return [];\n  }\n}\n\nexport function usePersistentTodos(reducer) {\n  const [todos, dispatch] = useReducer(reducer, [], readInitialTodos);\n\n  useEffect(() =&gt; {\n    localStorage.setItem(storageKey, JSON.stringify(todos));\n  }, [todos]);\n\n  return [todos, dispatch];\n}\nlocalStorage 只适合少量、非敏感的客户端数据。不要用它保存密码、令牌或隐私信息。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.1 待办事项应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/01-todo/index.html#组装-app",
+    "href": "chapters/04-projects/01-todo/index.html#组装-app",
+    "title": "待办事项应用",
+    "section": "9. 组装 App",
+    "text": "9. 组装 App\nimport { useState } from \"react\";\nimport { TodoForm } from \"./components/TodoForm\";\nimport { TodoFilters } from \"./components/TodoFilters\";\nimport { TodoItem } from \"./components/TodoItem\";\nimport { usePersistentTodos } from \"./hooks/usePersistentTodos\";\nimport { todosReducer } from \"./reducers/todosReducer\";\nimport { filterTodos } from \"./utils/todos\";\n\nexport default function App() {\n  const [todos, dispatch] = usePersistentTodos(todosReducer);\n  const [filter, setFilter] = useState(\"all\");\n  const visibleTodos = filterTodos(todos, filter);\n  const remaining = todos.filter((todo) =&gt; !todo.completed).length;\n\n  return (\n    &lt;main&gt;\n      &lt;h1&gt;我的任务&lt;/h1&gt;\n      &lt;TodoForm\n        onAdd={(text) =&gt; dispatch({\n          type: \"added\",\n          id: crypto.randomUUID(),\n          text,\n          createdAt: new Date().toISOString(),\n        })}\n      /&gt;\n      &lt;TodoFilters value={filter} onChange={setFilter} /&gt;\n      &lt;p aria-live=\"polite\"&gt;剩余 {remaining} 项&lt;/p&gt;\n      {visibleTodos.length === 0 ? (\n        &lt;p&gt;当前没有任务。&lt;/p&gt;\n      ) : (\n        &lt;ul&gt;\n          {visibleTodos.map((todo) =&gt; (\n            &lt;TodoItem\n              key={todo.id}\n              todo={todo}\n              onToggle={(id) =&gt; dispatch({ type: \"toggled\", id })}\n              onEdit={(id, text) =&gt; dispatch({ type: \"edited\", id, text })}\n              onDelete={(id) =&gt; dispatch({ type: \"deleted\", id })}\n            /&gt;\n          ))}\n        &lt;/ul&gt;\n      )}\n      &lt;button\n        type=\"button\"\n        onClick={() =&gt; dispatch({ type: \"completedCleared\" })}\n      &gt;\n        清除已完成\n      &lt;/button&gt;\n    &lt;/main&gt;\n  );\n}",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.1 待办事项应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/01-todo/index.html#测试关键行为",
+    "href": "chapters/04-projects/01-todo/index.html#测试关键行为",
+    "title": "待办事项应用",
+    "section": "10. 测试关键行为",
+    "text": "10. 测试关键行为\n重点测试用户真正依赖的流程：\nit(\"可以新增并完成任务\", async () =&gt; {\n  const user = userEvent.setup();\n  render(&lt;App /&gt;);\n\n  await user.type(screen.getByLabelText(\"新任务\"), \"学习 Reducer\");\n  await user.click(screen.getByRole(\"button\", { name: \"添加\" }));\n\n  const checkbox = screen.getByRole(\"checkbox\", { name: \"学习 Reducer\" });\n  expect(checkbox).not.toBeChecked();\n\n  await user.click(checkbox);\n  expect(checkbox).toBeChecked();\n});\n还应测试空输入校验、筛选、编辑、删除和刷新后的数据恢复。每个测试开始前清空测试环境中的存储，避免用例相互影响。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.1 待办事项应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/01-todo/index.html#开发顺序",
+    "href": "chapters/04-projects/01-todo/index.html#开发顺序",
+    "title": "待办事项应用",
+    "section": "11. 开发顺序",
+    "text": "11. 开发顺序\n建议逐步提交：\n\n静态页面与基础样式\n新增和展示任务\n完成、编辑与删除\n筛选和统计\n本地持久化\n测试、响应式布局和部署\n\n每一步都先运行并手动验证，再进入下一步。出现问题时更容易定位是哪次改动造成的。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.1 待办事项应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/01-todo/index.html#扩展练习",
+    "href": "chapters/04-projects/01-todo/index.html#扩展练习",
+    "title": "待办事项应用",
+    "section": "12. 扩展练习",
+    "text": "12. 扩展练习\n\n增加全部完成和全部取消\n增加截止日期、优先级和排序\n支持拖拽排序\n使用 URL 查询参数保存筛选条件\n增加撤销删除功能\n把数据源替换为后端 API",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.1 待办事项应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/01-todo/index.html#完成检查",
+    "href": "chapters/04-projects/01-todo/index.html#完成检查",
+    "title": "待办事项应用",
+    "section": "完成检查",
+    "text": "完成检查\n\n所有核心功能符合验收标准\nReducer 不直接修改原 State\n筛选结果和统计数据由现有 State 计算\n刷新后任务仍然存在\n表单可使用键盘操作并显示明确错误\n至少覆盖新增、完成、筛选三个测试流程\npnpm lint、pnpm test:run 和 pnpm build 均通过",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.1 待办事项应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/01-todo/index.html#参考资料",
+    "href": "chapters/04-projects/01-todo/index.html#参考资料",
+    "title": "待办事项应用",
+    "section": "参考资料",
+    "text": "参考资料\n\nReact：提取 State 逻辑到 Reducer\nReact：选择 State 结构\nMDN：使用 Web Storage API",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.1 待办事项应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/02-book-search/index.html",
+    "href": "chapters/04-projects/02-book-search/index.html",
+    "title": "图书搜索应用",
+    "section": "",
+    "text": "返回学习大纲\n这个项目把前面学过的数据请求和路由串成完整用户流程：用户搜索图书、浏览结果、进入详情页，并把喜欢的图书加入本地收藏。\n示例使用不需要密钥的 Open Library Search API。公开 API 可能限流或调整字段，项目代码需要处理响应异常，不能假设网络永远正常。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.2 图书搜索应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/02-book-search/index.html#学习目标",
+    "href": "chapters/04-projects/02-book-search/index.html#学习目标",
+    "title": "图书搜索应用",
+    "section": "学习目标",
+    "text": "学习目标\n\n根据 API 响应建立前端数据模型\n使用 URL 查询参数保存关键词和页码\n处理加载、错误、空结果和成功状态\n取消过期请求，避免旧结果覆盖新结果\n使用动态路由实现详情页\n使用本地存储实现收藏",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.2 图书搜索应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/02-book-search/index.html#功能与页面",
+    "href": "chapters/04-projects/02-book-search/index.html#功能与页面",
+    "title": "图书搜索应用",
+    "section": "1. 功能与页面",
+    "text": "1. 功能与页面\n第一版包含三个页面：\n\n/：搜索首页\n/books/:workId：图书详情\n/favorites：收藏列表\n\n核心验收标准：\n\n未输入关键词时不发送请求\n提交搜索后，URL 包含关键词和页码\n请求期间显示加载提示\n请求失败、无结果和成功有不同界面\n前后翻页后可通过浏览器后退恢复状态\n刷新详情页仍能加载数据\n收藏在刷新后保留",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.2 图书搜索应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/02-book-search/index.html#创建项目与安装路由",
+    "href": "chapters/04-projects/02-book-search/index.html#创建项目与安装路由",
+    "title": "图书搜索应用",
+    "section": "2. 创建项目与安装路由",
+    "text": "2. 创建项目与安装路由\npnpm create vite book-search --template react\ncd book-search\npnpm install\npnpm add react-router\npnpm dev\n推荐目录：\nsrc/\n├── api/\n│   └── openLibrary.js\n├── components/\n│   ├── BookCard.jsx\n│   ├── BookGrid.jsx\n│   ├── Pagination.jsx\n│   └── SearchForm.jsx\n├── hooks/\n│   └── useFavorites.js\n├── pages/\n│   ├── SearchPage.jsx\n│   ├── BookDetailPage.jsx\n│   ├── FavoritesPage.jsx\n│   └── NotFoundPage.jsx\n├── App.jsx\n└── main.jsx",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.2 图书搜索应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/02-book-search/index.html#认识-api",
+    "href": "chapters/04-projects/02-book-search/index.html#认识-api",
+    "title": "图书搜索应用",
+    "section": "3. 认识 API",
+    "text": "3. 认识 API\n搜索地址格式：\nhttps://openlibrary.org/search.json?q=react&page=1&limit=12\n为了减小响应体，明确指定需要的字段：\nkey,title,author_name,first_publish_year,cover_i\n我们把外部 API 数据转换为应用内部统一结构：\nfunction mapBook(document) {\n  return {\n    id: document.key.replace(\"/works/\", \"\"),\n    title: document.title,\n    authors: document.author_name ?? [\"未知作者\"],\n    firstPublishYear: document.first_publish_year ?? null,\n    coverId: document.cover_i ?? null,\n  };\n}\n转换层可以隔离字段缺失和命名差异，组件不需要理解服务端原始结构。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.2 图书搜索应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/02-book-search/index.html#封装搜索请求",
+    "href": "chapters/04-projects/02-book-search/index.html#封装搜索请求",
+    "title": "图书搜索应用",
+    "section": "4. 封装搜索请求",
+    "text": "4. 封装搜索请求\n创建 src/api/openLibrary.js：\nconst apiBaseUrl = \"https://openlibrary.org\";\n\nexport async function searchBooks({ query, page, signal }) {\n  const params = new URLSearchParams({\n    q: query,\n    page: String(page),\n    limit: \"12\",\n    fields: \"key,title,author_name,first_publish_year,cover_i\",\n  });\n\n  const response = await fetch(`${apiBaseUrl}/search.json?${params}`, {\n    signal,\n  });\n\n  if (!response.ok) {\n    throw new Error(`搜索失败：${response.status}`);\n  }\n\n  const data = await response.json();\n\n  return {\n    books: data.docs.map(mapBook),\n    total: data.numFound ?? data.num_found ?? 0,\n  };\n}\n\nexport function getCoverUrl(coverId, size = \"M\") {\n  if (!coverId) return null;\n  return `https://covers.openlibrary.org/b/id/${coverId}-${size}.jpg`;\n}\n使用 URLSearchParams 可以正确编码用户输入，不要自己用字符串拼接关键词。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.2 图书搜索应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/02-book-search/index.html#配置路由",
+    "href": "chapters/04-projects/02-book-search/index.html#配置路由",
+    "title": "图书搜索应用",
+    "section": "5. 配置路由",
+    "text": "5. 配置路由\nimport { NavLink, Route, Routes } from \"react-router\";\nimport { SearchPage } from \"./pages/SearchPage\";\nimport { BookDetailPage } from \"./pages/BookDetailPage\";\nimport { FavoritesPage } from \"./pages/FavoritesPage\";\nimport { NotFoundPage } from \"./pages/NotFoundPage\";\n\nexport default function App() {\n  return (\n    &lt;&gt;\n      &lt;header&gt;\n        &lt;nav aria-label=\"主导航\"&gt;\n          &lt;NavLink to=\"/\"&gt;搜索&lt;/NavLink&gt;\n          &lt;NavLink to=\"/favorites\"&gt;收藏&lt;/NavLink&gt;\n        &lt;/nav&gt;\n      &lt;/header&gt;\n      &lt;main&gt;\n        &lt;Routes&gt;\n          &lt;Route path=\"/\" element={&lt;SearchPage /&gt;} /&gt;\n          &lt;Route path=\"/books/:workId\" element={&lt;BookDetailPage /&gt;} /&gt;\n          &lt;Route path=\"/favorites\" element={&lt;FavoritesPage /&gt;} /&gt;\n          &lt;Route path=\"*\" element={&lt;NotFoundPage /&gt;} /&gt;\n        &lt;/Routes&gt;\n      &lt;/main&gt;\n    &lt;/&gt;\n  );\n}\n应用入口需要使用 BrowserRouter 包裹 App，具体方式可复习 3.6。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.2 图书搜索应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/02-book-search/index.html#让-url-保存搜索条件",
+    "href": "chapters/04-projects/02-book-search/index.html#让-url-保存搜索条件",
+    "title": "图书搜索应用",
+    "section": "6. 让 URL 保存搜索条件",
+    "text": "6. 让 URL 保存搜索条件\n如果只把关键词放在 State 中，刷新和分享地址时条件会丢失。这里使用 useSearchParams：\nimport { useState } from \"react\";\n\nexport function SearchForm({ initialValue, onSearch }) {\n  const [value, setValue] = useState(initialValue);\n\n  function handleSubmit(event) {\n    event.preventDefault();\n    const query = value.trim();\n    if (query) onSearch(query);\n  }\n\n  return (\n    &lt;form onSubmit={handleSubmit}&gt;\n      &lt;label htmlFor=\"book-query\"&gt;书名、作者或主题&lt;/label&gt;\n      &lt;input\n        id=\"book-query\"\n        value={value}\n        onChange={(event) =&gt; setValue(event.target.value)}\n      /&gt;\n      &lt;button type=\"submit\"&gt;搜索&lt;/button&gt;\n    &lt;/form&gt;\n  );\n}\n在搜索页读写 URL：\nconst [searchParams, setSearchParams] = useSearchParams();\nconst query = searchParams.get(\"q\")?.trim() ?? \"\";\nconst parsedPage = Number(searchParams.get(\"page\"));\nconst page = Number.isInteger(parsedPage) && parsedPage &gt; 0 ? parsedPage : 1;\n\nfunction handleSearch(nextQuery) {\n  setSearchParams({ q: nextQuery, page: \"1\" });\n}\n\nfunction changePage(nextPage) {\n  setSearchParams({ q: query, page: String(nextPage) });\n}",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.2 图书搜索应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/02-book-search/index.html#管理请求状态",
+    "href": "chapters/04-projects/02-book-search/index.html#管理请求状态",
+    "title": "图书搜索应用",
+    "section": "7. 管理请求状态",
+    "text": "7. 管理请求状态\n搜索页需要同时管理数据和请求状态：\nconst [result, setResult] = useState({ books: [], total: 0 });\nconst [status, setStatus] = useState(\"idle\");\nconst [error, setError] = useState(\"\");\n\nuseEffect(() =&gt; {\n  if (!query) {\n    setResult({ books: [], total: 0 });\n    setStatus(\"idle\");\n    return;\n  }\n\n  const controller = new AbortController();\n  setStatus(\"loading\");\n  setError(\"\");\n\n  searchBooks({ query, page, signal: controller.signal })\n    .then((data) =&gt; {\n      setResult(data);\n      setStatus(\"success\");\n    })\n    .catch((requestError) =&gt; {\n      if (requestError.name !== \"AbortError\") {\n        setError(\"暂时无法获取图书，请稍后重试。\");\n        setStatus(\"error\");\n      }\n    });\n\n  return () =&gt; controller.abort();\n}, [query, page]);\n关键词或页码变化时，清理函数取消上一次请求。这样快速连续搜索时，较慢的旧请求不会覆盖最新结果。\n根据状态渲染明确界面：\n{status === \"idle\" && &lt;p&gt;输入关键词开始搜索。&lt;/p&gt;}\n{status === \"loading\" && &lt;p aria-live=\"polite\"&gt;正在搜索……&lt;/p&gt;}\n{status === \"error\" && &lt;p role=\"alert\"&gt;{error}&lt;/p&gt;}\n{status === \"success\" && result.books.length === 0 && &lt;p&gt;没有找到相关图书。&lt;/p&gt;}\n{status === \"success\" && result.books.length &gt; 0 && (\n  &lt;BookGrid books={result.books} /&gt;\n)}",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.2 图书搜索应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/02-book-search/index.html#展示搜索结果",
+    "href": "chapters/04-projects/02-book-search/index.html#展示搜索结果",
+    "title": "图书搜索应用",
+    "section": "8. 展示搜索结果",
+    "text": "8. 展示搜索结果\nimport { Link } from \"react-router\";\nimport { getCoverUrl } from \"../api/openLibrary\";\n\nexport function BookCard({ book, isFavorite, onToggleFavorite }) {\n  const coverUrl = getCoverUrl(book.coverId);\n\n  return (\n    &lt;article&gt;\n      {coverUrl ? (\n        &lt;img src={coverUrl} alt=\"\" loading=\"lazy\" /&gt;\n      ) : (\n        &lt;div aria-hidden=\"true\"&gt;暂无封面&lt;/div&gt;\n      )}\n      &lt;h2&gt;&lt;Link to={`/books/${book.id}`}&gt;{book.title}&lt;/Link&gt;&lt;/h2&gt;\n      &lt;p&gt;{book.authors.join(\"、\")}&lt;/p&gt;\n      {book.firstPublishYear && &lt;p&gt;首次出版：{book.firstPublishYear}&lt;/p&gt;}\n      &lt;button type=\"button\" onClick={() =&gt; onToggleFavorite(book)}&gt;\n        {isFavorite ? \"取消收藏\" : \"加入收藏\"}\n      &lt;/button&gt;\n    &lt;/article&gt;\n  );\n}\n装饰性封面使用空 alt，标题链接已经提供图书名称，避免屏幕阅读器重复朗读。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.2 图书搜索应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/02-book-search/index.html#分页",
+    "href": "chapters/04-projects/02-book-search/index.html#分页",
+    "title": "图书搜索应用",
+    "section": "9. 分页",
+    "text": "9. 分页\nexport function Pagination({ page, total, pageSize, onChange }) {\n  const totalPages = Math.ceil(total / pageSize);\n  if (totalPages &lt;= 1) return null;\n\n  return (\n    &lt;nav aria-label=\"搜索结果分页\"&gt;\n      &lt;button\n        type=\"button\"\n        disabled={page === 1}\n        onClick={() =&gt; onChange(page - 1)}\n      &gt;\n        上一页\n      &lt;/button&gt;\n      &lt;span&gt;第 {page} 页，共 {totalPages} 页&lt;/span&gt;\n      &lt;button\n        type=\"button\"\n        disabled={page &gt;= totalPages}\n        onClick={() =&gt; onChange(page + 1)}\n      &gt;\n        下一页\n      &lt;/button&gt;\n    &lt;/nav&gt;\n  );\n}\n切换页码后可以把焦点移到结果标题，或滚动到结果区域顶部，避免用户停留在页面底部。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.2 图书搜索应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/02-book-search/index.html#详情页",
+    "href": "chapters/04-projects/02-book-search/index.html#详情页",
+    "title": "图书搜索应用",
+    "section": "10. 详情页",
+    "text": "10. 详情页\n从动态路由读取作品编号：\nimport { useEffect, useState } from \"react\";\nimport { Link, useParams } from \"react-router\";\n\nexport function BookDetailPage() {\n  const { workId } = useParams();\n  const [book, setBook] = useState(null);\n  const [status, setStatus] = useState(\"loading\");\n\n  useEffect(() =&gt; {\n    const controller = new AbortController();\n\n    fetch(`https://openlibrary.org/works/${encodeURIComponent(workId)}.json`, {\n      signal: controller.signal,\n    })\n      .then((response) =&gt; {\n        if (!response.ok) throw new Error(\"图书不存在\");\n        return response.json();\n      })\n      .then((data) =&gt; {\n        setBook(data);\n        setStatus(\"success\");\n      })\n      .catch((error) =&gt; {\n        if (error.name !== \"AbortError\") setStatus(\"error\");\n      });\n\n    return () =&gt; controller.abort();\n  }, [workId]);\n\n  if (status === \"loading\") return &lt;p&gt;正在加载详情……&lt;/p&gt;;\n  if (status === \"error\") return &lt;p role=\"alert\"&gt;无法加载图书详情。&lt;/p&gt;;\n\n  const description = typeof book.description === \"string\"\n    ? book.description\n    : book.description?.value;\n\n  return (\n    &lt;article&gt;\n      &lt;Link to=\"/\"&gt;返回搜索&lt;/Link&gt;\n      &lt;h1&gt;{book.title}&lt;/h1&gt;\n      &lt;p&gt;{description || \"暂无简介。\"}&lt;/p&gt;\n    &lt;/article&gt;\n  );\n}\n即使用户直接刷新详情地址，页面也会根据 workId 重新请求，不依赖从列表页传来的临时 State。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.2 图书搜索应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/02-book-search/index.html#收藏功能",
+    "href": "chapters/04-projects/02-book-search/index.html#收藏功能",
+    "title": "图书搜索应用",
+    "section": "11. 收藏功能",
+    "text": "11. 收藏功能\n收藏数据可以保存完整的展示模型：\nfunction useFavorites() {\n  const [favorites, setFavorites] = useState(() =&gt; {\n    try {\n      return JSON.parse(localStorage.getItem(\"book-favorites\")) ?? [];\n    } catch {\n      return [];\n    }\n  });\n\n  useEffect(() =&gt; {\n    localStorage.setItem(\"book-favorites\", JSON.stringify(favorites));\n  }, [favorites]);\n\n  function toggleFavorite(book) {\n    setFavorites((current) =&gt;\n      current.some((item) =&gt; item.id === book.id)\n        ? current.filter((item) =&gt; item.id !== book.id)\n        : [...current, book],\n    );\n  }\n\n  return { favorites, toggleFavorite };\n}\n如果搜索页、详情页和收藏页都需要它，可以把 Hook 放在 App 中，再用 Context 向下共享。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.2 图书搜索应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/02-book-search/index.html#测试策略",
+    "href": "chapters/04-projects/02-book-search/index.html#测试策略",
+    "title": "图书搜索应用",
+    "section": "12. 测试策略",
+    "text": "12. 测试策略\n\n模拟 API，不让测试依赖真实网络\n测试提交搜索后显示加载状态和结果\n测试空结果与请求失败\n测试翻页会改变 URL\n使用内存路由测试详情路径\n测试收藏和取消收藏\n\n测试异步结果时使用 findByRole 或 findByText，不要使用固定等待时间。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.2 图书搜索应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/02-book-search/index.html#扩展练习",
+    "href": "chapters/04-projects/02-book-search/index.html#扩展练习",
+    "title": "图书搜索应用",
+    "section": "13. 扩展练习",
+    "text": "13. 扩展练习\n\n输入停止一段时间后自动搜索\n按作者、语言或出版年份筛选\n缓存已经访问过的查询结果\n增加最近搜索历史\n给收藏添加备注和分类\n使用 TanStack Query 重构服务端数据状态",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.2 图书搜索应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/02-book-search/index.html#完成检查",
+    "href": "chapters/04-projects/02-book-search/index.html#完成检查",
+    "title": "图书搜索应用",
+    "section": "完成检查",
+    "text": "完成检查\n\n搜索条件与页码保存在 URL 中\n所有请求状态都有清晰界面\n快速切换搜索不会显示过期结果\n详情页可以直接访问和刷新\n收藏刷新后仍然存在\n图片、表单、导航和加载提示具备基础可访问性\nAPI 已被封装，组件不依赖原始响应字段\nlint、测试和生产构建通过",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.2 图书搜索应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/02-book-search/index.html#参考资料",
+    "href": "chapters/04-projects/02-book-search/index.html#参考资料",
+    "title": "图书搜索应用",
+    "section": "参考资料",
+    "text": "参考资料\n\nOpen Library：Search API\nOpen Library：API 使用规范\nReact Router：声明式路由\nMDN：AbortController",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.2 图书搜索应用"
+    ]
+  },
+  {
     "objectID": "agent.html",
     "href": "agent.html",
     "title": "1 Agent 工作规则",
@@ -1520,6 +1883,215 @@
     "title": "1 Agent 工作规则",
     "section": "",
     "text": "不要直接使用 npm，统一使用 pnpm 安装依赖、创建项目和执行脚本。\n遇到只提供 npm 示例的文档时，应转换为对应的 pnpm 命令，例如使用 pnpm install、pnpm add、pnpm create 和 pnpm &lt;script&gt;。\n不要生成或提交 package-lock.json；应保留并提交 pnpm-lock.yaml。"
+  },
+  {
+    "objectID": "chapters/04-projects/03-expense-tracker/index.html",
+    "href": "chapters/04-projects/03-expense-tracker/index.html",
+    "title": "个人记账应用",
+    "section": "",
+    "text": "返回学习大纲\n个人记账应用比待办事项多了日期、金额、类型和分类等字段，并需要从记录中计算余额和汇总数据。它适合练习复杂表单、精确计算、筛选和数据可视化。\n本项目只保存练习数据。不要输入真实账户、银行卡、身份信息或其他隐私数据，也不要把浏览器本地存储当作安全账本。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.3 个人记账应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/03-expense-tracker/index.html#学习目标",
+    "href": "chapters/04-projects/03-expense-tracker/index.html#学习目标",
+    "title": "个人记账应用",
+    "section": "学习目标",
+    "text": "学习目标\n\n设计包含多种字段的受控表单\n使用整数表示金额，避免浮点数误差\n使用 Reducer 管理交易记录\n根据筛选条件派生列表和统计结果\n使用 CSS 制作简单分类图表\n导入、导出并校验本地数据",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.3 个人记账应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/03-expense-tracker/index.html#功能与验收标准",
+    "href": "chapters/04-projects/03-expense-tracker/index.html#功能与验收标准",
+    "title": "个人记账应用",
+    "section": "1. 功能与验收标准",
+    "text": "1. 功能与验收标准\n第一版功能：\n\n添加收入和支出记录\n编辑、删除记录\n按月份、类型和分类筛选\n显示总收入、总支出和结余\n显示支出分类占比\n刷新后保留数据\n\n验收时特别检查：\n\n金额必须大于零且最多两位小数\n收入增加余额，支出减少余额\n修改筛选条件后，汇总数字与列表同步变化\n编辑记录不会改变其唯一编号\n无记录、无筛选结果和存储损坏都有合理界面",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.3 个人记账应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/03-expense-tracker/index.html#创建项目和目录",
+    "href": "chapters/04-projects/03-expense-tracker/index.html#创建项目和目录",
+    "title": "个人记账应用",
+    "section": "2. 创建项目和目录",
+    "text": "2. 创建项目和目录\npnpm create vite expense-tracker --template react\ncd expense-tracker\npnpm install\npnpm dev\nsrc/\n├── components/\n│   ├── TransactionForm.jsx\n│   ├── TransactionList.jsx\n│   ├── TransactionItem.jsx\n│   ├── TransactionFilters.jsx\n│   ├── SummaryCards.jsx\n│   └── CategoryChart.jsx\n├── data/\n│   └── categories.js\n├── utils/\n│   ├── money.js\n│   └── transactions.js\n├── transactionsReducer.js\n└── App.jsx",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.3 个人记账应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/03-expense-tracker/index.html#设计交易数据",
+    "href": "chapters/04-projects/03-expense-tracker/index.html#设计交易数据",
+    "title": "个人记账应用",
+    "section": "3. 设计交易数据",
+    "text": "3. 设计交易数据\n{\n  id: \"3a7378d4-...\",\n  type: \"expense\",\n  amountInCents: 2580,\n  category: \"food\",\n  date: \"2026-07-19\",\n  note: \"午餐\",\n  createdAt: \"2026-07-19T08:30:00.000Z\"\n}\n关键设计：\n\ntype 只允许 income 或 expense\n金额保存为整数分，例如 25.80 元保存为 2580\n日期使用 YYYY-MM-DD，便于 &lt;input type=\"date\"&gt; 和排序\n分类保存稳定英文值，界面显示中文标签\n\n分类配置集中维护：\nexport const categories = {\n  salary: { label: \"工资\", type: \"income\" },\n  bonus: { label: \"奖金\", type: \"income\" },\n  food: { label: \"餐饮\", type: \"expense\" },\n  transport: { label: \"交通\", type: \"expense\" },\n  housing: { label: \"居住\", type: \"expense\" },\n  learning: { label: \"学习\", type: \"expense\" },\n  other: { label: \"其他\", type: \"expense\" },\n};",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.3 个人记账应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/03-expense-tracker/index.html#安全地处理金额",
+    "href": "chapters/04-projects/03-expense-tracker/index.html#安全地处理金额",
+    "title": "个人记账应用",
+    "section": "4. 安全地处理金额",
+    "text": "4. 安全地处理金额\nJavaScript 小数计算可能产生精度误差。对日常两位小数的练习项目，可以转换为整数分：\nexport function yuanToCents(value) {\n  const normalized = String(value).trim();\n\n  if (!/^\\d+(\\.\\d{1,2})?$/.test(normalized)) {\n    throw new Error(\"金额必须是最多两位小数的正数\");\n  }\n\n  const [yuan, decimal = \"\"] = normalized.split(\".\");\n  return Number(yuan) * 100 + Number(decimal.padEnd(2, \"0\"));\n}\n\nexport function formatMoney(cents) {\n  return new Intl.NumberFormat(\"zh-CN\", {\n    style: \"currency\",\n    currency: \"CNY\",\n  }).format(cents / 100);\n}\n正式金融系统还要考虑币种、精度、舍入规则和后端校验，不能仅依赖这个教学示例。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.3 个人记账应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/03-expense-tracker/index.html#表单状态与校验",
+    "href": "chapters/04-projects/03-expense-tracker/index.html#表单状态与校验",
+    "title": "个人记账应用",
+    "section": "5. 表单状态与校验",
+    "text": "5. 表单状态与校验\nconst initialForm = {\n  type: \"expense\",\n  amount: \"\",\n  category: \"food\",\n  date: new Date().toISOString().slice(0, 10),\n  note: \"\",\n};\n\nexport function TransactionForm({ onSubmit, initialValue = initialForm }) {\n  const [form, setForm] = useState(initialValue);\n  const [errors, setErrors] = useState({});\n\n  function updateField(event) {\n    const { name, value } = event.target;\n\n    setForm((current) =&gt; ({\n      ...current,\n      [name]: value,\n      ...(name === \"type\" ? {\n        category: value === \"income\" ? \"salary\" : \"food\",\n      } : {}),\n    }));\n  }\n\n  function handleSubmit(event) {\n    event.preventDefault();\n\n    try {\n      const amountInCents = yuanToCents(form.amount);\n      if (amountInCents &lt;= 0) throw new Error(\"金额必须大于零\");\n      if (!form.date) throw new Error(\"请选择日期\");\n\n      onSubmit({\n        ...form,\n        amountInCents,\n        note: form.note.trim(),\n      });\n      setForm(initialForm);\n      setErrors({});\n    } catch (error) {\n      setErrors({ form: error.message });\n    }\n  }\n\n  return (\n    &lt;form onSubmit={handleSubmit}&gt;\n      &lt;label&gt;\n        类型\n        &lt;select name=\"type\" value={form.type} onChange={updateField}&gt;\n          &lt;option value=\"expense\"&gt;支出&lt;/option&gt;\n          &lt;option value=\"income\"&gt;收入&lt;/option&gt;\n        &lt;/select&gt;\n      &lt;/label&gt;\n\n      &lt;label&gt;\n        金额（元）\n        &lt;input\n          name=\"amount\"\n          inputMode=\"decimal\"\n          value={form.amount}\n          onChange={updateField}\n        /&gt;\n      &lt;/label&gt;\n\n      &lt;label&gt;\n        日期\n        &lt;input name=\"date\" type=\"date\" value={form.date} onChange={updateField} /&gt;\n      &lt;/label&gt;\n\n      &lt;label&gt;\n        备注\n        &lt;input name=\"note\" maxLength=\"100\" value={form.note} onChange={updateField} /&gt;\n      &lt;/label&gt;\n\n      {errors.form && &lt;p role=\"alert\"&gt;{errors.form}&lt;/p&gt;}\n      &lt;button type=\"submit\"&gt;保存记录&lt;/button&gt;\n    &lt;/form&gt;\n  );\n}\n分类 &lt;select&gt; 可以根据 form.type 过滤 categories 后生成选项。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.3 个人记账应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/03-expense-tracker/index.html#使用-reducer-管理记录",
+    "href": "chapters/04-projects/03-expense-tracker/index.html#使用-reducer-管理记录",
+    "title": "个人记账应用",
+    "section": "6. 使用 Reducer 管理记录",
+    "text": "6. 使用 Reducer 管理记录\nexport function transactionsReducer(transactions, action) {\n  switch (action.type) {\n    case \"added\":\n      return [action.transaction, ...transactions];\n\n    case \"updated\":\n      return transactions.map((transaction) =&gt;\n        transaction.id === action.transaction.id\n          ? action.transaction\n          : transaction,\n      );\n\n    case \"deleted\":\n      return transactions.filter((item) =&gt; item.id !== action.id);\n\n    case \"imported\":\n      return action.transactions;\n\n    default:\n      throw new Error(`未知操作：${action.type}`);\n  }\n}\n新增记录时补齐系统字段：\ndispatch({\n  type: \"added\",\n  transaction: {\n    ...formData,\n    id: crypto.randomUUID(),\n    createdAt: new Date().toISOString(),\n  },\n});",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.3 个人记账应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/03-expense-tracker/index.html#筛选交易",
+    "href": "chapters/04-projects/03-expense-tracker/index.html#筛选交易",
+    "title": "个人记账应用",
+    "section": "7. 筛选交易",
+    "text": "7. 筛选交易\n筛选条件可以集中在一个对象中：\nconst initialFilters = {\n  month: \"all\",\n  type: \"all\",\n  category: \"all\",\n};\n纯函数负责筛选：\nexport function filterTransactions(transactions, filters) {\n  return transactions.filter((transaction) =&gt; {\n    const matchesMonth = filters.month === \"all\"\n      || transaction.date.startsWith(filters.month);\n    const matchesType = filters.type === \"all\"\n      || transaction.type === filters.type;\n    const matchesCategory = filters.category === \"all\"\n      || transaction.category === filters.category;\n\n    return matchesMonth && matchesType && matchesCategory;\n  });\n}\n月份值可以使用 2026-07。修改类型后，如果当前分类不再适用，应把分类重置为 all。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.3 个人记账应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/03-expense-tracker/index.html#计算收入支出与余额",
+    "href": "chapters/04-projects/03-expense-tracker/index.html#计算收入支出与余额",
+    "title": "个人记账应用",
+    "section": "8. 计算收入、支出与余额",
+    "text": "8. 计算收入、支出与余额\nexport function summarizeTransactions(transactions) {\n  return transactions.reduce(\n    (summary, transaction) =&gt; {\n      if (transaction.type === \"income\") {\n        summary.income += transaction.amountInCents;\n      } else {\n        summary.expense += transaction.amountInCents;\n      }\n\n      summary.balance = summary.income - summary.expense;\n      return summary;\n    },\n    { income: 0, expense: 0, balance: 0 },\n  );\n}\n在组件中对筛选后的记录计算：\nconst visibleTransactions = filterTransactions(transactions, filters);\nconst summary = summarizeTransactions(visibleTransactions);\n这样卡片显示的是当前筛选范围的汇总。界面需要明确标注“当前筛选”，避免用户误以为它表示所有数据。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.3 个人记账应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/03-expense-tracker/index.html#分类汇总与图表",
+    "href": "chapters/04-projects/03-expense-tracker/index.html#分类汇总与图表",
+    "title": "个人记账应用",
+    "section": "9. 分类汇总与图表",
+    "text": "9. 分类汇总与图表\nexport function summarizeExpensesByCategory(transactions) {\n  return transactions\n    .filter((item) =&gt; item.type === \"expense\")\n    .reduce((result, item) =&gt; ({\n      ...result,\n      [item.category]: (result[item.category] ?? 0) + item.amountInCents,\n    }), {});\n}\n初学阶段不必立即安装图表库。可以先用 CSS 宽度展示水平条形图：\nfunction CategoryChart({ data }) {\n  const entries = Object.entries(data);\n  const maximum = Math.max(...entries.map(([, amount]) =&gt; amount), 0);\n\n  if (entries.length === 0) return &lt;p&gt;暂无支出数据。&lt;/p&gt;;\n\n  return (\n    &lt;div aria-label=\"支出分类统计\"&gt;\n      {entries.map(([category, amount]) =&gt; (\n        &lt;div key={category}&gt;\n          &lt;span&gt;{categories[category].label}&lt;/span&gt;\n          &lt;div\n            className=\"chart-bar\"\n            style={{ width: `${(amount / maximum) * 100}%` }}\n          /&gt;\n          &lt;span&gt;{formatMoney(amount)}&lt;/span&gt;\n        &lt;/div&gt;\n      ))}\n    &lt;/div&gt;\n  );\n}\n颜色不能作为唯一信息来源，同时显示分类名称和金额。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.3 个人记账应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/03-expense-tracker/index.html#本地保存与数据版本",
+    "href": "chapters/04-projects/03-expense-tracker/index.html#本地保存与数据版本",
+    "title": "个人记账应用",
+    "section": "10. 本地保存与数据版本",
+    "text": "10. 本地保存与数据版本\n建议保存带版本的对象，而不是直接保存数组：\nconst storageValue = {\n  version: 1,\n  transactions,\n};\n\nlocalStorage.setItem(\"expense-tracker\", JSON.stringify(storageValue));\n读取时验证基本结构：\nfunction readTransactions() {\n  try {\n    const raw = localStorage.getItem(\"expense-tracker\");\n    if (!raw) return [];\n\n    const data = JSON.parse(raw);\n    if (data.version !== 1 || !Array.isArray(data.transactions)) return [];\n    return data.transactions.filter(isValidTransaction);\n  } catch {\n    return [];\n  }\n}\n数据版本为以后迁移字段留下空间。isValidTransaction 应检查编号、类型、整数金额、日期和分类，而不是盲目信任本地数据。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.3 个人记账应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/03-expense-tracker/index.html#编辑与删除体验",
+    "href": "chapters/04-projects/03-expense-tracker/index.html#编辑与删除体验",
+    "title": "个人记账应用",
+    "section": "11. 编辑与删除体验",
+    "text": "11. 编辑与删除体验\n\n点击编辑时把当前记录填入表单或弹窗\n保存时保留原 id 和 createdAt\n删除前显示包含金额和备注的确认信息\n删除后用状态提示结果，并考虑提供短时间撤销\n不要只用颜色区分收入和支出\n\n原生 window.confirm 可以用于第一版，之后再实现具有焦点管理的确认对话框。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.3 个人记账应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/03-expense-tracker/index.html#导入与导出",
+    "href": "chapters/04-projects/03-expense-tracker/index.html#导入与导出",
+    "title": "个人记账应用",
+    "section": "12. 导入与导出",
+    "text": "12. 导入与导出\n导出可以把版本化 JSON 下载到本地。导入时必须：\n\n限制文件类型和合理大小。\n捕获 JSON 解析错误。\n校验每条数据结构。\n先显示将导入多少条记录。\n让用户选择覆盖或合并。\n\n不要把导入文件中的内容直接作为 HTML 渲染。React 默认会转义文本，避免使用 dangerouslySetInnerHTML。",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.3 个人记账应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/03-expense-tracker/index.html#测试策略",
+    "href": "chapters/04-projects/03-expense-tracker/index.html#测试策略",
+    "title": "个人记账应用",
+    "section": "13. 测试策略",
+    "text": "13. 测试策略\n纯函数最容易测试：\nit(\"正确计算收入、支出和余额\", () =&gt; {\n  const result = summarizeTransactions([\n    { type: \"income\", amountInCents: 100000 },\n    { type: \"expense\", amountInCents: 2580 },\n  ]);\n\n  expect(result).toEqual({\n    income: 100000,\n    expense: 2580,\n    balance: 97420,\n  });\n});\n组件流程还应覆盖：\n\n无效金额显示错误\n新增记录后列表和汇总同时更新\n筛选月份后只显示匹配记录\n编辑保持编号不变\n删除后记录消失\n损坏的存储数据不会让应用崩溃",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.3 个人记账应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/03-expense-tracker/index.html#开发顺序",
+    "href": "chapters/04-projects/03-expense-tracker/index.html#开发顺序",
+    "title": "个人记账应用",
+    "section": "14. 开发顺序",
+    "text": "14. 开发顺序\n\n静态布局和模拟记录\n金额工具函数及测试\n新增、展示和删除\n编辑功能\n筛选与汇总\n分类图表\n本地持久化\n导入导出、测试和部署",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.3 个人记账应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/03-expense-tracker/index.html#扩展练习",
+    "href": "chapters/04-projects/03-expense-tracker/index.html#扩展练习",
+    "title": "个人记账应用",
+    "section": "15. 扩展练习",
+    "text": "15. 扩展练习\n\n支持多个账本或成员\n增加预算和超支提示\n增加按周、季度和年份汇总\n使用 SVG 绘制饼图或折线图\n增加重复交易规则\n接入后端并增加身份验证\n为数据变更增加迁移脚本",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.3 个人记账应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/03-expense-tracker/index.html#完成检查",
+    "href": "chapters/04-projects/03-expense-tracker/index.html#完成检查",
+    "title": "个人记账应用",
+    "section": "完成检查",
+    "text": "完成检查\n\n金额以整数分保存和计算\n表单能够阻止无效金额与日期\n筛选列表和汇总数据保持一致\n编辑不会产生新的记录编号\n分类图表同时提供文字和金额\n本地数据包含版本并经过校验\n应用不收集或保存真实敏感信息\n核心计算和用户流程具有测试\nlint、测试和生产构建通过",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.3 个人记账应用"
+    ]
+  },
+  {
+    "objectID": "chapters/04-projects/03-expense-tracker/index.html#参考资料",
+    "href": "chapters/04-projects/03-expense-tracker/index.html#参考资料",
+    "title": "个人记账应用",
+    "section": "参考资料",
+    "text": "参考资料\n\nReact：选择 State 结构\nReact：更新 State 中的对象\nMDN：Intl.NumberFormat\nMDN：Web Storage API",
+    "crumbs": [
+      "4. 推荐实战项目",
+      "4.3 个人记账应用"
+    ]
   },
   {
     "objectID": "chapters/02-foundations/02-javascript-basics.html",
