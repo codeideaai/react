@@ -2,14 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://codeideaai.github.io/react/index.html</loc>
-    <lastmod>2026-07-18T16:32:51.097Z</lastmod>
-  </url>
-  <url>
-    <loc>https://codeideaai.github.io/react/agent.html</loc>
-    <lastmod>2026-07-18T16:32:51.097Z</lastmod>
+    <lastmod>2026-07-19T11:22:42.104Z</lastmod>
   </url>
   <url>
     <loc>https://codeideaai.github.io/react/javascript-basics.html</loc>
-    <lastmod>2026-07-18T16:32:51.097Z</lastmod>
+    <lastmod>2026-07-19T11:22:42.104Z</lastmod>
+  </url>
+  <url>
+    <loc>https://codeideaai.github.io/react/html-css-basics.html</loc>
+    <lastmod>2026-07-19T11:22:42.104Z</lastmod>
+  </url>
+  <url>
+    <loc>https://codeideaai.github.io/react/agent.html</loc>
+    <lastmod>2026-07-19T11:22:42.104Z</lastmod>
+  </url>
+  <url>
+    <loc>https://codeideaai.github.io/react/basic-exercises.html</loc>
+    <lastmod>2026-07-19T11:22:42.104Z</lastmod>
   </url>
 </urlset>

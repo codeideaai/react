@@ -24,7 +24,7 @@
     "href": "index.html#基础回顾",
     "title": "React 学习大纲",
     "section": "2 基础回顾",
-    "text": "2 基础回顾\nReact 本质上仍然是 JavaScript。需要熟悉以下内容。\n\n2.1 HTML 与 CSS\n\n语义化标签：header、main、section、form、button 等\n常用表单元素：input、select、textarea\nCSS 选择器、盒模型和定位\nFlexbox 和 Grid 基本布局\n响应式设计与媒体查询\n\n\n\n2.2 JavaScript 必备知识\n\n变量：const 和 let\n基本类型、数组和对象\n函数、箭头函数和回调函数\n条件判断、三元运算符和逻辑运算符\n数组常用方法：map、filter、find、some、reduce\n对象和数组的解构赋值\n展开运算符：...\n模块化：import 和 export\nPromise、async/await 和 fetch\nDOM 与事件的基础概念\n\n\n\n2.3 基础练习\n\n使用数组方法实现商品筛选和价格统计\n使用 fetch 获取公开 API 数据并显示到页面\n使用原生 JavaScript 制作一个待办事项列表",
+    "text": "2 基础回顾\nReact 本质上仍然是 JavaScript。需要熟悉以下内容。\n\n2.1 HTML 与 CSS\n\n语义化标签：header、main、section、form、button 等\n常用表单元素：input、select、textarea\nCSS 选择器、盒模型和定位\nFlexbox 和 Grid 基本布局\n响应式设计与媒体查询\n\n\n\n2.2 JavaScript 必备知识\n\n变量：const 和 let\n基本类型、数组和对象\n函数、箭头函数和回调函数\n条件判断、三元运算符和逻辑运算符\n数组常用方法：map、filter、find、some、reduce\n对象和数组的解构赋值\n展开运算符：...\n模块化：import 和 export\nPromise、async/await 和 fetch\nDOM 与事件的基础概念\n\n\n\n2.3 基础练习\n\n使用数组方法实现商品筛选和价格统计\n使用 fetch 获取 JSON 数据并显示到页面\n使用原生 JavaScript 制作一个待办事项列表",
     "crumbs": [
       "React 学习大纲"
     ]
@@ -88,20 +88,6 @@
     "crumbs": [
       "React 学习大纲"
     ]
-  },
-  {
-    "objectID": "agent.html",
-    "href": "agent.html",
-    "title": "1 Agent 工作规则",
-    "section": "",
-    "text": "推送代码前，必须检查本次提交和待推送的 Git 历史中是否包含敏感数据；确认不存在敏感数据后才能推送。\n敏感数据包括但不限于：密码、API Key、访问令牌、私钥、证书、Cookie、数据库连接字符串、个人身份信息以及包含真实凭据的 .env 文件。\n如果发现敏感数据，应立即停止推送，先删除或替换相关内容，并确认敏感信息已从待推送的 Git 历史中移除。\n不得在日志、提交信息或检查结果中完整输出敏感数据；需要说明问题时只显示脱敏后的内容。"
-  },
-  {
-    "objectID": "agent.html#git-推送安全",
-    "href": "agent.html#git-推送安全",
-    "title": "1 Agent 工作规则",
-    "section": "",
-    "text": "推送代码前，必须检查本次提交和待推送的 Git 历史中是否包含敏感数据；确认不存在敏感数据后才能推送。\n敏感数据包括但不限于：密码、API Key、访问令牌、私钥、证书、Cookie、数据库连接字符串、个人身份信息以及包含真实凭据的 .env 文件。\n如果发现敏感数据，应立即停止推送，先删除或替换相关内容，并确认敏感信息已从待推送的 Git 历史中移除。\n不得在日志、提交信息或检查结果中完整输出敏感数据；需要说明问题时只显示脱敏后的内容。"
   },
   {
     "objectID": "javascript-basics.html",
@@ -266,6 +252,328 @@
     "crumbs": [
       "2. 基础回顾",
       "2.2 JavaScript 必备知识"
+    ]
+  },
+  {
+    "objectID": "html-css-basics.html",
+    "href": "html-css-basics.html",
+    "title": "HTML 与 CSS",
+    "section": "",
+    "text": "React 负责根据数据生成页面，但最终显示在浏览器中的仍然是 HTML 和 CSS。组件拆分是否合理、表单是否容易使用、页面能否适配不同屏幕，都离不开这两项基础能力。\n本章不会覆盖 HTML 和 CSS 的全部内容，而是集中讲解 React 页面开发中最常用的知识。",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.1 HTML 与 CSS"
+    ]
+  },
+  {
+    "objectID": "html-css-basics.html#学习目标",
+    "href": "html-css-basics.html#学习目标",
+    "title": "HTML 与 CSS",
+    "section": "1 学习目标",
+    "text": "1 学习目标\n完成本章后，你应该能够：\n\n使用语义化 HTML 组织页面结构\n正确使用链接、图片、按钮和表单元素\n理解标签、属性、嵌套和文档结构\n使用常见 CSS 选择器设置样式\n理解层叠、继承、优先级和盒模型\n使用 Flexbox 完成一维布局\n使用 Grid 完成二维布局\n使用定位处理悬浮元素\n使用媒体查询实现响应式页面\n说明 HTML/CSS 写法迁移到 JSX 时的主要差异",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.1 HTML 与 CSS"
+    ]
+  },
+  {
+    "objectID": "html-css-basics.html#html-负责页面结构",
+    "href": "html-css-basics.html#html-负责页面结构",
+    "title": "HTML 与 CSS",
+    "section": "2 HTML 负责页面结构",
+    "text": "2 HTML 负责页面结构\nHTML 的作用是描述内容的结构和含义，而不是决定页面最终长什么样。\n一个基础页面通常包含下面这些部分：\n&lt;!doctype html&gt;\n&lt;html lang=\"zh-CN\"&gt;\n  &lt;head&gt;\n    &lt;meta charset=\"UTF-8\" /&gt;\n    &lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /&gt;\n    &lt;title&gt;商品列表&lt;/title&gt;\n  &lt;/head&gt;\n  &lt;body&gt;\n    &lt;header&gt;\n      &lt;h1&gt;在线商城&lt;/h1&gt;\n    &lt;/header&gt;\n\n    &lt;main&gt;\n      &lt;section&gt;\n        &lt;h2&gt;热门商品&lt;/h2&gt;\n        &lt;p&gt;查看本周最受欢迎的商品。&lt;/p&gt;\n      &lt;/section&gt;\n    &lt;/main&gt;\n\n    &lt;footer&gt;\n      &lt;p&gt;© 2026 在线商城&lt;/p&gt;\n    &lt;/footer&gt;\n  &lt;/body&gt;\n&lt;/html&gt;\n在 React 项目中，index.html 通常只保留一个根容器，组件会把页面内容渲染到这个容器中。但组件内部仍然需要使用合理的 HTML 标签。",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.1 HTML 与 CSS"
+    ]
+  },
+  {
+    "objectID": "html-css-basics.html#语义化标签",
+    "href": "html-css-basics.html#语义化标签",
+    "title": "HTML 与 CSS",
+    "section": "3 语义化标签",
+    "text": "3 语义化标签\n语义化标签可以直接表达内容的作用。浏览器、搜索引擎、屏幕阅读器和开发者都能更容易理解页面结构。\n\n3.1 页面区域\n常用的页面结构标签包括：\n\n\n\n标签\n用途\n\n\n\n\nheader\n页面或区域的头部\n\n\nnav\n主要导航链接\n\n\nmain\n页面主要内容，一个页面通常只有一个\n\n\nsection\n围绕一个主题组织的内容区域\n\n\narticle\n可以独立存在的完整内容\n\n\naside\n与主要内容相关的补充内容\n\n\nfooter\n页面或区域的底部\n\n\n\n例如，一张商品卡片可以使用 article：\n&lt;article class=\"product-card\"&gt;\n  &lt;img src=\"keyboard.jpg\" alt=\"黑色机械键盘\" /&gt;\n  &lt;h2&gt;机械键盘&lt;/h2&gt;\n  &lt;p&gt;支持有线和蓝牙连接。&lt;/p&gt;\n  &lt;p&gt;¥299&lt;/p&gt;\n  &lt;button type=\"button\"&gt;加入购物车&lt;/button&gt;\n&lt;/article&gt;\n\n\n3.2 标题层级\n标题从 h1 到 h6 表示内容层级，而不是字体大小。\n&lt;h1&gt;React 学习课程&lt;/h1&gt;\n\n&lt;section&gt;\n  &lt;h2&gt;基础回顾&lt;/h2&gt;\n\n  &lt;section&gt;\n    &lt;h3&gt;HTML 与 CSS&lt;/h3&gt;\n  &lt;/section&gt;\n&lt;/section&gt;\n不要为了得到较小的字体而跳过标题层级。字体大小应该交给 CSS 控制。\n\n\n\n\n\n\n提示选择标签的方法\n\n\n\n先思考“这段内容是什么”，再选择标签。如果只是为了布局且没有明确语义，可以使用 div；如果是一段行内文本，可以使用 span。",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.1 HTML 与 CSS"
+    ]
+  },
+  {
+    "objectID": "html-css-basics.html#标签属性与嵌套",
+    "href": "html-css-basics.html#标签属性与嵌套",
+    "title": "HTML 与 CSS",
+    "section": "4 标签、属性与嵌套",
+    "text": "4 标签、属性与嵌套\n大多数 HTML 元素由开始标签、内容和结束标签组成：\n&lt;p&gt;这是一段商品说明。&lt;/p&gt;\n属性为元素提供额外信息：\n&lt;a href=\"/products\" title=\"查看全部商品\"&gt;商品列表&lt;/a&gt;\n元素必须正确嵌套：\n&lt;!-- 正确 --&gt;\n&lt;p&gt;学习 &lt;strong&gt;React&lt;/strong&gt; 开发。&lt;/p&gt;\n\n&lt;!-- 错误：标签交叉 --&gt;\n&lt;p&gt;学习 &lt;strong&gt;React&lt;/p&gt;&lt;/strong&gt;\n\n4.1 常见全局属性\n\nid：页面中某个元素的唯一标识\nclass：为一个或多个元素设置样式分组\ntitle：补充说明，不应作为主要信息的唯一来源\ndata-*：保存自定义数据\nhidden：隐藏元素\n\n&lt;article\n  id=\"product-1\"\n  class=\"product-card featured\"\n  data-product-id=\"1\"\n&gt;\n  商品内容\n&lt;/article&gt;",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.1 HTML 与 CSS"
+    ]
+  },
+  {
+    "objectID": "html-css-basics.html#链接图片与按钮",
+    "href": "html-css-basics.html#链接图片与按钮",
+    "title": "HTML 与 CSS",
+    "section": "5 链接、图片与按钮",
+    "text": "5 链接、图片与按钮\n\n5.1 链接\n链接用于导航到另一个地址：\n&lt;a href=\"/products/1\"&gt;查看商品详情&lt;/a&gt;\n打开新窗口时，要同时考虑安全属性：\n&lt;a\n  href=\"https://example.com\"\n  target=\"_blank\"\n  rel=\"noreferrer\"\n&gt;\n  访问外部网站\n&lt;/a&gt;\n\n\n5.2 图片\nalt 用于描述图片内容。当图片加载失败或用户使用屏幕阅读器时，它非常重要。\n&lt;img\n  src=\"keyboard.jpg\"\n  alt=\"带有白色背光的黑色机械键盘\"\n  width=\"640\"\n  height=\"480\"\n/&gt;\n如果图片纯粹用于装饰，可以使用空的 alt：\n&lt;img src=\"decoration.svg\" alt=\"\" /&gt;\n\n\n5.3 按钮\n按钮用于执行操作：\n&lt;button type=\"button\"&gt;加入购物车&lt;/button&gt;\n不要使用 div 模拟按钮。真正的 button 默认支持键盘操作、焦点和辅助技术。\n\n\n\n\n\n\n重要链接与按钮的区别\n\n\n\n\n前往另一个页面或地址：使用 a\n提交、删除、打开弹窗等操作：使用 button",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.1 HTML 与 CSS"
+    ]
+  },
+  {
+    "objectID": "html-css-basics.html#表单基础",
+    "href": "html-css-basics.html#表单基础",
+    "title": "HTML 与 CSS",
+    "section": "6 表单基础",
+    "text": "6 表单基础\n表单用于收集用户输入。常见元素包括 input、select、textarea 和 button。\n&lt;form&gt;\n  &lt;div&gt;\n    &lt;label for=\"product-name\"&gt;商品名称&lt;/label&gt;\n    &lt;input\n      id=\"product-name\"\n      name=\"productName\"\n      type=\"text\"\n      required\n    /&gt;\n  &lt;/div&gt;\n\n  &lt;div&gt;\n    &lt;label for=\"category\"&gt;商品分类&lt;/label&gt;\n    &lt;select id=\"category\" name=\"category\"&gt;\n      &lt;option value=\"keyboard\"&gt;键盘&lt;/option&gt;\n      &lt;option value=\"mouse\"&gt;鼠标&lt;/option&gt;\n    &lt;/select&gt;\n  &lt;/div&gt;\n\n  &lt;div&gt;\n    &lt;label for=\"description\"&gt;商品说明&lt;/label&gt;\n    &lt;textarea id=\"description\" name=\"description\" rows=\"4\"&gt;&lt;/textarea&gt;\n  &lt;/div&gt;\n\n  &lt;button type=\"submit\"&gt;保存商品&lt;/button&gt;\n&lt;/form&gt;\n\n6.1 label 与输入框\nlabel 的 for 应与输入框的 id 对应。点击标签时，浏览器会自动聚焦对应的输入框。\n不要只使用 placeholder 代替标签，因为用户输入后提示文字会消失。\n\n\n6.2 常见输入类型\n&lt;input type=\"text\" /&gt;\n&lt;input type=\"email\" /&gt;\n&lt;input type=\"password\" /&gt;\n&lt;input type=\"number\" /&gt;\n&lt;input type=\"date\" /&gt;\n&lt;input type=\"checkbox\" /&gt;\n&lt;input type=\"radio\" /&gt;\n选择正确的 type 可以得到基础校验，并让移动设备显示更合适的键盘。\n\n\n6.3 按钮类型\n\nsubmit：提交表单\nreset：重置表单\nbutton：普通操作按钮\n\n表单内没有声明 type 的按钮通常默认是提交按钮。不是用于提交时，应该明确写 type=\"button\"。",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.1 HTML 与 CSS"
+    ]
+  },
+  {
+    "objectID": "html-css-basics.html#css-负责页面表现",
+    "href": "html-css-basics.html#css-负责页面表现",
+    "title": "HTML 与 CSS",
+    "section": "7 CSS 负责页面表现",
+    "text": "7 CSS 负责页面表现\nCSS 用来控制颜色、字体、间距、大小和布局。\n一条 CSS 规则由选择器和声明块组成：\n.product-card {\n  color: #1f2937;\n  background-color: #ffffff;\n  border-radius: 12px;\n}\n\n.product-card 是选择器\ncolor、background-color 是属性\n#1f2937、#ffffff 是属性值",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.1 HTML 与 CSS"
+    ]
+  },
+  {
+    "objectID": "html-css-basics.html#css-选择器",
+    "href": "html-css-basics.html#css-选择器",
+    "title": "HTML 与 CSS",
+    "section": "8 CSS 选择器",
+    "text": "8 CSS 选择器\n\n8.1 基础选择器\n/* 标签选择器 */\nbutton {\n  cursor: pointer;\n}\n\n/* 类选择器 */\n.product-card {\n  padding: 16px;\n}\n\n/* ID 选择器 */\n#featured-product {\n  border-color: gold;\n}\n日常组件样式通常优先使用类选择器。ID 选择器优先级较高，不适合大量复用。\n\n\n8.2 组合选择器\n/* product-card 内部的 h2 */\n.product-card h2 {\n  font-size: 1.25rem;\n}\n\n/* 同时拥有两个类 */\n.product-card.featured {\n  border-color: #f59e0b;\n}\n\n/* product-list 的直接子元素 */\n.product-list &gt; article {\n  min-width: 0;\n}\n\n\n8.3 属性和状态选择器\ninput[type=\"email\"] {\n  border-color: #94a3b8;\n}\n\nbutton:hover {\n  background-color: #1d4ed8;\n}\n\ninput:focus {\n  outline: 3px solid #93c5fd;\n}\n\nbutton:disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n不要完全移除键盘焦点样式。用户需要知道当前焦点在哪个元素上。",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.1 HTML 与 CSS"
+    ]
+  },
+  {
+    "objectID": "html-css-basics.html#层叠继承与优先级",
+    "href": "html-css-basics.html#层叠继承与优先级",
+    "title": "HTML 与 CSS",
+    "section": "9 层叠、继承与优先级",
+    "text": "9 层叠、继承与优先级\n当多条规则同时匹配一个元素时，浏览器需要决定最终使用哪条规则，这就是层叠。\np {\n  color: gray;\n}\n\n.description {\n  color: #1f2937;\n}\n如果一个段落具有 description 类，类选择器比标签选择器更具体，因此最终使用第二种颜色。\n可以把优先级简单理解为：\n行内样式 &gt; ID 选择器 &gt; 类/属性/状态选择器 &gt; 标签选择器\n当优先级相同时，后出现的规则覆盖先出现的规则。\n部分属性会从父元素继承，例如 color 和 font-family：\nbody {\n  color: #1f2937;\n  font-family: system-ui, sans-serif;\n}\n\n\n\n\n\n\n提示减少样式冲突\n\n\n\n优先使用简短、可复用的类选择器，保持组件样式结构清晰。尽量不要依赖很长的嵌套选择器，也不要频繁使用 !important。",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.1 HTML 与 CSS"
+    ]
+  },
+  {
+    "objectID": "html-css-basics.html#盒模型",
+    "href": "html-css-basics.html#盒模型",
+    "title": "HTML 与 CSS",
+    "section": "10 盒模型",
+    "text": "10 盒模型\n浏览器把大部分元素看作一个矩形盒子。盒模型从内到外包括：\n\ncontent：内容区域\npadding：内容与边框之间的内边距\nborder：边框\nmargin：元素与其他元素之间的外边距\n\n.product-card {\n  width: 320px;\n  padding: 20px;\n  border: 1px solid #e5e7eb;\n  margin: 16px;\n}\n默认情况下，width 只表示内容宽度，内边距和边框会额外增加实际尺寸。通常会统一设置：\n*,\n*::before,\n*::after {\n  box-sizing: border-box;\n}\n使用 border-box 后，声明的宽度会包含内边距和边框，尺寸更容易计算。\n\n10.1 常见尺寸单位\n\n\n\n单位\n说明\n\n\n\n\npx\n固定像素值\n\n\n%\n相对于包含块的比例\n\n\nrem\n相对于根元素字体大小\n\n\nem\n相对于当前元素字体大小\n\n\nvw、vh\n相对于视口宽度、高度\n\n\n\n正文和间距常使用 rem，容器宽度常结合 %、max-width 使用：\n.page-container {\n  width: min(100% - 32px, 1200px);\n  margin-inline: auto;\n}",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.1 HTML 与 CSS"
+    ]
+  },
+  {
+    "objectID": "html-css-basics.html#flexbox-一维布局",
+    "href": "html-css-basics.html#flexbox-一维布局",
+    "title": "HTML 与 CSS",
+    "section": "11 Flexbox 一维布局",
+    "text": "11 Flexbox 一维布局\nFlexbox 适合处理一行或一列中的排列、间距和对齐。\n&lt;div class=\"toolbar\"&gt;\n  &lt;h2&gt;商品列表&lt;/h2&gt;\n  &lt;button type=\"button\"&gt;新增商品&lt;/button&gt;\n&lt;/div&gt;\n.toolbar {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 16px;\n}\n\n11.1 主轴与交叉轴\n默认 flex-direction: row：\n\n主轴是水平方向，由 justify-content 控制\n交叉轴是垂直方向，由 align-items 控制\n\n改为纵向排列：\n.product-card {\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n}\n\n\n11.2 常用属性\n.container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  align-items: stretch;\n  gap: 24px;\n}\n\n.item {\n  flex: 1 1 240px;\n}\n\nflex-wrap：空间不足时是否换行\ngap：子元素之间的间距\nflex-grow：是否占用剩余空间\nflex-shrink：空间不足时是否缩小\nflex-basis：元素的初始尺寸",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.1 HTML 与 CSS"
+    ]
+  },
+  {
+    "objectID": "html-css-basics.html#grid-二维布局",
+    "href": "html-css-basics.html#grid-二维布局",
+    "title": "HTML 与 CSS",
+    "section": "12 Grid 二维布局",
+    "text": "12 Grid 二维布局\nGrid 适合同时控制行和列，例如响应式商品列表。\n&lt;section class=\"product-grid\"&gt;\n  &lt;article class=\"product-card\"&gt;商品一&lt;/article&gt;\n  &lt;article class=\"product-card\"&gt;商品二&lt;/article&gt;\n  &lt;article class=\"product-card\"&gt;商品三&lt;/article&gt;\n&lt;/section&gt;\n.product-grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 24px;\n}\n1fr 表示网格中的一份可用空间。下面的写法可以根据容器宽度自动调整列数：\n.product-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));\n  gap: 24px;\n}\n每列最小宽度是 240px，空间足够时会自动增加列数。\n\n\n\n\n\n\n注记Flexbox 还是 Grid\n\n\n\n\n主要处理一行或一列：优先考虑 Flexbox\n同时处理行和列：优先考虑 Grid\n两者可以组合使用，不需要二选一",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.1 HTML 与 CSS"
+    ]
+  },
+  {
+    "objectID": "html-css-basics.html#定位",
+    "href": "html-css-basics.html#定位",
+    "title": "HTML 与 CSS",
+    "section": "13 定位",
+    "text": "13 定位\nposition 可以改变元素参与布局的方式。\n\n13.1 相对定位与绝对定位\n商品卡片右上角的状态标签可以这样实现：\n&lt;article class=\"product-card\"&gt;\n  &lt;span class=\"product-badge\"&gt;新品&lt;/span&gt;\n  &lt;h2&gt;机械键盘&lt;/h2&gt;\n&lt;/article&gt;\n.product-card {\n  position: relative;\n}\n\n.product-badge {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n}\n绝对定位元素会相对于最近的、设置了非 static 定位的祖先元素进行定位。\n\n\n13.2 固定与粘性定位\n.back-to-top {\n  position: fixed;\n  right: 24px;\n  bottom: 24px;\n}\n\n.page-nav {\n  position: sticky;\n  top: 0;\n}\n\nfixed：相对于浏览器视口固定\nsticky：滚动到指定位置后保持吸附\n\n不要依赖绝对定位完成整个页面布局。常规布局应优先使用正常文档流、Flexbox 或 Grid。",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.1 HTML 与 CSS"
+    ]
+  },
+  {
+    "objectID": "html-css-basics.html#响应式设计",
+    "href": "html-css-basics.html#响应式设计",
+    "title": "HTML 与 CSS",
+    "section": "14 响应式设计",
+    "text": "14 响应式设计\n响应式页面会根据屏幕或容器尺寸调整布局。\n首先确保 HTML 中包含视口配置：\n&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /&gt;\n\n14.1 移动优先\n先编写小屏幕样式，再使用媒体查询增强大屏幕布局：\n.product-grid {\n  display: grid;\n  grid-template-columns: 1fr;\n  gap: 16px;\n}\n\n@media (min-width: 640px) {\n  .product-grid {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n\n@media (min-width: 1024px) {\n  .product-grid {\n    grid-template-columns: repeat(3, 1fr);\n    gap: 24px;\n  }\n}\n\n\n14.2 响应式图片\nimg {\n  display: block;\n  max-width: 100%;\n  height: auto;\n}\n图片宽度不会超过容器，同时保持原始宽高比。\n\n\n14.3 不只考虑设备宽度\n响应式设计还要考虑：\n\n文本放大后是否被截断\n导航是否支持键盘操作\n按钮是否有足够大的点击区域\n内容是否依赖鼠标悬停才能访问\n深色模式下是否保持足够对比度",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.1 HTML 与 CSS"
+    ]
+  },
+  {
+    "objectID": "html-css-basics.html#从-htmlcss-到-react-jsx",
+    "href": "html-css-basics.html#从-htmlcss-到-react-jsx",
+    "title": "HTML 与 CSS",
+    "section": "15 从 HTML/CSS 到 React JSX",
+    "text": "15 从 HTML/CSS 到 React JSX\nReact 组件使用 JSX 描述页面结构。JSX 与 HTML 很相似，但有几个重要区别。\n\n15.1 class 改为 className\nfunction ProductCard() {\n  return (\n    &lt;article className=\"product-card\"&gt;\n      &lt;h2&gt;机械键盘&lt;/h2&gt;\n    &lt;/article&gt;\n  );\n}\nCSS 文件仍然使用普通类选择器：\n.product-card {\n  padding: 20px;\n}\n\n\n15.2 标签必须闭合\n&lt;img src=\"keyboard.jpg\" alt=\"机械键盘\" /&gt;\n&lt;input type=\"text\" /&gt;\n\n\n15.3 属性使用驼峰命名\n&lt;label htmlFor=\"product-name\"&gt;商品名称&lt;/label&gt;\n&lt;input id=\"product-name\" maxLength={30} /&gt;\n\nHTML 的 for 在 JSX 中写成 htmlFor\nmaxlength 写成 maxLength\n事件 onclick 写成 onClick\n\n\n\n15.4 JavaScript 表达式写在花括号中\nfunction ProductCard({ product }) {\n  return (\n    &lt;article className=\"product-card\"&gt;\n      &lt;h2&gt;{product.name}&lt;/h2&gt;\n      &lt;p&gt;¥{product.price}&lt;/p&gt;\n      &lt;button disabled={!product.inStock}&gt;\n        {product.inStock ? \"加入购物车\" : \"暂时缺货\"}\n      &lt;/button&gt;\n    &lt;/article&gt;\n  );\n}\n结构和样式仍然遵循 HTML/CSS 的规则，只是内容可以由 JavaScript 数据动态生成。",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.1 HTML 与 CSS"
+    ]
+  },
+  {
+    "objectID": "html-css-basics.html#完整商品卡片示例",
+    "href": "html-css-basics.html#完整商品卡片示例",
+    "title": "HTML 与 CSS",
+    "section": "16 完整商品卡片示例",
+    "text": "16 完整商品卡片示例\n下面把本章知识组合起来。\n\n16.1 HTML\n&lt;main class=\"page-container\"&gt;\n  &lt;header class=\"page-header\"&gt;\n    &lt;div&gt;\n      &lt;h1&gt;热门商品&lt;/h1&gt;\n      &lt;p&gt;发现本周最受欢迎的商品。&lt;/p&gt;\n    &lt;/div&gt;\n    &lt;button type=\"button\"&gt;查看购物车&lt;/button&gt;\n  &lt;/header&gt;\n\n  &lt;section class=\"product-grid\" aria-label=\"热门商品列表\"&gt;\n    &lt;article class=\"product-card\"&gt;\n      &lt;span class=\"product-badge\"&gt;有货&lt;/span&gt;\n      &lt;img src=\"keyboard.jpg\" alt=\"黑色机械键盘\" /&gt;\n      &lt;div class=\"product-content\"&gt;\n        &lt;h2&gt;机械键盘&lt;/h2&gt;\n        &lt;p class=\"product-description\"&gt;支持有线和蓝牙连接。&lt;/p&gt;\n        &lt;div class=\"product-footer\"&gt;\n          &lt;strong&gt;¥299&lt;/strong&gt;\n          &lt;button type=\"button\"&gt;加入购物车&lt;/button&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;\n    &lt;/article&gt;\n  &lt;/section&gt;\n&lt;/main&gt;\n\n\n16.2 CSS\n*,\n*::before,\n*::after {\n  box-sizing: border-box;\n}\n\nbody {\n  margin: 0;\n  color: #1f2937;\n  background: #f8fafc;\n  font-family: system-ui, sans-serif;\n}\n\n.page-container {\n  width: min(100% - 32px, 1200px);\n  margin-inline: auto;\n  padding-block: 32px;\n}\n\n.page-header {\n  display: flex;\n  flex-direction: column;\n  gap: 16px;\n  margin-bottom: 24px;\n}\n\n.product-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));\n  gap: 24px;\n}\n\n.product-card {\n  position: relative;\n  overflow: hidden;\n  background: white;\n  border: 1px solid #e5e7eb;\n  border-radius: 16px;\n  box-shadow: 0 8px 24px rgb(15 23 42 / 8%);\n}\n\n.product-card img {\n  display: block;\n  width: 100%;\n  aspect-ratio: 4 / 3;\n  object-fit: cover;\n}\n\n.product-badge {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n  padding: 4px 8px;\n  color: #166534;\n  background: #dcfce7;\n  border-radius: 999px;\n  font-size: 0.875rem;\n}\n\n.product-content {\n  padding: 20px;\n}\n\n.product-description {\n  color: #64748b;\n}\n\n.product-footer {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 16px;\n  margin-top: 20px;\n}\n\nbutton {\n  min-height: 44px;\n  padding-inline: 16px;\n  color: white;\n  background: #2563eb;\n  border: 0;\n  border-radius: 8px;\n  cursor: pointer;\n}\n\nbutton:hover {\n  background: #1d4ed8;\n}\n\nbutton:focus-visible {\n  outline: 3px solid #93c5fd;\n  outline-offset: 2px;\n}\n\n@media (min-width: 640px) {\n  .page-header {\n    flex-direction: row;\n    align-items: center;\n    justify-content: space-between;\n  }\n}",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.1 HTML 与 CSS"
+    ]
+  },
+  {
+    "objectID": "html-css-basics.html#综合练习",
+    "href": "html-css-basics.html#综合练习",
+    "title": "HTML 与 CSS",
+    "section": "17 综合练习",
+    "text": "17 综合练习\n使用本章知识完成一个“课程卡片列表”：\n\n使用 main、section 和 article 组织页面。\n每张卡片包含课程标题、介绍、学习人数和“开始学习”按钮。\n为按钮添加清晰的悬停和键盘焦点状态。\n使用 Grid 创建响应式列表。\n小屏幕显示一列，中等屏幕显示两列，大屏幕显示三列。\n给其中一张卡片添加右上角的“推荐”标签。\n检查图片是否有合适的 alt，表单元素是否有 label。\n\n\n\n\n\n\n\n提示实现提示\n\n\n\n\n\n可以先使用以下结构，再逐步添加样式：\n&lt;main class=\"course-page\"&gt;\n  &lt;h1&gt;课程列表&lt;/h1&gt;\n  &lt;section class=\"course-grid\" aria-label=\"课程列表\"&gt;\n    &lt;article class=\"course-card\"&gt;\n      &lt;span class=\"course-badge\"&gt;推荐&lt;/span&gt;\n      &lt;h2&gt;React 入门&lt;/h2&gt;\n      &lt;p&gt;从组件、Props 和 State 开始学习 React。&lt;/p&gt;\n      &lt;p&gt;1,280 人正在学习&lt;/p&gt;\n      &lt;button type=\"button\"&gt;开始学习&lt;/button&gt;\n    &lt;/article&gt;\n  &lt;/section&gt;\n&lt;/main&gt;\nGrid 可以从下面的规则开始：\n.course-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));\n  gap: 24px;\n}",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.1 HTML 与 CSS"
+    ]
+  },
+  {
+    "objectID": "html-css-basics.html#学习检查",
+    "href": "html-css-basics.html#学习检查",
+    "title": "HTML 与 CSS",
+    "section": "18 学习检查",
+    "text": "18 学习检查\n如果你能完成下面这些任务，就具备了继续学习 React 页面开发所需的 HTML/CSS 基础：\n\n能根据内容含义选择 header、main、section 和 article\n能正确选择链接或按钮\n能为图片编写合适的 alt\n能使用 label 关联表单输入框\n能解释 margin、border、padding 和 content\n能使用类选择器及常见状态选择器\n能使用 Flexbox 完成排列与对齐\n能使用 Grid 创建响应式卡片列表\n能说明 relative 与 absolute 定位的关系\n能把普通 HTML 改写为合法 JSX\n\n下一步可以阅读 JavaScript 必备知识，继续完成 React 学习前的基础回顾。",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.1 HTML 与 CSS"
+    ]
+  },
+  {
+    "objectID": "agent.html",
+    "href": "agent.html",
+    "title": "1 Agent 工作规则",
+    "section": "",
+    "text": "推送代码前，必须检查本次提交和待推送的 Git 历史中是否包含敏感数据；确认不存在敏感数据后才能推送。\n敏感数据包括但不限于：密码、API Key、访问令牌、私钥、证书、Cookie、数据库连接字符串、个人身份信息以及包含真实凭据的 .env 文件。\n如果发现敏感数据，应立即停止推送，先删除或替换相关内容，并确认敏感信息已从待推送的 Git 历史中移除。\n不得在日志、提交信息或检查结果中完整输出敏感数据；需要说明问题时只显示脱敏后的内容。"
+  },
+  {
+    "objectID": "agent.html#git-推送安全",
+    "href": "agent.html#git-推送安全",
+    "title": "1 Agent 工作规则",
+    "section": "",
+    "text": "推送代码前，必须检查本次提交和待推送的 Git 历史中是否包含敏感数据；确认不存在敏感数据后才能推送。\n敏感数据包括但不限于：密码、API Key、访问令牌、私钥、证书、Cookie、数据库连接字符串、个人身份信息以及包含真实凭据的 .env 文件。\n如果发现敏感数据，应立即停止推送，先删除或替换相关内容，并确认敏感信息已从待推送的 Git 历史中移除。\n不得在日志、提交信息或检查结果中完整输出敏感数据；需要说明问题时只显示脱敏后的内容。"
+  },
+  {
+    "objectID": "basic-exercises.html",
+    "href": "basic-exercises.html",
+    "title": "基础练习",
+    "section": "",
+    "text": "前两节分别回顾了 HTML 与 CSS 和 JavaScript 必备知识。这一节不再增加太多新语法，而是通过三个练习把已有知识连接起来。\n三个练习会逐步增加难度：\n这些练习所涉及的问题，在 React 中仍然会遇到。区别在于 React 会帮助我们更清晰地组织组件、状态和页面更新。",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.3 基础练习"
+    ]
+  },
+  {
+    "objectID": "basic-exercises.html#学习目标",
+    "href": "basic-exercises.html#学习目标",
+    "title": "基础练习",
+    "section": "1 学习目标",
+    "text": "1 学习目标\n完成本章后，你应该能够：\n\n把一个需求拆分为数据、计算和页面显示\n使用 map、filter、find、some 和 reduce\n使用函数减少重复代码\n使用 fetch、async/await 和 try/catch\n处理加载、成功、空数据和错误状态\n使用 DOM API 创建和更新页面元素\n监听表单、点击和输入事件\n使用数组表示应用状态\n在不直接修改原数组的情况下更新数据\n说明原生 JavaScript 应用迁移到 React 时哪些部分会发生变化",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.3 基础练习"
+    ]
+  },
+  {
+    "objectID": "basic-exercises.html#开发环境",
+    "href": "basic-exercises.html#开发环境",
+    "title": "基础练习",
+    "section": "2 开发环境",
+    "text": "2 开发环境\n每个练习都可以放在一个独立目录中：\nexercise-1/\n├── index.html\n├── styles.css\n└── app.js\n在 HTML 中引入样式和脚本：\n&lt;!doctype html&gt;\n&lt;html lang=\"zh-CN\"&gt;\n  &lt;head&gt;\n    &lt;meta charset=\"UTF-8\" /&gt;\n    &lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /&gt;\n    &lt;title&gt;基础练习&lt;/title&gt;\n    &lt;link rel=\"stylesheet\" href=\"styles.css\" /&gt;\n  &lt;/head&gt;\n  &lt;body&gt;\n    &lt;main id=\"app\"&gt;&lt;/main&gt;\n    &lt;script src=\"app.js\"&gt;&lt;/script&gt;\n  &lt;/body&gt;\n&lt;/html&gt;\n\n\n\n\n\n\n注记使用本地开发服务器\n\n\n\n第一个练习可以直接打开 HTML 文件。第二个练习使用 fetch 读取本地 JSON，必须通过本地开发服务器访问，不能直接使用 file:// 打开。\n可以使用编辑器提供的本地服务器扩展，或者之后学习 Vite 时使用 Vite 开发服务器。",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.3 基础练习"
+    ]
+  },
+  {
+    "objectID": "basic-exercises.html#练习商品筛选与统计",
+    "href": "basic-exercises.html#练习商品筛选与统计",
+    "title": "基础练习",
+    "section": "3 练习：商品筛选与统计",
+    "text": "3 练习：商品筛选与统计\n这个练习只处理 JavaScript 数据，不操作页面。重点是熟悉数组方法以及如何把需求拆成小步骤。\n\n3.1 示例数据\n将下面的数据保存到 app.js：\nconst products = [\n  {\n    id: 1,\n    name: \"机械键盘\",\n    category: \"keyboard\",\n    price: 299,\n    inStock: true,\n  },\n  {\n    id: 2,\n    name: \"无线鼠标\",\n    category: \"mouse\",\n    price: 129,\n    inStock: false,\n  },\n  {\n    id: 3,\n    name: \"4K 显示器\",\n    category: \"monitor\",\n    price: 1599,\n    inStock: true,\n  },\n  {\n    id: 4,\n    name: \"人体工学键盘\",\n    category: \"keyboard\",\n    price: 499,\n    inStock: true,\n  },\n  {\n    id: 5,\n    name: \"桌面音箱\",\n    category: \"speaker\",\n    price: 399,\n    inStock: false,\n  },\n];\n\n\n3.2 任务要求\n依次完成以下任务，并使用 console.log 查看结果：\n\n得到所有商品名称。\n找出所有有库存的商品。\n找出价格低于 500 元的商品。\n找到 id 为 3 的商品。\n判断是否存在价格超过 1000 元的商品。\n计算所有商品的总价。\n计算有库存商品的平均价格。\n把 id 为 2 的商品改为有库存，生成新数组，不能修改原数组。\n\n先自己尝试完成，再打开参考实现。\n\n\n\n\n\n\n提示查看参考实现\n\n\n\n\n\nconst productNames = products.map((product) =&gt; product.name);\n\nconst availableProducts = products.filter(\n  (product) =&gt; product.inStock\n);\n\nconst affordableProducts = products.filter(\n  (product) =&gt; product.price &lt; 500\n);\n\nconst selectedProduct = products.find(\n  (product) =&gt; product.id === 3\n);\n\nconst hasExpensiveProduct = products.some(\n  (product) =&gt; product.price &gt; 1000\n);\n\nconst totalPrice = products.reduce(\n  (total, product) =&gt; total + product.price,\n  0\n);\n\nconst availableTotal = availableProducts.reduce(\n  (total, product) =&gt; total + product.price,\n  0\n);\n\nconst averageAvailablePrice = availableProducts.length === 0\n  ? 0\n  : availableTotal / availableProducts.length;\n\nconst nextProducts = products.map((product) =&gt;\n  product.id === 2\n    ? { ...product, inStock: true }\n    : product\n);\n\nconsole.log(productNames);\nconsole.log(availableProducts);\nconsole.log(affordableProducts);\nconsole.log(selectedProduct);\nconsole.log(hasExpensiveProduct);\nconsole.log(totalPrice);\nconsole.log(averageAvailablePrice);\nconsole.log(nextProducts);\n\n\n\n\n\n3.3 提取可复用函数\n接下来把固定条件改成函数参数：\nconst filterByMaxPrice = (products, maxPrice) =&gt;\n  products.filter((product) =&gt; product.price &lt;= maxPrice);\n\nconst findProductById = (products, productId) =&gt;\n  products.find((product) =&gt; product.id === productId);\n\nconst calculateTotalPrice = (products) =&gt;\n  products.reduce(\n    (total, product) =&gt; total + product.price,\n    0\n  );\n调用函数：\nconsole.log(filterByMaxPrice(products, 300));\nconsole.log(findProductById(products, 4));\nconsole.log(calculateTotalPrice(products));\n函数的输入和输出越明确，后续越容易测试和复用。React 组件中的很多计算逻辑也可以提取成普通 JavaScript 函数。\n\n\n3.4 扩展任务\n\n按价格从低到高排序，但不能改变原数组\n按 category 对商品进行分组\n统计每个分类的商品数量\n创建一个函数，同时接收关键词、最高价格和库存条件\n\n排序时可以先复制数组：\nconst sortedProducts = [...products].sort(\n  (a, b) =&gt; a.price - b.price\n);\nsort 会修改调用它的数组，因此先使用展开运算符创建副本。",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.3 基础练习"
+    ]
+  },
+  {
+    "objectID": "basic-exercises.html#练习加载并显示商品数据",
+    "href": "basic-exercises.html#练习加载并显示商品数据",
+    "title": "基础练习",
+    "section": "4 练习：加载并显示商品数据",
+    "text": "4 练习：加载并显示商品数据\n这个练习会使用 fetch 读取 JSON，然后把商品渲染到页面中。\n我们会处理四种页面状态：\n\n加载中\n加载成功\n没有数据\n加载失败\n\n\n4.1 项目结构\nexercise-2/\n├── data/\n│   └── products.json\n├── index.html\n├── styles.css\n└── app.js\n\n\n4.2 准备 JSON 数据\n创建 data/products.json：\n[\n  {\n    \"id\": 1,\n    \"name\": \"机械键盘\",\n    \"description\": \"支持有线和蓝牙连接\",\n    \"price\": 299,\n    \"inStock\": true\n  },\n  {\n    \"id\": 2,\n    \"name\": \"无线鼠标\",\n    \"description\": \"轻量化设计，支持多设备切换\",\n    \"price\": 129,\n    \"inStock\": false\n  },\n  {\n    \"id\": 3,\n    \"name\": \"4K 显示器\",\n    \"description\": \"27 英寸高分辨率显示器\",\n    \"price\": 1599,\n    \"inStock\": true\n  }\n]\n\n\n4.3 编写页面结构\n创建 index.html：\n&lt;!doctype html&gt;\n&lt;html lang=\"zh-CN\"&gt;\n  &lt;head&gt;\n    &lt;meta charset=\"UTF-8\" /&gt;\n    &lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /&gt;\n    &lt;title&gt;商品列表&lt;/title&gt;\n    &lt;link rel=\"stylesheet\" href=\"styles.css\" /&gt;\n  &lt;/head&gt;\n  &lt;body&gt;\n    &lt;main class=\"page-container\"&gt;\n      &lt;header class=\"page-header\"&gt;\n        &lt;h1&gt;商品列表&lt;/h1&gt;\n        &lt;button id=\"reload-button\" type=\"button\"&gt;重新加载&lt;/button&gt;\n      &lt;/header&gt;\n\n      &lt;p id=\"status\" role=\"status\"&gt;准备加载商品&lt;/p&gt;\n      &lt;section\n        id=\"product-list\"\n        class=\"product-grid\"\n        aria-label=\"商品列表\"\n      &gt;&lt;/section&gt;\n    &lt;/main&gt;\n\n    &lt;script src=\"app.js\"&gt;&lt;/script&gt;\n  &lt;/body&gt;\n&lt;/html&gt;\nrole=\"status\" 可以让辅助技术在状态文字变化时得到通知。\n\n\n4.4 添加基础样式\n创建 styles.css：\n*,\n*::before,\n*::after {\n  box-sizing: border-box;\n}\n\nbody {\n  margin: 0;\n  color: #1f2937;\n  background: #f8fafc;\n  font-family: system-ui, sans-serif;\n}\n\n.page-container {\n  width: min(100% - 32px, 1000px);\n  margin-inline: auto;\n  padding-block: 32px;\n}\n\n.page-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 16px;\n}\n\n.product-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n  gap: 20px;\n}\n\n.product-card {\n  padding: 20px;\n  background: white;\n  border: 1px solid #e5e7eb;\n  border-radius: 12px;\n}\n\n.product-card h2 {\n  margin-top: 0;\n}\n\n.product-price {\n  font-size: 1.25rem;\n  font-weight: 700;\n}\n\n.stock-available {\n  color: #15803d;\n}\n\n.stock-unavailable {\n  color: #b91c1c;\n}\n\n\n4.5 拆分 JavaScript 任务\n在写代码之前，先把需求拆成几个函数：\nloadProducts       请求并返回商品数据\ncreateProductCard  根据一个商品创建 DOM 元素\nrenderProducts     把商品数组显示到页面\nsetStatus          更新状态提示\n这种拆分方式比把所有代码写在一个函数里更容易理解。\n\n\n4.6 请求数据\nconst loadProducts = async () =&gt; {\n  const response = await fetch(\"./data/products.json\");\n\n  if (!response.ok) {\n    throw new Error(`请求失败：${response.status}`);\n  }\n\n  return response.json();\n};\n即使 fetch 得到了 HTTP 响应，状态码也可能是 404 或 500，因此要检查 response.ok。\n\n\n4.7 安全地创建商品卡片\nconst createProductCard = (product) =&gt; {\n  const article = document.createElement(\"article\");\n  article.className = \"product-card\";\n\n  const title = document.createElement(\"h2\");\n  title.textContent = product.name;\n\n  const description = document.createElement(\"p\");\n  description.textContent = product.description;\n\n  const price = document.createElement(\"p\");\n  price.className = \"product-price\";\n  price.textContent = `¥${product.price}`;\n\n  const stock = document.createElement(\"p\");\n  stock.className = product.inStock\n    ? \"stock-available\"\n    : \"stock-unavailable\";\n  stock.textContent = product.inStock ? \"有货\" : \"缺货\";\n\n  article.append(title, description, price, stock);\n  return article;\n};\n使用 textContent 显示外部数据，可以避免把数据当作 HTML 解析。不要在不可信数据上直接使用 innerHTML。\n\n\n4.8 渲染列表\nconst productList = document.querySelector(\"#product-list\");\nconst status = document.querySelector(\"#status\");\n\nconst setStatus = (message) =&gt; {\n  status.textContent = message;\n};\n\nconst renderProducts = (products) =&gt; {\n  productList.replaceChildren();\n\n  if (products.length === 0) {\n    setStatus(\"暂时没有商品\");\n    return;\n  }\n\n  const fragment = document.createDocumentFragment();\n\n  products.forEach((product) =&gt; {\n    fragment.append(createProductCard(product));\n  });\n\n  productList.append(fragment);\n  setStatus(`共加载 ${products.length} 件商品`);\n};\nDocumentFragment 可以先在内存中组织元素，再一次加入页面。\n\n\n4.9 组合加载流程\nconst reloadButton = document.querySelector(\"#reload-button\");\n\nconst showProducts = async () =&gt; {\n  setStatus(\"正在加载商品……\");\n  productList.replaceChildren();\n  reloadButton.disabled = true;\n\n  try {\n    const products = await loadProducts();\n    renderProducts(products);\n  } catch (error) {\n    console.error(error);\n    setStatus(\"商品加载失败，请稍后重试\");\n  } finally {\n    reloadButton.disabled = false;\n  }\n};\n\nreloadButton.addEventListener(\"click\", showProducts);\nshowProducts();\nfinally 中的代码无论成功还是失败都会执行，适合恢复按钮状态。\n\n\n4.10 测试各种状态\n\n正常打开页面，检查成功状态\n把 JSON 内容改成 []，检查空数据状态\n暂时把请求地址改错，检查错误状态\n快速多次点击重新加载，检查按钮是否正确禁用\n\n只测试成功情况是不够的。React 项目中的接口页面同样需要处理这些状态。\n\n\n4.11 扩展任务\n\n添加“只显示有库存商品”复选框\n添加关键词搜索框\n添加价格排序\n为加载过程添加骨架屏\n使用 AbortController 取消不再需要的请求",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.3 基础练习"
+    ]
+  },
+  {
+    "objectID": "basic-exercises.html#练习待办事项应用",
+    "href": "basic-exercises.html#练习待办事项应用",
+    "title": "基础练习",
+    "section": "5 练习：待办事项应用",
+    "text": "5 练习：待办事项应用\n这个练习会组合表单、事件、数组状态和页面渲染。完成后，你会更容易理解 React 为什么需要 State。\n\n5.1 功能要求\n\n添加任务\n显示任务列表\n标记完成或未完成\n删除任务\n按全部、未完成、已完成筛选\n显示剩余任务数量\n刷新页面后保留数据\n\n\n\n5.2 设计数据结构\n每个任务使用一个对象表示：\nconst todo = {\n  id: \"todo-1\",\n  title: \"复习数组方法\",\n  completed: false,\n};\n所有任务保存在数组中：\nlet todos = [\n  {\n    id: \"todo-1\",\n    title: \"复习数组方法\",\n    completed: false,\n  },\n];\n当前筛选条件单独保存：\nlet currentFilter = \"all\";\n这些变量就是应用的状态。状态改变后，我们需要重新调用渲染函数，让页面与数据保持一致。\n\n\n5.3 页面结构\n&lt;!doctype html&gt;\n&lt;html lang=\"zh-CN\"&gt;\n  &lt;head&gt;\n    &lt;meta charset=\"UTF-8\" /&gt;\n    &lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /&gt;\n    &lt;title&gt;待办事项&lt;/title&gt;\n    &lt;link rel=\"stylesheet\" href=\"styles.css\" /&gt;\n  &lt;/head&gt;\n  &lt;body&gt;\n    &lt;main class=\"todo-app\"&gt;\n      &lt;h1&gt;待办事项&lt;/h1&gt;\n\n      &lt;form id=\"todo-form\" class=\"todo-form\"&gt;\n        &lt;label for=\"todo-input\"&gt;新任务&lt;/label&gt;\n        &lt;div class=\"todo-form-row\"&gt;\n          &lt;input\n            id=\"todo-input\"\n            name=\"title\"\n            type=\"text\"\n            maxlength=\"100\"\n            autocomplete=\"off\"\n            required\n          /&gt;\n          &lt;button type=\"submit\"&gt;添加&lt;/button&gt;\n        &lt;/div&gt;\n      &lt;/form&gt;\n\n      &lt;div class=\"todo-toolbar\"&gt;\n        &lt;div class=\"todo-filters\" aria-label=\"任务筛选\"&gt;\n          &lt;button type=\"button\" data-filter=\"all\"&gt;全部&lt;/button&gt;\n          &lt;button type=\"button\" data-filter=\"active\"&gt;未完成&lt;/button&gt;\n          &lt;button type=\"button\" data-filter=\"completed\"&gt;已完成&lt;/button&gt;\n        &lt;/div&gt;\n        &lt;p id=\"todo-count\" aria-live=\"polite\"&gt;&lt;/p&gt;\n      &lt;/div&gt;\n\n      &lt;ul id=\"todo-list\" class=\"todo-list\"&gt;&lt;/ul&gt;\n      &lt;p id=\"empty-message\" hidden&gt;当前没有任务&lt;/p&gt;\n    &lt;/main&gt;\n\n    &lt;script src=\"app.js\"&gt;&lt;/script&gt;\n  &lt;/body&gt;\n&lt;/html&gt;\n\n\n5.4 基础样式\n*,\n*::before,\n*::after {\n  box-sizing: border-box;\n}\n\nbody {\n  margin: 0;\n  color: #1f2937;\n  background: #f1f5f9;\n  font-family: system-ui, sans-serif;\n}\n\nbutton,\ninput {\n  font: inherit;\n}\n\nbutton {\n  min-height: 42px;\n  padding-inline: 14px;\n  border: 1px solid #cbd5e1;\n  border-radius: 8px;\n  cursor: pointer;\n}\n\nbutton:focus-visible,\ninput:focus-visible {\n  outline: 3px solid #93c5fd;\n  outline-offset: 2px;\n}\n\n.todo-app {\n  width: min(100% - 32px, 680px);\n  margin: 48px auto;\n  padding: 24px;\n  background: white;\n  border-radius: 16px;\n  box-shadow: 0 12px 30px rgb(15 23 42 / 10%);\n}\n\n.todo-form-row {\n  display: flex;\n  gap: 12px;\n  margin-top: 8px;\n}\n\n.todo-form-row input {\n  flex: 1;\n  min-width: 0;\n  min-height: 42px;\n  padding-inline: 12px;\n  border: 1px solid #cbd5e1;\n  border-radius: 8px;\n}\n\n.todo-toolbar {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n  justify-content: space-between;\n  gap: 12px;\n  margin-block: 24px 16px;\n}\n\n.todo-filters {\n  display: flex;\n  gap: 8px;\n}\n\n.todo-filters button[aria-pressed=\"true\"] {\n  color: white;\n  background: #2563eb;\n}\n\n.todo-list {\n  display: grid;\n  gap: 10px;\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n\n.todo-item {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px;\n  border: 1px solid #e2e8f0;\n  border-radius: 10px;\n}\n\n.todo-title {\n  flex: 1;\n}\n\n.todo-item.completed .todo-title {\n  color: #64748b;\n  text-decoration: line-through;\n}\n\n\n5.5 获取页面元素\nconst todoForm = document.querySelector(\"#todo-form\");\nconst todoInput = document.querySelector(\"#todo-input\");\nconst todoList = document.querySelector(\"#todo-list\");\nconst todoCount = document.querySelector(\"#todo-count\");\nconst emptyMessage = document.querySelector(\"#empty-message\");\nconst filterButtons = document.querySelectorAll(\"[data-filter]\");\n\n\n5.6 从本地存储读取数据\nconst loadTodos = () =&gt; {\n  try {\n    const savedTodos = localStorage.getItem(\"todos\");\n    return savedTodos ? JSON.parse(savedTodos) : [];\n  } catch (error) {\n    console.error(\"读取任务失败\", error);\n    return [];\n  }\n};\n\nlet todos = loadTodos();\nlet currentFilter = \"all\";\nlocalStorage 只能保存字符串，因此保存时使用 JSON.stringify，读取时使用 JSON.parse。\n\n\n5.7 保存数据\nconst saveTodos = () =&gt; {\n  localStorage.setItem(\"todos\", JSON.stringify(todos));\n};\n\n\n5.8 根据条件筛选任务\nconst getVisibleTodos = () =&gt; {\n  if (currentFilter === \"active\") {\n    return todos.filter((todo) =&gt; !todo.completed);\n  }\n\n  if (currentFilter === \"completed\") {\n    return todos.filter((todo) =&gt; todo.completed);\n  }\n\n  return todos;\n};\n\n\n5.9 创建任务元素\nconst createTodoElement = (todo) =&gt; {\n  const item = document.createElement(\"li\");\n  item.className = todo.completed\n    ? \"todo-item completed\"\n    : \"todo-item\";\n  item.dataset.todoId = todo.id;\n\n  const checkbox = document.createElement(\"input\");\n  checkbox.type = \"checkbox\";\n  checkbox.checked = todo.completed;\n  checkbox.setAttribute(\"aria-label\", `完成任务：${todo.title}`);\n\n  const title = document.createElement(\"span\");\n  title.className = \"todo-title\";\n  title.textContent = todo.title;\n\n  const deleteButton = document.createElement(\"button\");\n  deleteButton.type = \"button\";\n  deleteButton.dataset.action = \"delete\";\n  deleteButton.textContent = \"删除\";\n  deleteButton.setAttribute(\"aria-label\", `删除任务：${todo.title}`);\n\n  item.append(checkbox, title, deleteButton);\n  return item;\n};\n\n\n5.10 渲染页面\nconst render = () =&gt; {\n  const visibleTodos = getVisibleTodos();\n  const activeCount = todos.filter((todo) =&gt; !todo.completed).length;\n\n  todoList.replaceChildren(\n    ...visibleTodos.map(createTodoElement)\n  );\n\n  todoCount.textContent = `剩余 ${activeCount} 项`;\n  emptyMessage.hidden = visibleTodos.length !== 0;\n\n  filterButtons.forEach((button) =&gt; {\n    const isActive = button.dataset.filter === currentFilter;\n    button.setAttribute(\"aria-pressed\", String(isActive));\n  });\n};\nrender 不负责修改数据，只负责根据当前状态更新页面。保持这个边界可以让代码更容易维护。\n\n\n5.11 添加任务\ntodoForm.addEventListener(\"submit\", (event) =&gt; {\n  event.preventDefault();\n\n  const title = todoInput.value.trim();\n\n  if (!title) {\n    return;\n  }\n\n  const newTodo = {\n    id: crypto.randomUUID(),\n    title,\n    completed: false,\n  };\n\n  todos = [...todos, newTodo];\n  saveTodos();\n  render();\n\n  todoForm.reset();\n  todoInput.focus();\n});\nevent.preventDefault() 阻止表单提交后刷新页面。任务标题使用 trim 去掉首尾空格。\n\n\n5.12 完成和删除任务\n可以在列表上统一监听事件，这种方式叫事件委托：\ntodoList.addEventListener(\"change\", (event) =&gt; {\n  if (event.target.type !== \"checkbox\") {\n    return;\n  }\n\n  const item = event.target.closest(\"[data-todo-id]\");\n  const todoId = item.dataset.todoId;\n\n  todos = todos.map((todo) =&gt;\n    todo.id === todoId\n      ? { ...todo, completed: event.target.checked }\n      : todo\n  );\n\n  saveTodos();\n  render();\n});\n\ntodoList.addEventListener(\"click\", (event) =&gt; {\n  const deleteButton = event.target.closest(\"[data-action='delete']\");\n\n  if (!deleteButton) {\n    return;\n  }\n\n  const item = deleteButton.closest(\"[data-todo-id]\");\n  const todoId = item.dataset.todoId;\n\n  todos = todos.filter((todo) =&gt; todo.id !== todoId);\n  saveTodos();\n  render();\n});\n\n\n5.13 切换筛选条件\nfilterButtons.forEach((button) =&gt; {\n  button.addEventListener(\"click\", () =&gt; {\n    currentFilter = button.dataset.filter;\n    render();\n  });\n});\n\nrender();\n应用启动时必须调用一次 render，把已有数据显示出来。\n\n\n5.14 观察状态更新流程\n每次用户操作都遵循相同流程：\n用户操作 → 更新 todos/currentFilter → 保存数据 → render → 页面更新\nReact 中的核心流程也非常相似：\n用户操作 → 更新 State → React 根据 State 重新渲染组件\nReact 会帮助我们管理重新渲染，因此不需要手动调用 replaceChildren 或创建 DOM 元素。\n\n\n5.15 扩展任务\n\n支持编辑任务标题\n添加“清除已完成”按钮\n阻止添加重复任务\n给任务添加创建时间和优先级\n支持按关键词搜索\n支持拖动排序\n将数据保存逻辑提取到独立模块",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.3 基础练习"
+    ]
+  },
+  {
+    "objectID": "basic-exercises.html#调试方法",
+    "href": "basic-exercises.html#调试方法",
+    "title": "基础练习",
+    "section": "6 调试方法",
+    "text": "6 调试方法\n完成练习时，不要只依赖肉眼观察页面。\n\n6.1 检查控制台\n打开浏览器开发者工具的 Console 面板：\nconsole.log(\"当前任务\", todos);\nconsole.table(products);\nconsole.error(\"加载失败\", error);\n如果出现多条错误，优先处理第一条。后面的错误可能只是第一条错误引起的连锁反应。\n\n\n6.2 检查网络请求\n在 Network 面板中确认：\n\n请求地址是否正确\nHTTP 状态码是否成功\n返回内容是否是预期 JSON\n请求是否发出了多次\n加载时间是否异常\n\n\n\n6.3 设置断点\n在 Sources 面板中给事件函数或数据处理代码添加断点，逐行观察变量变化。也可以临时在代码中写：\ndebugger;\n开发者工具打开时，代码会在这里暂停。",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.3 基础练习"
+    ]
+  },
+  {
+    "objectID": "basic-exercises.html#从这些练习过渡到-react",
+    "href": "basic-exercises.html#从这些练习过渡到-react",
+    "title": "基础练习",
+    "section": "7 从这些练习过渡到 React",
+    "text": "7 从这些练习过渡到 React\n完成原生 JavaScript 练习后，可以把已有概念与 React 对应起来：\n\n\n\n原生 JavaScript\nReact\n\n\n\n\n数据变量\nState 或 Props\n\n\ndocument.createElement\nJSX\n\n\naddEventListener\nonClick、onChange 等 Props\n\n\n手动调用 render()\nState 更新后自动重新渲染\n\n\n更新 textContent\n在 JSX 中读取变量\n\n\nlocalStorage\n仍然可以使用，通常配合 Effect\n\n\nfetch\n仍然使用，通常配合 Effect 或请求库\n\n\n拆分普通函数\n拆分组件和自定义 Hook\n\n\n\n学习 React 之后，JavaScript 数据处理能力仍然重要。React 主要改变的是页面如何根据数据更新，而不是替代 JavaScript。",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.3 基础练习"
+    ]
+  },
+  {
+    "objectID": "basic-exercises.html#完成标准",
+    "href": "basic-exercises.html#完成标准",
+    "title": "基础练习",
+    "section": "8 完成标准",
+    "text": "8 完成标准\n继续学习 React 前，检查自己能否做到：\n\n不看答案完成商品筛选和总价计算\n解释 map、filter 和 reduce 的返回值\n使用 fetch 加载 JSON 并检查 response.ok\n在页面中分别展示加载、空数据和错误状态\n使用表单事件添加一条待办事项\n使用 map 更新任务完成状态\n使用 filter 删除任务\n使用 localStorage 保存和恢复数组\n使用浏览器开发者工具定位常见错误\n解释“状态变化驱动页面更新”的基本流程\n\n完成这些练习后，可以回到学习大纲，开始学习 React 与开发环境。",
+    "crumbs": [
+      "2. 基础回顾",
+      "2.3 基础练习"
     ]
   }
 ]
