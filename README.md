@@ -67,3 +67,15 @@ chapters/
 推送到 `main` 分支后，GitHub Actions 会自动构建网站并发布到 `gh-pages` 分支：
 
 <https://codeideaai.github.io/react/>
+
+## 导出 PDF 和 EPUB
+
+安装 Python 3.9+、PyYAML 和 Pandoc 3.1.11+；生成 PDF 还需要 Typst 和 Noto Serif / Mono CJK SC 字体。
+
+```bash
+python3 -m pip install PyYAML
+python3 scripts/export_book.py              # 生成两种格式
+python3 scripts/export_book.py --format epub
+```
+
+文件写入 `_exports/`。章节顺序来自 `_quarto.yml` 的侧边栏，不需要维护第二份正文。这个命令独立于 `quarto render`，不会改变网站地址或网页构建。
